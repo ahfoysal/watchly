@@ -86,6 +86,8 @@ const getEpisode = (num,id) =>{
   .then(data2 => { const data = data2.data  
     setSrc(data.headers.Referer)
 console.log(data.headers.Referer)
+console.log('hi')
+
 setLoading(true)
   
   })  
