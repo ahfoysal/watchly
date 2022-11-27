@@ -85,7 +85,7 @@ setLoading(true)
     <div className="play-video">
 {details ?
     <Iframe src={src}     width="100%"
-        height="800px" autoplay="true"/> : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
+        height="auto" /> : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
 
     </div>
   
