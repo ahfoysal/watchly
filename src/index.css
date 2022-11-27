@@ -334,6 +334,12 @@ line-height: 1.2;
   body {
       height: auto;
   }
+  .anime_video_body_watch_items .play-video {
+    padding: 0;
+    min-height: 400px;
+    height: 600px;
+    background-color: #000;
+}
   .head-conatiner {
     display: flex;
     gap: 20px;
