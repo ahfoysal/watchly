@@ -16,9 +16,7 @@ import Iframe from 'react-iframe'
 function SingleProduct() {
   const navigate = useNavigate();
 
-  const { allProducts, setActiveTabCart, setActiveTabOrder,setActiveTabHome, setActiveTabUser, setHeaderActive} = useContext(TestContext);
-   let {  addToCart , test2, setTest2} =  useContextS();
-
+  
   const [details , setDetails] = useState([]);
   const [src , setSrc] = useState('');
 
@@ -70,7 +68,7 @@ setLoading(true)
 }
 
 
-const page = Math.random() * 10
+
 
 
   return (

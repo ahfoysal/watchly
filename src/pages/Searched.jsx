@@ -1,80 +1,111 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom';
-import styled from 'styled-components';
 import {Link} from  'react-router-dom';
-import * as ReactBootstrap from 'react-bootstrap'
-import { TestContext } from '../App';
-import { useContextS } from './cart/Function';
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 
 
 function Searched() {
-  const { allProducts} = useContext(TestContext);
-  const { addToCart} = useContextS();
-
-
 
     const [searchedRecipes, setSearchedRecipes] = useState([]);
     const [loading , setLoading] = useState(true);
+    const [pro , setPro] = useState([]);
+
 
     let params = useParams();
+    
 
-    const getSearched = async (name) => {
-    const data = await fetch(`${process.env.REACT_APP_SHOP_LINK}wp-json/wc/v3/products?search=${name}&${process.env.REACT_APP_KEY}&per_page=20`);
-    const recipes = await data.json();
-    // console.log(recipes)
-    setLoading(false)
+    const pages = (num) => {
+  
+      getSearched(num)
+        
+     
+       }
+    const getSearched = () => {
 
-    setSearchedRecipes(recipes)
+   
+      axios(`https://pewds-anime1-api.herokuapp.com/search?keyw=${params.search}`)
+      .then(data2 => { const data = data2.data  
+    console.log(data)
+    setPro(data)
+  
+    setLoading(true)
+      
+      })  
+   
+
+
   };
   useEffect(() => {
-getSearched(params.search);
+    getSearched()
 
-const cartItems = allProducts.map((cart) => cart.name )
-console.log(cartItems.includes("shoe"));
   
 },[params.search]);
   return (
-    <div> { loading  ?  <div className="spinnerdiv">      <ReactBootstrap.Spinner animation="border" /> </div> :
-    <div className='container'>
-           <p>found items: {searchedRecipes.length}</p>
-
-    <Grid>  
-        {searchedRecipes.map((item) => {
-            return(
-              
-                <Card key={item.id}><Link to={'/product/'+item.id}>
-                        <img src={item.images[0].src} alt={item.name} />
-                        <h4>{item.name}</h4></Link>
-                        <div className="btn">
-       <button className="buy-btn" onClick={() => addToCart(item)}>Add To Cart</button>
-        </div>
-                </Card>   
-               
-            )
-        }
-        )}
+    <div className="gridd">
+    <h3 className="top-line">Search Result :  {params.search}</h3>
+    <Pagination className="paginatin" count={100}
+      onChange={(_, value) => {
+        pages(value);    
+      }}
+      />
   
-    </Grid> </div>} </div>
+ 
+  
+  
+          <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
+          <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
+          { pro?.map(product => (
+          <>
+          
+          <div className="col hp" key={product.animeId}>
+        <div className="card h-100 shadow-sm">
+    
+              <div>  <Link to={'/anime/'+product.animeId}> <>
+            <img src={product.animeImg
+  } className="card-img-top" alt="product.title" />
+        
+        
+        
+          <div className="card-body">
+       
+          <p className="product__name">{product.animeTitle }</p>
+  
+           
+            </div>
+          
+            </></Link>
+            <div className="add-to-cart">
+            
+            
+            </div>
+            
+            {/* <div className="clearfix mb-1">
+  
+              <span className="float-start"><i className="fas fa-question-circle"></i></span>
+  
+              <span className="float-end">
+                <i className="far fa-heart" ></i>
+  
+              </span>
+            </div> */}
+          </div>
+        </div>
+      </div>
+  
+          </>
+          )) }
+          </div>    </div>
+            
+      
+  
+    
+     </div>
+
   )
 }
-const Grid = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-grid-gap: 10px;
-`
-const Card = styled.div`
 
-
-img{
-  border-radius: 2rem;
-  width: 100%;
-}
-h4{
-  padding: 1rem;
-  text-align: center;
-}
-`
 
 export default Searched
