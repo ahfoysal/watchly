@@ -31,10 +31,10 @@ const Header = () => {
       <>
     <Navbar className=" header-top  "  >
       <Container fluid>
-    <div className={`head-start ${headerActive ? '' : 'active'}`}> 
+    {/* <div className={`head-start ${headerActive ? '' : 'active'}`}> 
     
   {headerActive ? <Left  fontSize="large" className='nav-icons'onClick={ () => handleHeader()}  /> :  <Right  onClick={ () => handleHeader()} fontSize="large" className='nav-icons'  />}
-    </div>
+    </div> */}
                <div className="head-conatiner ">
             <div>
              {param !== '/' && <button className='border-none header__back' onClick={() => history(-1)}> Back</button>}

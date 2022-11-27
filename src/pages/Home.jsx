@@ -1,6 +1,6 @@
 import Featured from "../components/Featured";
 import Common from "../components/BestSelling";
-import RecentlyUpdated from "../components/All Items";
+import RecentlyUpdated from "../components/Recent-anime";
 import Banner from "../components/banner";
 import { useContext, useEffect } from "react";
 import { TestContext } from "../App";
