@@ -11,6 +11,7 @@ import { useContextS } from './cart/Function';
 import { orderBy } from 'firebase/firestore';
 import Iframe from 'react-iframe'
 
+
 function SingleProduct() {
   const navigate = useNavigate();
 
@@ -95,7 +96,7 @@ const page = Math.random() * 10
 
   return (
     
-    <div className='home-page'>
+    <div className='container'>
     
 {
   loading ? 
@@ -106,7 +107,8 @@ const page = Math.random() * 10
     <div className='load anime'>
     <div className="play-video">
 
-    <iframe src={src} width="640px" height="320px" ></iframe>
+    <Iframe src={src}     width="100%"
+        height="800px" />
 
     </div>
   
