@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom';
+import styled from 'styled-components';
 import {Link} from  'react-router-dom';
+import * as ReactBootstrap from 'react-bootstrap'
+import { TestContext } from '../App';
+import { useContextS } from './cart/Function';
 import axios from 'axios';
 import { Pagination } from '@mui/material';
 
@@ -23,10 +27,10 @@ function Searched() {
         
      
        }
-    const getSearched = () => {
+    const getSearched = (num) => {
 
    
-      axios(`https://pewds-anime1-api.herokuapp.com/search?keyw=${params.search}`)
+      axios(`https://pewds-anime1-api.herokuapp.com/search?keyw=${params.search}&page=${num}`)
       .then(data2 => { const data = data2.data  
     console.log(data)
     setPro(data)
@@ -39,7 +43,7 @@ function Searched() {
 
   };
   useEffect(() => {
-    getSearched()
+    getSearched(1)
 
   
 },[params.search]);
