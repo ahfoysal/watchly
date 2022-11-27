@@ -38,7 +38,7 @@ const fetchDetails = () =>{
  
 
 
-    axios(`${process.env.REACT_APP_SITE_LINK}anime-details/${params.name}`)
+    axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data);
 
