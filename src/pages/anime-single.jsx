@@ -10,6 +10,7 @@ import { FaStar } from 'react-icons/fa';
 import { useContextS } from './cart/Function';
 import { orderBy } from 'firebase/firestore';
 import Iframe from 'react-iframe'
+import { set } from 'react-hook-form';
 
 
 function SingleProduct() {
@@ -79,11 +80,13 @@ const fetchDetails = () =>{
 
 }
 const getEpisode = (num,id) =>{
+  setLoading(false)
   console.log(num,id);
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setSrc(data.headers.Referer)
 console.log(data.headers.Referer)
+setLoading(true)
   
   })  
 
@@ -106,9 +109,9 @@ const page = Math.random() * 10
 
     <div className='load anime'>
     <div className="play-video">
-
+{details ?
     <Iframe src={src}     width="100%"
-        height="800px" autoplay="true"/>
+        height="800px" autoplay="true"/> : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
 
     </div>
   
@@ -131,8 +134,8 @@ const page = Math.random() * 10
 
 <div className='container simmmilar'> 
 
-{details.episodesList.map((ep) => {
-return <button className='btn btn-danger' onClick={() => getEpisode(ep.episodeNum,ep.episodeId)}>{ep.episodeNum}</button>
+{details?.episodesList?.map((ep) => {
+return <button className='btn btn-danger' onClick={() => getEpisode(ep?.episodeNum,ep?.episodeId)}>{ep?.episodeNum}</button>
 })}
 
 
