@@ -73,7 +73,7 @@ setLoading(true)
 
   return (
     
-    <div className='container'>
+    <div>
     
 {
   loading ? 
@@ -86,7 +86,7 @@ setLoading(true)
 {details ?
     <Iframe src={src}  
     width="100%"
-    height='700px'
+    height='800px'
     id="myId"
     className="myClassname"
    
