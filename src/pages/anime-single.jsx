@@ -45,7 +45,7 @@ const fetchDetails = () =>{
       getEpisode(data3)
       console.log("epise", data3)
       console.log(data);
-      console.log('hi')
+
       setLoading(true)
     })  
   // }
@@ -56,12 +56,11 @@ const fetchDetails = () =>{
 }
 const getEpisode = (id) =>{
   setLoading(false)
-
+console.log(id)
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setSrc(data.headers.Referer)
 console.log(data.headers.Referer)
-console.log('hi')
 
 setLoading(true)
   
@@ -112,7 +111,7 @@ const page = Math.random() * 10
 <div className='container simmmilar'> 
 
 {details.episodesList?.map((ep) => {
-return <button className='btn btn-danger' onClick={() => getEpisode(ep.episodeNum,ep.episodeId)}>{ep.episodeNum}</button>
+return <button className='btn btn-danger' onClick={() => getEpisode(ep.episodeId)}>{ep.episodeNum}</button>
 })}
 
 
