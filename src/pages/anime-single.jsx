@@ -39,8 +39,8 @@ const fetchDetails = () =>{
 
 
     axios(`${process.env.REACT_APP_SITE_LINK}anime-details/${params.name}`)
-    .then(data2 => { const data = data2
-      setDetails(data.data);
+    .then(data2 => { const data = data2.data
+      setDetails(data);
 
       console.log(data);
       console.log('hi')
@@ -84,16 +84,16 @@ const page = Math.random() * 10
 
     <div className='load anime'>
     <div className="play-video">
-{details ?
+{/* {details ?
     <Iframe src={src}     width="100%"
-        height="800px" autoplay="true"/> : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
+        height="800px" autoplay="true"/> : <div ><ReactBootstrap.Spinner animation="border" /> </div>} */}
 
     </div>
   
 
     </div > 
 <div className='productSingle__details '> 
-<p className='productSingle__name'>{details?.animeTitle}</p>
+<p className='productSingle__name'>{details.animeTitle}</p>
 
 
 
@@ -109,8 +109,8 @@ const page = Math.random() * 10
 
 <div className='container simmmilar'> 
 
-{details?.episodesList?.map((ep) => {
-return <button className='btn btn-danger' onClick={() => getEpisode(ep?.episodeNum,ep?.episodeId)}>{ep?.episodeNum}</button>
+{details.episodesList?.map((ep) => {
+return <button className='btn btn-danger' onClick={() => getEpisode(ep.episodeNum,ep.episodeId)}>{ep.episodeNum}</button>
 })}
 
 
