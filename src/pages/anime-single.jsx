@@ -86,6 +86,7 @@ setLoading(true)
 {details ?
     <Iframe src={src}  
     width="100%"
+    height='700px'
     id="myId"
     className="myClassname"
    
