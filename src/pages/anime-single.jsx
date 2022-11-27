@@ -108,7 +108,7 @@ const page = Math.random() * 10
     <div className="play-video">
 
     <Iframe src={src}     width="100%"
-        height="800px" />
+        height="800px" autoplay="true"/>
 
     </div>
   
