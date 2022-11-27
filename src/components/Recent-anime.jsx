@@ -38,12 +38,7 @@ function RecentlyUpdated() {
   
     // gteProducts2()
     getCat()
-    axios(`https://api.consumet.org/anime/gogoanime/watch/spy-x-family-episode-1?server=gogocdn`)
-  .then(data2 => { const data = data2.data  
-console.log(data)
-
-  
-  })  
+   
     
   }, []);
 

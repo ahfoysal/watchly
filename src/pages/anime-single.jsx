@@ -40,8 +40,10 @@ const fetchDetails = () =>{
 
     axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
-      setDetails(data);
-
+      setDetails(data)
+      const data3 = data.episodesList[0].episodeId
+      getEpisode(data3)
+      console.log("epise", data3)
       console.log(data);
       console.log('hi')
       setLoading(true)
@@ -52,9 +54,9 @@ const fetchDetails = () =>{
   
 
 }
-const getEpisode = (num,id) =>{
+const getEpisode = (id) =>{
   setLoading(false)
-  console.log(num,id);
+
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setSrc(data.headers.Referer)
