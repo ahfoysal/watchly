@@ -29,12 +29,7 @@ function SingleProduct() {
   let params = useParams();
 
 useEffect(() => { 
-
   fetchDetails()
-    
-console.log(params.name)
- 
- 
 },[])
 
 
@@ -45,10 +40,10 @@ const fetchDetails = () =>{
 
     axios(`${process.env.REACT_APP_SITE_LINK}anime-details/${params.name}`)
     .then(data2 => { const data = data2
-      sessionStorage.setItem(`${params.name}`,JSON.stringify(data.data))
       setDetails(data.data);
 
-      console.log(data.data);
+      console.log(data);
+      console.log('hi')
       setLoading(true)
     })  
   // }
