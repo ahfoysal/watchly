@@ -10,7 +10,7 @@ import { FaStar } from 'react-icons/fa';
 import { useContextS } from './cart/Function';
 import { orderBy } from 'firebase/firestore';
 import Iframe from 'react-iframe'
-import { set } from 'react-hook-form';
+
 
 
 function SingleProduct() {
@@ -20,7 +20,7 @@ function SingleProduct() {
    let {  addToCart , test2, setTest2} =  useContextS();
 
   const [details , setDetails] = useState([]);
-  const [src , setSrc] = useState('');
+  const [src , setSrc] = useState('https://gogohd.net/streaming.php?id=MTkzMTkz&title=IDOLiSH7%3A+Third+Beat%21+Part+2+Episode+1');
 
   const [loading , setLoading] = useState(false);
   const [loading2 , setLoading2] = useState(true);
