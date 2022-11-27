@@ -22,6 +22,7 @@ function SingleProduct() {
 
   const [loading , setLoading] = useState(false);
   const [loading2 , setLoading2] = useState(true);
+  const[ np,  setNp] = useState('')
 
 
   let params = useParams();
@@ -52,14 +53,14 @@ const fetchDetails = () =>{
   
 
 }
-const getEpisode = (id) =>{
+const getEpisode = (id,num) =>{
   setLoading(false)
 console.log(id)
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setSrc(data.headers.Referer)
-console.log(data.headers.Referer)
-
+console.log(id)
+setNp(`Episode-${num}`)
 setLoading(true)
   
   })  
@@ -73,11 +74,11 @@ setLoading(true)
 
   return (
     
-    <div>
+    <div className='l'>
     
 {
   loading ? 
-  <div className='productSingle'>
+  <div className='cart-page'>
  
   <div className=' productSingle__inner'>
 
@@ -99,7 +100,8 @@ setLoading(true)
 
     </div > 
 <div className='productSingle__details '> 
-<p className='productSingle__name'>{details.animeTitle}</p>
+<p className='productSingle__name'>{details.animeTitle} {np}</p>
+
 
 
 
@@ -116,7 +118,7 @@ setLoading(true)
 <div className='container simmmilar'> 
 
 {details.episodesList?.map((ep) => {
-return <button className='btn btn-danger' onClick={() => getEpisode(ep.episodeId)}>{ep.episodeNum}</button>
+return <button className='btn btn-danger' onClick={() => getEpisode(ep.episodeId,ep.episodeNum)}>{ep.episodeNum}</button>
 })}
 
 
