@@ -30,15 +30,8 @@ function SingleProduct() {
 
 useEffect(() => { 
 
-  //     setActiveTabCart(false)
-  //     setActiveTabOrder(false)
-  //     setActiveTabHome(false)
-  //     setActiveTabUser(false)
-  //     setHeaderActive(false)
-
   fetchDetails()
-  
-
+    
 console.log(params.name)
  
  
@@ -48,21 +41,6 @@ console.log(params.name)
 
 const fetchDetails = () =>{
  
-  // if(test2 === true){
-  //   const param = params.name
-  //   const cartItems = allProducts.map((cart) => cart ).filter((val)=> {
-  //     return val.id === parseInt(param)
-  //     });
-  //     if(cartItems[0] === undefined){
-  //       window.location.reload()
-  //     }
-  //   setDetails(cartItems[0])
-  //   setDetails2(cartItems[0])
-
-  //   console.log(details)
-  // console.log(cartItems[0])
-  //         setLoading(true) 
-  // }else{  
 
 
     axios(`${process.env.REACT_APP_SITE_LINK}anime-details/${params.name}`)
