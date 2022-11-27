@@ -11,20 +11,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #FAFAFA !important;
+  background-color: #191919 !important;
 }
-
+p{
+  color: white;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 h4{
   font-size: 1rem;
-  color: rgb(56, 56, 56);
+color: white;
 }
 h3{
   font-size: 1.5rem;
-  color: rgb(56, 56, 56);
+color: white;
   line-height: 2.5 rem;
   margin: 2rem 0rem;
 }
@@ -256,6 +258,7 @@ svg.star {
 font-size: 22px;
 margin-top: 0;
 margin-bottom: 0.5rem;
+color: white;
 font-weight: 700;
 line-height: 1.2;
 }
@@ -269,7 +272,7 @@ line-height: 1.2;
 .top-line{
 
   margin-bottom: 3rem;
-
+  color: white;
   font-weight: 700;
   font-size: 1.5rem;
 
