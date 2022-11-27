@@ -84,8 +84,14 @@ setLoading(true)
     <div className='load anime'>
     <div className="play-video">
 {details ?
-    <Iframe src={src}     width="100%"
-        height="auto" /> : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
+    <Iframe src={src}  
+    width="100%"
+    id="myId"
+    className="myClassname"
+   
+    scrolling="no"
+
+  /> : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
 
     </div>
   
