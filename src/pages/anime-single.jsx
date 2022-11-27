@@ -41,8 +41,9 @@ const fetchDetails = () =>{
     .then(data2 => { const data = data2.data
       setDetails(data)
       const data3 = data.episodesList[0].episodeId
-      getEpisode(data3)
-      console.log("epise", data3)
+      const data4 = data.episodesList[0].episodeNum
+      getEpisode(data3,data4)
+ 
       console.log(data);
 
       setLoading(true)
@@ -80,7 +81,7 @@ setLoading(true)
   loading ? 
   <div className='cart-page'>
  
-  <div className=' productSingle__inner'>
+  <div className=' prodtSingle__inner'>
 
     <div className='load anime'>
     <div className="play-video">
