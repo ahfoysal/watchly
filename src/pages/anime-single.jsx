@@ -20,7 +20,7 @@ function SingleProduct() {
    let {  addToCart , test2, setTest2} =  useContextS();
 
   const [details , setDetails] = useState([]);
-  const [src , setSrc] = useState('https://gogohd.net/streaming.php?id=MTkzMTkz&title=IDOLiSH7%3A+Third+Beat%21+Part+2+Episode+1');
+  const [src , setSrc] = useState('');
 
   const [loading , setLoading] = useState(false);
   const [loading2 , setLoading2] = useState(true);
@@ -84,9 +84,9 @@ const page = Math.random() * 10
 
     <div className='load anime'>
     <div className="play-video">
-{/* {details ?
+{details ?
     <Iframe src={src}     width="100%"
-        height="800px" autoplay="true"/> : <div ><ReactBootstrap.Spinner animation="border" /> </div>} */}
+        height="800px" autoplay="true"/> : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
 
     </div>
   
