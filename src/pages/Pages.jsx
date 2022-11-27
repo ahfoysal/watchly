@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Home from "./Home";
 import Category from "./Category";
 import Searched from "./Searched";
-import Product from "./Product";
+import Product from "./anime-single";
 import Profile from "./profile";
 import{ Route, Routes, useLocation } from 'react-router-dom';
 import Cart from './cart/Cart';
@@ -26,13 +26,13 @@ function Pages() {
     }, [])
 
   return (
-    // <AnimatePresence exitBeforeEnter>
+  
     
         <Routes location={location} key={location.pathname}>
        <Route path="/" element={<Home />}/>
        <Route path="/category/:name" element={<Category  />} />
        <Route path="/searched/:search" element={<Searched />} />
-       <Route path="/product/:name" element={<Product />} />
+       <Route path="/anime/:name" element={<Product />} />
        <Route path="/shop/" element={<Shop /> } />
        <Route path="/order/:name" element={<Orders />} />
        <Route path="/cart" element={<Cart  />} />
@@ -45,7 +45,7 @@ function Pages() {
 
        </Routes>  
       
-        // </AnimatePresence>
+
   );
 };
 
