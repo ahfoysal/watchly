@@ -43,9 +43,7 @@ const fetchDetails = () =>{
     axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data)
-      // const data3 = data.episodesList[0].episodeId
-      // const data4 = data.episodesList[0].episodeNum
-  
+      
       
       const cartItems = cart.map((cart) => cart ).filter((val)=> {
         return val.animeTitle   === data.animeTitle
@@ -53,8 +51,16 @@ const fetchDetails = () =>{
         const data3 = cartItems[0].lastEP
         const data4 = cartItems[0].lastEP2
 
-        if(cartItems[0].lastEP){console.log(data4)}
-      getEpisode(data3,data4,data)
+        if(cartItems[0].lastEP){
+          getEpisode(data3,data4,data)
+        }else{
+const data5 = data.episodesList[0].episodeId
+      const data6 = data.episodesList[0].episodeNum
+      getEpisode(data5,data6,data)
+
+  
+        }
+   
  
       // console.log(data);
 
