@@ -29,7 +29,7 @@ const Header = () => {
   return (
 
       <>
-    <Navbar className=" header-top  "  >
+    <Navbar className=" header-top   "  >
       <Container fluid>
     {/* <div className={`head-start ${headerActive ? '' : 'active'}`}> 
     

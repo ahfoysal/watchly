@@ -18,9 +18,9 @@
     word-spacing: 10px;
     display: inline-block;
 }
-.gridd {
-margin: 10px;
-}
+.single-page {
+    margin-left: 40px;
+}   
 .product_price {
     font-weight: 900;
     margin: 0 0.5rem 0 0;
@@ -52,10 +52,16 @@ margin: 10px;
 
 
 .product__rating {
-    color: black;
+    color: white;
     display: inline-block;
     float: right;
-    font-size: 1.05rem;
+    position: absolute;
+    padding: 2px;
+    right: 0;
+    z-index: 20;
+    background: #2f2f2e;
+    border-radius: 25px;
+    cursor: pointer;
 }
 .pp-btn {
     border: none;

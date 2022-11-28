@@ -1,5 +1,8 @@
 import Featured from "../components/Featured";
 import Common from "../components/BestSelling";
+import Movie from "../components/movie";
+import Air from "../components/air";
+
 import RecentlyUpdated from "../components/Recent-anime";
 import Banner from "../components/banner";
 import { useContext, useEffect } from "react";
@@ -29,9 +32,13 @@ import { TestContext } from "../App";
     
     > 
       {/* <Banner /> */}
-      {/* <Featured /> */}
+      <Featured />
       <RecentlyUpdated /> 
-    {/* <Common /> */}
+    <Common />
+    <Air />
+    <Movie /> 
+   
+       
        
 
     </div>

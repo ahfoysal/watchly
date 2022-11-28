@@ -1,83 +1,92 @@
-import { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
+import {  useEffect, useState } from "react";
+
+import {Link} from  'react-router-dom'
+import './shop.css'
+import axios from "axios";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import '@splidejs/react-splide/css';
-import {Link} from  'react-router-dom'
-import { TestContext } from "../App";
+import { useContextS } from "../pages/cart/Function";
+// import { darken } from 'polished';
+// import api from '../pages/api';
 
-
-function Common() {
-
-  const {context, allProducts, addToCart} = useContext(TestContext);
-  
-  const [Common, setCommon] = useState([]);
+function RecentlyUpdated() {
+  const [pro , setPro] = useState([]);
+  let {  addToCart} =  useContextS();
   useEffect(() => {
-    getCommon();
-    // console.log(process.env)
+  
+    getCat()
+    
   }, []);
+  const [term, setTerm] =useState('')
 
-  const getCommon = async () => {
-    const check = sessionStorage.getItem('common')
-    if(check){
-      setCommon(JSON.parse(check))
-    }else{
 
-      const api = await fetch(`${process.env.REACT_APP_SHOP_LINK}wp-json/wc/v3/products?${process.env.REACT_APP_KEY}&category=37`);
-      const data = await api.json();
-      sessionStorage.setItem('common',JSON.stringify(data))
-      setCommon(data);
-      console.log(data);
-    }
-  };
+
+const getCat = (num, terms) =>{
+  setTerm(terms)
+  axios(`https://pewds-anime1-api.herokuapp.com/recent-release?page=1`)
+          .then(data2 => { const data = data2.data
+ 
+            // console.log(num);
+               setPro(data) })}
+  
     return (
-      <div className="container">
-      <h3 className="head">Best Selling </h3>
+<div  className="single-page">  
+  <p className="top-line">Recenlt Updated</p>
+<div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
+        <div className="row g-3">
 
-      <Wrapper>
-
-    <Splide options={{
+<Splide  options={{
+  perPage    : 6,
+  gap        : 0,
+  pagination : false,
+  arrows : true,
+  breakpoints: {
+    1200: { perPage: 5, gap: 0 },
+    640 : { gap: 0 , perPage: 3},
+  },
+}}>
+        { pro?.map(product => (
+         <SplideSlide >
+   
+        <div className="col hp" key={product.animeId} onClick={() => addToCart(product)}>
+      <div className="card h-100 shadow-sm">
+  
+            <div>  <Link to={'/anime/'+product.animeId}> 
+          <img src={product.animeImg
+} className="card-img-top" alt="product.title" />
       
-      arrows: false,
-      pagination: false,
-      drag: 'free',
-      gap: '1rem',
-      perPage: 3,
-      breakpoints: {
-        640: {
-          perPage: 1,
-        },
-        1000: {        perPage: 2,    gap: '10px'      }
+      
+      
+        <div className="card-body">
+     
+        <p className="product__name">{product.animeTitle }</p>
 
-      }
-    }}>
-      {Common.map((product) => {
-  return(
-    <SplideSlide className="cards" key={product.id} >
-    <Link to={'/product/'+product.id}>
-<div className="product-image">
-<img src={product.images[0].src} alt={product.name}/>
-</div>
-<div className="product-info">
-<h2>{product.name}</h2>
-<p dangerouslySetInnerHTML={{ __html: product.short_description }}></p>
-<div className="price">৳{product.price}</div>
-</div> </Link>
-<div className="btn ppbtn">
-<button className="buy-btn" onClick={() => addToCart(product)}>Add to Cart</button>
-</div>
-</SplideSlide>
-  );
+         
+          </div>       
+        </Link>      
+        </div>
+      </div>
+    </div>
 
-})};
+    </SplideSlide>
+        )) }
+      
+       
+ 
+
         </Splide>
-        </Wrapper>
 
 
-  </div>
+     
+        
+        </div>    </div>
+          
+   
+   </div>
   )
   }
-  const Wrapper = styled.div`
-margin: 4rem 0rem;
-`;
   
-  export default Common;
+
+  
+  
+  export default RecentlyUpdated;

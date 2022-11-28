@@ -82,6 +82,7 @@ export function ContextProviderS({ children }) {
       localStorage.setItem('shopping_cart', JSON.stringify(cart));
     }
     const removeFromDb = id => {
+      console.log(id)
       const exists = getDb();
       if (!exists) {
       }

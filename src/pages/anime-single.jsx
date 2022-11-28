@@ -182,9 +182,9 @@ if(cartItems[0].lastEP){
 
     </div > 
 <div className='productSingle__details '> 
- <p>Quality {details2?.sources?.map((type) => {
+ {/* <p>Quality {details2?.sources?.map((type) => {
   return <span className='margin-left'>{type?.quality}</span>
-})}</p>
+})}</p> */}
 <p className='productSingle__name'>{details.animeTitle} {np}</p>
 
 
