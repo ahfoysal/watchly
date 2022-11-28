@@ -37,9 +37,9 @@ export function ContextProviderS({ children }) {
 
 
     const getCart = () => {
-      const newCart = localStorage.getItem("cartItems" ) 
+      const newCart = localStorage?.getItem("cartItems" ) 
       const test = JSON.parse(newCart)
-      const unique = [...new Map(test.map((m) => [m.animeId , m])).values()];
+      const unique = [...new Map(test?.map((m) => [m.animeId , m])).values()];
 
     setCart(unique)
     const nnnn = JSON.parse(newCart)
@@ -101,6 +101,7 @@ export function ContextProviderS({ children }) {
       // localStorage.setItem('cartItems', []);
       setCart([]) 
       localStorage.removeItem('shopping_cart');
+      localStorage.removeItem('cartItems  ');
       console.log(localStorage.getItem('shopping_cart'));
     }
 
