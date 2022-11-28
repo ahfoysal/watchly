@@ -101,7 +101,7 @@ export function ContextProviderS({ children }) {
       // localStorage.setItem('cartItems', []);
       setCart([]) 
       localStorage.removeItem('shopping_cart');
-      localStorage.removeItem('cartItems  ');
+      localStorage.removeItem('cartItems');
       console.log(localStorage.getItem('shopping_cart'));
     }
 
