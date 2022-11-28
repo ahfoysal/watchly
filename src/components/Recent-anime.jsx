@@ -55,7 +55,7 @@ const getCat = (num, terms) =>{
     return (
 <div >  
 
-{cart.length >= 1 && <> <p className="top-line">Continue Watcing</p>
+{cart?.length >= 1 && <> <p className="top-line">Continue Watcing</p>
     <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
         <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
         { cart?.reverse()?.map(product => (
