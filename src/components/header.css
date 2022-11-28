@@ -36,6 +36,7 @@
   border: none;
 }
 
+
 .nav-icons{
   color: white;
 }
@@ -155,7 +156,11 @@ margin-top: 5px;
     
     .magnifierContainer {
       display: block;
+      
     }
+    svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeLarge.nav-icons.css-tzssek-MuiSvgIcon-root {
+      display: none;
+  }
     aside input {
       width: 100%;
     }
@@ -167,7 +172,7 @@ margin-top: 5px;
      .active{
       display: flex !important;
     }
-
+   
     
   .head-start{
     display: block;

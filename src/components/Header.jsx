@@ -18,13 +18,7 @@ const Header = () => {
 
 
 
-  const handleHeader =  () => {
- console.log(param)
-    if(headerActive === true){
-      setHeaderActive(false)
-    }else{setHeaderActive(true)}
-
-  }
+ 
 
   return (
 

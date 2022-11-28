@@ -48,7 +48,7 @@ const [visible, setVisible] = useState(true);
         <div>
          <Form className="d-flex " onSubmit={submitHandler}>
 
-        <aside className={visible ? "open" : "close"}>
+        <aside className='open'>
           <input placeholder="Search..." type="text" className='border-none'  onChange={(e) => setInput(e.target.value)} 
 value={input}/>
         </aside></Form></div>
