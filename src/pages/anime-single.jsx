@@ -10,6 +10,7 @@ import { FaStar } from 'react-icons/fa';
 import { useContextS } from './cart/Function';
 import { orderBy } from 'firebase/firestore';
 import Iframe from 'react-iframe'
+import JWPlayer from '@jwplayer/jwplayer-react';
 
 
 
@@ -88,15 +89,22 @@ setLoading(true)
     <div className='load anime'>
     <div className="play-video">
 {details ?
-    <Iframe src={src}  
-    width="100%"
-    height='800px'
-    id="myId"
-    className="myClassname"
+    // <Iframe src={src}  
+    // width="100%"
+    // height='800px'
+    // id="myId"
+    // className="myClassname"
    
-    scrolling="no"
+    // scrolling="no"  />
+<JWPlayer
+  file='https://path-to-my.mp4'
 
-  /> : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
+/>
+    
+    
+    
+    
+    : <div ><ReactBootstrap.Spinner animation="border" /> </div>}
 
     </div>
   
