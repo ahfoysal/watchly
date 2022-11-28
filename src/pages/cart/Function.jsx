@@ -13,17 +13,14 @@ export function ContextProviderS({ children }) {
     function addToCart(id) {
 
         const unsubscribe = () => {
-          const newCart = [...cart, id];
-          setCart(newCart);
-          toast.success('🛒 Added to cart', {
-            position: "top-right",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            theme: "colored"
-            });
-            addToDb(id.id)
+          const newCart = [id, ...cart];
+          // const merged = [].concat.apply([], newCart);
+          // let uniqueChars = [...new Set(merged)];
+          const unique = [...new Map(newCart.map((m) => [m.animeId  , m])).values()];
+          setCart(unique);
+          console.log('uni',unique)
+            addToDb(id.animeId)
+     
             localStorage.setItem("cartItems", JSON.stringify(newCart))
             getCart();
             console.log(id)
@@ -41,18 +38,23 @@ export function ContextProviderS({ children }) {
 
     const getCart = () => {
       const newCart = localStorage.getItem("cartItems" ) 
-    setCart(JSON.parse(newCart))
+      const test = JSON.parse(newCart)
+      const unique = [...new Map(test.map((m) => [m.animeId , m])).values()];
+
+    setCart(unique)
     const nnnn = JSON.parse(newCart)
     const savedCart = getStoredCart();
     const savedId = Object.keys(savedCart);
-    const cartPd = savedId.map( id => {
-      const product = nnnn.find( pd => pd.id.toString() === id)
-      product.abc = savedCart[id];
-      return product
-    } );
+    // console.log(savedId)
+    // const cartPd = savedId.map( id => {
+    //   const product = nnnn?.find( pd => pd.animeId === id)
+    //   product.abc = savedCart[id];
+
+    //   return product
+    // } );
     
     
-    setCart(cartPd)
+    // setCart(cartPd)
     
     
     }

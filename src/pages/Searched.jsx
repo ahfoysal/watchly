@@ -12,6 +12,7 @@ import { Pagination } from '@mui/material';
 
 
 function Searched() {
+  let {  addToCart , cart } =  useContextS();
 
     const [searchedRecipes, setSearchedRecipes] = useState([]);
     const [loading , setLoading] = useState(true);
@@ -64,7 +65,7 @@ function Searched() {
           { pro?.map(product => (
           <>
           
-          <div className="col hp" key={product.animeId}>
+          <div className="col hp" key={product.animeId} onClick={() => addToCart(product)}>
         <div className="card h-100 shadow-sm">
     
               <div>  <Link to={'/anime/'+product.animeId}> <>

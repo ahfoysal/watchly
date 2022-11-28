@@ -15,6 +15,8 @@ import JWPlayer from '@jwplayer/jwplayer-react';
 
 
 function SingleProduct() {
+  let {  addToCart , cart } =  useContextS();
+
   const navigate = useNavigate();
 
   
@@ -29,6 +31,7 @@ function SingleProduct() {
 
 useEffect(() => { 
   fetchDetails()
+  console.log("cart", cart)
 },[])
 
 
@@ -44,7 +47,7 @@ const fetchDetails = () =>{
       const data4 = data.episodesList[0].episodeNum
       getEpisode(data3,data4)
  
-      console.log(data);
+      // console.log(data);
 
       setLoading(true)
     })  
@@ -58,12 +61,12 @@ const [details2 , setDetails2] = useState(true);
 
 const getEpisode = (id,num) =>{
   setLoading(false)
-console.log(id)
+// console.log(id)
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setDetails2(data)
     setSrc(data.headers.Referer)
-console.log(data)
+// console.log(data)
 setNp(`Episode-${num}`)
 setLoading(true)
   

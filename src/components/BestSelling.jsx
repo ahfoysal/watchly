@@ -52,7 +52,7 @@ function Common() {
     }}>
       {Common.map((product) => {
   return(
-    <SplideSlide className="cards" key={product.id}>
+    <SplideSlide className="cards" key={product.id} >
     <Link to={'/product/'+product.id}>
 <div className="product-image">
 <img src={product.images[0].src} alt={product.name}/>

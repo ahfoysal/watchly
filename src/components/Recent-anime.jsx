@@ -15,11 +15,11 @@ import { useContextS } from "../pages/cart/Function";
 
 function RecentlyUpdated() {
 
-  let {  addToCart  } =  useContextS();
 
  
   const [ctg , setCtg] = useState([]);
   const [pro , setPro] = useState([]);
+  let {  addToCart , cart, clearTheCart } =  useContextS();
 
 
  
@@ -41,7 +41,7 @@ const getCat = (num, terms) =>{
   axios(`https://pewds-anime1-api.herokuapp.com/${terms}?page=${num}`)
           .then(data2 => { const data = data2.data
  
-            console.log(num);
+            // console.log(num);
                setPro(data) })}
 
   
@@ -53,7 +53,52 @@ const getCat = (num, terms) =>{
   }
   
     return (
-<div className="gridd">
+<div >  
+
+{cart.length >= 1 && <> <p className="top-line">Continue Watcing</p>
+    <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
+        <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
+        { cart?.reverse()?.map(product => (
+        <>
+        
+        <div className="col hp" key={product.animeId} onClick={() => addToCart(product)}>
+      <div className="card h-100 shadow-sm">
+  
+            <div>  <Link to={'/anime/'+product.animeId}> <>
+          <img src={product.animeImg
+} className="card-img-top" alt="product.title" />
+      
+      
+      
+        <div className="card-body">
+     
+        <p className="product__name">{product.animeTitle }</p>
+
+         
+          </div>
+        
+          </></Link>
+          <div className="add-to-cart">
+          
+          
+          </div>
+          
+        
+        </div>
+      </div>
+    </div>
+
+        </>
+        )) }
+        </div>    </div>
+
+  <button className="btn btn-danger" onClick={() => clearTheCart()}>Clear</button></>}
+
+
+
+
+
+
   <Pagination className="paginatin" count={100}
       onChange={(_, value) => {
         pages(value);    
@@ -89,7 +134,7 @@ const getCat = (num, terms) =>{
         { pro?.map(product => (
         <>
         
-        <div className="col hp" key={product.animeId}>
+        <div className="col hp" key={product.animeId} onClick={() => addToCart(product)}>
       <div className="card h-100 shadow-sm">
   
             <div>  <Link to={'/anime/'+product.animeId}> <>
@@ -111,15 +156,7 @@ const getCat = (num, terms) =>{
           
           </div>
           
-          {/* <div className="clearfix mb-1">
-
-            <span className="float-start"><i className="fas fa-question-circle"></i></span>
-
-            <span className="float-end">
-              <i className="far fa-heart" ></i>
-
-            </span>
-          </div> */}
+        
         </div>
       </div>
     </div>
@@ -128,9 +165,7 @@ const getCat = (num, terms) =>{
         )) }
         </div>    </div>
           
-    
-
-  
+   
    </div>
   )
   }
