@@ -21,7 +21,6 @@ function SingleProduct() {
   const [src , setSrc] = useState('');
 
   const [loading , setLoading] = useState(false);
-  const [loading2 , setLoading2] = useState(true);
   const[ np,  setNp] = useState('')
 
 
@@ -54,13 +53,16 @@ const fetchDetails = () =>{
   
 
 }
+const [details2 , setDetails2] = useState(true);
+
 const getEpisode = (id,num) =>{
   setLoading(false)
 console.log(id)
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
+    setDetails2(data)
     setSrc(data.headers.Referer)
-console.log(id)
+console.log(data)
 setNp(`Episode-${num}`)
 setLoading(true)
   
@@ -101,6 +103,9 @@ setLoading(true)
 
     </div > 
 <div className='productSingle__details '> 
+ <p>Quality {details2?.sources?.map((type) => {
+  return <span className='margin-left'>{type?.quality}</span>
+})}</p>
 <p className='productSingle__name'>{details.animeTitle} {np}</p>
 
 

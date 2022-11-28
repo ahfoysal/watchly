@@ -4,6 +4,12 @@
 .cart__inner {
   display: flex !important;
 }
+span.margin-left {
+  margin-left: 20px;
+}
+button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.MuiPaginationItem-text.MuiPaginationItem-circular.MuiPaginationItem-page.css-1xr9krm {
+  color: white !important;
+}
 
 .cart__items {
   flex: 0 0 50%;
