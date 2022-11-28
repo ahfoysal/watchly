@@ -31,7 +31,7 @@ function SingleProduct() {
 
 useEffect(() => { 
   fetchDetails()
-  console.log("cart", cart)
+  // console.log("cart", cart)
 },[])
 
 
@@ -45,7 +45,7 @@ const fetchDetails = () =>{
       setDetails(data)
       const data3 = data.episodesList[0].episodeId
       const data4 = data.episodesList[0].episodeNum
-   
+      
       
       getEpisode(data3,data4,data)
  
@@ -61,32 +61,49 @@ const fetchDetails = () =>{
 }
 const [details2 , setDetails2] = useState(true);
 
-const getEpisode = (id,num,data4) =>{
+const getEpisode = (id,num,full) =>{
+
+
   setLoading(false)
-// console.log(details.animeTitle)
+
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
-  .then(data2 => { const data = data2.data  
-    setDetails2(data)
-    setSrc(data.headers.Referer)
+.then(data2 => { const data = data2.data  
+  setDetails2(data)
+  setSrc(data.headers.Referer)
 // console.log(data)
 setNp(`Episode-${num}`)
 setLoading(true)
-const cartItems = cart.map((cart) => cart ).filter((val)=> {
-  return val.animeTitle   === data4.animeTitle
-  })
-  cartItems[0].lastEP = id
-  cartItems[0].lastEP2 = num
-  const np = cartItems[0]
+console.log(full)
 
-console.log(np)
+if(full === undefined){
+  const cartItems = cart.map((cart) => cart ).filter((val)=> {
+    return val.animeTitle   === details.animeTitle
+    })
+    cartItems[0].lastEP = id
+cartItems[0].lastEP2 = num
+const np = cartItems[0]
 addToCart(np)
-  
-  })  
 
+  
+}else{
  
+  const cartItems = cart.map((cart) => cart ).filter((val)=> {
+    return val.animeTitle   === full.animeTitle
+    })
+    cartItems[0].lastEP = id
+cartItems[0].lastEP2 = num
+const np = cartItems[0]
+addToCart(np)
 
 }
 
+
+// console.log(np)
+
+
+})  
+
+}
 
 
 

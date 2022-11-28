@@ -18,12 +18,12 @@ export function ContextProviderS({ children }) {
           // let uniqueChars = [...new Set(merged)];
           const unique = [...new Map(newCart.map((m) => [m.animeId  , m])).values()];
           setCart(unique);
-          console.log('uni',unique)
+          
             addToDb(id.animeId)
      
             localStorage.setItem("cartItems", JSON.stringify(newCart))
             getCart();
-            console.log(id)
+            // console.log(id)
 
 
         };
@@ -75,7 +75,7 @@ export function ContextProviderS({ children }) {
         }
       }
       updateDb(shopping_cart);
-      console.log(shopping_cart);
+      // console.log(shopping_cart);
     }
     const getDb = () => localStorage.getItem('shopping_cart');
     const updateDb = cart => {
