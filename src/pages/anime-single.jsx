@@ -86,15 +86,15 @@ setLoading(true)
  
   <div className=' prodtSingle__inner'>
 
-    <div className='load anime'>
-    <div className="play-video">
+    <div className='load-anime'>
+    <div className="responsiveas">
 {details ?
       <Iframe src={src}  
       width="100%"
-      height='800px'
+      height='700px'
       id="myId"
-      className="myClassname"
-    
+      className="responsive-iframe"
+    allowFullScreen
       scrolling="no"  />
 
     
