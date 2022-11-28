@@ -89,18 +89,14 @@ setLoading(true)
     <div className='load anime'>
     <div className="play-video">
 {details ?
-    // <Iframe src={src}  
-    // width="100%"
-    // height='800px'
-    // id="myId"
-    // className="myClassname"
-   
-    // scrolling="no"  />
-<JWPlayer
-  file='https://path-to-my.mp4'
-
-/>
+      <Iframe src={src}  
+      width="100%"
+      height='800px'
+      id="myId"
+      className="myClassname"
     
+      scrolling="no"  />
+
     
     
     
