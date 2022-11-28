@@ -28,13 +28,17 @@ function RecentlyUpdated() {
   useEffect(() => {
   
     // gteProducts2()
-    getCat(1)
+    getCat(1, 'recent-release')
    
     
   }, []);
+  const [term, setTerm] =useState('')
 
-const getCat = (num) =>{
-  axios(`https://pewds-anime1-api.herokuapp.com/recent-release?page=${num}`)
+
+
+const getCat = (num, terms) =>{
+  setTerm(terms)
+  axios(`https://pewds-anime1-api.herokuapp.com/${terms}?page=${num}`)
           .then(data2 => { const data = data2.data
  
             console.log(num);
@@ -43,14 +47,13 @@ const getCat = (num) =>{
   
   const pages = (num) => {
   
- getCat(num)
+ getCat(num, term)
    
 
   }
   
     return (
 <div className="gridd">
-  <h3 className="top-line">Recently Updated</h3>
   <Pagination className="paginatin" count={100}
       onChange={(_, value) => {
         pages(value);    
@@ -58,9 +61,9 @@ const getCat = (num) =>{
       />
 
  
-{/* 
+
 <Splide  options={{
-        arrows: false,      pagination: false,        gap: '10px',   perPage: 10,
+        arrows: false,      pagination: false,        gap: '30px',   perPage: 8,
         breakpoints: {
           700: {        perPage: 5,    gap: '10px'      },
           
@@ -68,12 +71,17 @@ const getCat = (num) =>{
 
         }
       }}>
-        <SplideSlide className={'catergory-bar  test '}><p className={` cat-btn categories__category ${active === 'all' ? 'cat-active' : ' '}`} onClick={() => (setPro(allProducts), setActive('all'))}>All Products</p></SplideSlide>
+        <SplideSlide className={'catergory-bar active   '} ><p onClick={() =>  getCat(1,'recent-release')}>Recently Updated</p></SplideSlide>
+        <SplideSlide className={'catergory-bar   '} ><p onClick={() =>  getCat(1,'popular')}>Popular</p></SplideSlide>
+        <SplideSlide className={'catergory-bar   '} ><p onClick={() =>  getCat(1,'top-airing')}>Top Airing</p></SplideSlide>
+        <SplideSlide className={'catergory-bar     '} ><p onClick={() =>  getCat(1,'anime-movies')}>Anime Movies</p></SplideSlide>
+
+
         
-        {ctg.map((ctgn) => {
+        {/* {ctg.map((ctgn) => {
   return <SplideSlide className={' catergory-bar'} key={ctgn}>   <p  className={` cat-btn categories__category ${active === ctgn ? 'cat-active' : ' '}`}  onClick={() => gteProducts(ctgn)} > {ctgn}</p> </SplideSlide>
-})} 
-        </Splide> */}
+})}  */}
+        </Splide>
 
 
         <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
