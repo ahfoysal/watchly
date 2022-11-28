@@ -84,6 +84,8 @@ if(cartItems[0].lastEP){
   setNp(`Episode-${num}`)
   setLoading(true)
   console.log(full)
+  console.log(cartItems[0].lastEP)
+
   })  
 }else{
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
@@ -108,7 +110,7 @@ if(cartItems[0].lastEP){
   cartItems[0].lastEP2 = num
   const np = cartItems[0]
   addToCart(np)
-
+      
   if(cartItems[0].lastEP){
     axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
@@ -117,6 +119,7 @@ if(cartItems[0].lastEP){
   // console.log(data)
   setNp(`Episode-${num}`)
   setLoading(true)
+  console.log(cartItems[0].lastEP)
   console.log(full)
   })  
 
