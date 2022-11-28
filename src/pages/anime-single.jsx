@@ -23,7 +23,7 @@ function SingleProduct() {
   const [details , setDetails] = useState([]);
   const [src , setSrc] = useState('');
 
-  const [loading , setLoading] = useState(false);
+  const [loading , setLoading] = useState(true);
   const[ np,  setNp] = useState('')
 
 
@@ -43,10 +43,17 @@ const fetchDetails = () =>{
     axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data)
-      const data3 = data.episodesList[0].episodeId
-      const data4 = data.episodesList[0].episodeNum
+      // const data3 = data.episodesList[0].episodeId
+      // const data4 = data.episodesList[0].episodeNum
+  
       
-      
+      const cartItems = cart.map((cart) => cart ).filter((val)=> {
+        return val.animeTitle   === data.animeTitle
+        })
+        const data3 = cartItems[0].lastEP
+        const data4 = cartItems[0].lastEP2
+
+        if(cartItems[0].lastEP){console.log(data4)}
       getEpisode(data3,data4,data)
  
       // console.log(data);
@@ -64,85 +71,63 @@ const [details2 , setDetails2] = useState(true);
 const getEpisode = (id,num,full) =>{
     setLoading(false)
   
-    axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
-    .then(data2 => { const data = data2.data  
-      setDetails2(data)
-      setSrc(data.headers.Referer)
-    // console.log(data)
-    setNp(`Episode-${num}`)
-    setLoading(true)})
-  // if(full === undefined){
-  //   const cartItems = cart.map((cart) => cart ).filter((val)=> {
-  //     return val.animeTitle   === details.animeTitle
-  //     })
-  //     cartItems[0].lastEP = id
-  // cartItems[0].lastEP2 = num
-  // const np = cartItems[0]
-  // addToCart(np)
+  if(full === undefined){
+    const cartItems = cart.map((cart) => cart ).filter((val)=> {
+      return val.animeTitle   === details.animeTitle
+      })
+      console.log(cartItems[0].lastEP2)
+      cartItems[0].lastEP = id
+  cartItems[0].lastEP2 = num
+  const np = cartItems[0]
+  addToCart(np)
 
 
-// if(cartItems[0].lastEP){
-//   axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
-//   .then(data2 => { const data = data2.data  
-//     setDetails2(data)
-//     setSrc(data.headers.Referer)
-//   // console.log(data)
-//   setNp(`Episode-${num}`)
-//   setLoading(true)
-//   console.log(data.headers.Referer)
-//   console.log(cartItems[0].lastEP)
+if(cartItems[0].lastEP){
+  axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
+  .then(data2 => { const data = data2.data  
+    setDetails2(data)
+    setSrc(data.headers.Referer)
+  // console.log(data)
+  setNp(`Episode-${cartItems[0].lastEP2}`)
+  setLoading(true)
 
-//   })  
-// }else{
-//   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
-//   .then(data2 => { const data = data2.data  
-//     setDetails2(data)
-//     setSrc(data.headers.Referer)
-//   // console.log(data)
-//   setNp(`Episode-${num}`)
-//   setLoading(true)
-//   console.log(full)
-//   })  
-// }
+  })  
+}else{
+ 
+}
 
 
   
-//   }else{
+  }else{
    
-//     const cartItems = cart.map((cart) => cart ).filter((val)=> {
-//       return val.animeTitle   === full.animeTitle
-//       })
-//       cartItems[0].lastEP = id
-//   cartItems[0].lastEP2 = num
-//   const np = cartItems[0]
-//   addToCart(np)
+    const cartItems = cart.map((cart) => cart ).filter((val)=> {
+      return val.animeTitle   === full.animeTitle
+      })
+      cartItems[0].lastEP = id
+  cartItems[0].lastEP2 = num
+  const np = cartItems[0]
+  addToCart(np)
       
-//   if(cartItems[0].lastEP){
-//     axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
-//   .then(data2 => { const data = data2.data  
-//     setDetails2(data)
-//     setSrc(data.headers.Referer)
-//   // console.log(data)
-//   setNp(`Episode-${num}`)
-//   setLoading(true)
-//   console.log(cartItems[0].lastEP)
-//   console.log(full)
-//   })  
+  if(cartItems[0].lastEP){
+    axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
+  .then(data2 => { const data = data2.data  
+    setDetails2(data)
+    setSrc(data.headers.Referer)
+  // console.log(data)
+  setNp(`Episode-${cartItems[0].lastEP2}`)
 
-//   }else{
-
-//     axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
-//     .then(data2 => { const data = data2.data  
-//       setDetails2(data)
-//       setSrc(data.headers.Referer)
-//     // console.log(data)
-//     setNp(`Episode-${num}`)
-//     setLoading(true)
-//     console.log(full)
-//     })  
-//   }
   
-//   }
+  setLoading(true)
+  console.log(cartItems[0].lastEP)
+  console.log(full)
+  })  
+
+  }else{
+
+    
+  }
+  
+  }
  
 
   

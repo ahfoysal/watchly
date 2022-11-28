@@ -29,7 +29,7 @@ function RecentlyUpdated() {
   
     // gteProducts2()
     getCat(1, 'recent-release')
-    console.log(cart)
+    // console.log(cart)
    
     
   }, []);
