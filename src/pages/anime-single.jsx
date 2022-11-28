@@ -64,79 +64,85 @@ const [details2 , setDetails2] = useState(true);
 const getEpisode = (id,num,full) =>{
     setLoading(false)
   
-  
-  if(full === undefined){
-    const cartItems = cart.map((cart) => cart ).filter((val)=> {
-      return val.animeTitle   === details.animeTitle
-      })
-      cartItems[0].lastEP = id
-  cartItems[0].lastEP2 = num
-  const np = cartItems[0]
-  addToCart(np)
-
-
-if(cartItems[0].lastEP){
-  axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
-  .then(data2 => { const data = data2.data  
-    setDetails2(data)
-    setSrc(data.headers.Referer)
-  // console.log(data)
-  setNp(`Episode-${num}`)
-  setLoading(true)
-  console.log(full)
-  console.log(cartItems[0].lastEP)
-
-  })  
-}else{
-  axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
-  .then(data2 => { const data = data2.data  
-    setDetails2(data)
-    setSrc(data.headers.Referer)
-  // console.log(data)
-  setNp(`Episode-${num}`)
-  setLoading(true)
-  console.log(full)
-  })  
-}
-
-
-  
-  }else{
-   
-    const cartItems = cart.map((cart) => cart ).filter((val)=> {
-      return val.animeTitle   === full.animeTitle
-      })
-      cartItems[0].lastEP = id
-  cartItems[0].lastEP2 = num
-  const np = cartItems[0]
-  addToCart(np)
-      
-  if(cartItems[0].lastEP){
-    axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
-  .then(data2 => { const data = data2.data  
-    setDetails2(data)
-    setSrc(data.headers.Referer)
-  // console.log(data)
-  setNp(`Episode-${num}`)
-  setLoading(true)
-  console.log(cartItems[0].lastEP)
-  console.log(full)
-  })  
-
-  }else{
-
     axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
     .then(data2 => { const data = data2.data  
       setDetails2(data)
       setSrc(data.headers.Referer)
     // console.log(data)
     setNp(`Episode-${num}`)
-    setLoading(true)
-    console.log(full)
-    })  
-  }
+    setLoading(true)})
+  // if(full === undefined){
+  //   const cartItems = cart.map((cart) => cart ).filter((val)=> {
+  //     return val.animeTitle   === details.animeTitle
+  //     })
+  //     cartItems[0].lastEP = id
+  // cartItems[0].lastEP2 = num
+  // const np = cartItems[0]
+  // addToCart(np)
+
+
+// if(cartItems[0].lastEP){
+//   axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
+//   .then(data2 => { const data = data2.data  
+//     setDetails2(data)
+//     setSrc(data.headers.Referer)
+//   // console.log(data)
+//   setNp(`Episode-${num}`)
+//   setLoading(true)
+//   console.log(data.headers.Referer)
+//   console.log(cartItems[0].lastEP)
+
+//   })  
+// }else{
+//   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
+//   .then(data2 => { const data = data2.data  
+//     setDetails2(data)
+//     setSrc(data.headers.Referer)
+//   // console.log(data)
+//   setNp(`Episode-${num}`)
+//   setLoading(true)
+//   console.log(full)
+//   })  
+// }
+
+
   
-  }
+//   }else{
+   
+//     const cartItems = cart.map((cart) => cart ).filter((val)=> {
+//       return val.animeTitle   === full.animeTitle
+//       })
+//       cartItems[0].lastEP = id
+//   cartItems[0].lastEP2 = num
+//   const np = cartItems[0]
+//   addToCart(np)
+      
+//   if(cartItems[0].lastEP){
+//     axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
+//   .then(data2 => { const data = data2.data  
+//     setDetails2(data)
+//     setSrc(data.headers.Referer)
+//   // console.log(data)
+//   setNp(`Episode-${num}`)
+//   setLoading(true)
+//   console.log(cartItems[0].lastEP)
+//   console.log(full)
+//   })  
+
+//   }else{
+
+//     axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
+//     .then(data2 => { const data = data2.data  
+//       setDetails2(data)
+//       setSrc(data.headers.Referer)
+//     // console.log(data)
+//     setNp(`Episode-${num}`)
+//     setLoading(true)
+//     console.log(full)
+//     })  
+//   }
+  
+//   }
  
 
   
@@ -154,6 +160,14 @@ if(cartItems[0].lastEP){
   loading ? 
   <div className='cart-page'>
  
+ 
+
+    
+    
+    
+    
+
+
   <div className=' prodtSingle__inner'>
 
     <div className='load-anime'>
