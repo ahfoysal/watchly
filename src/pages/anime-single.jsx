@@ -37,7 +37,7 @@ useEffect(() => {
 
 
 const fetchDetails = () =>{
- 
+
 
 
     axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
@@ -45,7 +45,9 @@ const fetchDetails = () =>{
       setDetails(data)
       const data3 = data.episodesList[0].episodeId
       const data4 = data.episodesList[0].episodeNum
-      getEpisode(data3,data4)
+   
+      
+      getEpisode(data3,data4,data)
  
       // console.log(data);
 
@@ -59,9 +61,9 @@ const fetchDetails = () =>{
 }
 const [details2 , setDetails2] = useState(true);
 
-const getEpisode = (id,num) =>{
+const getEpisode = (id,num,data4) =>{
   setLoading(false)
-// console.log(id)
+// console.log(details.animeTitle)
   axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setDetails2(data)
@@ -69,9 +71,19 @@ const getEpisode = (id,num) =>{
 // console.log(data)
 setNp(`Episode-${num}`)
 setLoading(true)
+const cartItems = cart.map((cart) => cart ).filter((val)=> {
+  return val.animeTitle   === data4.animeTitle
+  })
+  cartItems[0].lastEP = id
+  cartItems[0].lastEP2 = num
+  const np = cartItems[0]
+
+console.log(np)
+addToCart(np)
   
   })  
 
+ 
 
 }
 

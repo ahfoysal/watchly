@@ -29,6 +29,7 @@ function RecentlyUpdated() {
   
     // gteProducts2()
     getCat(1, 'recent-release')
+    console.log(cart)
    
     
   }, []);
@@ -57,8 +58,8 @@ const getCat = (num, terms) =>{
 
 {cart?.length >= 1 && <> <p className="top-line">Continue Watcing</p>
     <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
-        <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
-        { cart?.reverse()?.map(product => (
+        <div className="row row-cols-3 row-cols-xs-5 row-cols-sm-5 row-cols-lg-6 g-3">
+        { cart?.slice(0,6)?.map(product => (
         <>
         
         <div className="col hp" key={product.animeId} onClick={() => addToCart(product)}>
@@ -71,8 +72,9 @@ const getCat = (num, terms) =>{
       
       
         <div className="card-body">
-     
-        <p className="product__name">{product.animeTitle }</p>
+          <span className="product__category">EP {product?.lastEP2}</span>
+        <p className="product__name">{product.animeTitle} </p>
+      
 
          
           </div>
