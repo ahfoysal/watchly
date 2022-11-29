@@ -365,7 +365,7 @@ line-height: 1.2;
   display: flex;
   flex-flow: row wrap!important;
   gap: 5px !important;
-  padding: 6px !important;
+  padding: 10px 10px !important;
 }
 .episodes {
   background: #000;
