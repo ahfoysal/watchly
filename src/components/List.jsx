@@ -67,7 +67,7 @@ function WacthList() {
   
             <div >  <Link to={'/anime/'+product.animeId}> <>
           <img src={product.animeImg
-} className="card-img-top" alt="product.title"  onClick={() => addToCart(product)}/>
+} className="card-img-top" alt="product.title"  />
       
       
       

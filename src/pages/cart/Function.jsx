@@ -14,10 +14,13 @@ export function ContextProviderS({ children }) {
     function addToList(id) {
 
       const unsubscribe2 = (id) => {
+
         const indexOfObject = list.filter(object => {
           return object.animeTitle === id.animeTitle;
         });
-        console.log(indexOfObject)
+        const ey=id.animeTitle.replace(/ /g,"-")
+        console.log(ey)
+            id.animeId = ey
         if(indexOfObject.length >= 1){
           alert('Already Added To List')
           return
