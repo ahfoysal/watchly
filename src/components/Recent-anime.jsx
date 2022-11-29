@@ -65,13 +65,13 @@ const getCat = (num, terms) =>{
         <div className="row g-3">
 
 <Splide  options={{
-  perPage    : 5.5,
+  perPage    : 5,
   gap        : 0,
   pagination : false,
   arrows : true,
   breakpoints: {
-    1200: { perPage: 4.5, gap: 0 },
-    640 : { gap: 0 , perPage: 2.5},
+    1200: { perPage: 4, gap: 0 },
+    640 : { gap: 0 , perPage: 2},
   },
 }}>
         
