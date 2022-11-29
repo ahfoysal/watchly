@@ -146,8 +146,8 @@ if(cartItems[0].lastEP){
   .then(data2 => { const data = data2.data  
    
     setDetails2(data)
-    setSrc2(data.sources[0].url)
-    console.log(data.sources[0].url)
+    setSrc2(data.sources[2].url)
+    console.log(data.sources)
   setLoading3(true)
 
   setNp(`Episode-${cartItems[0].lastEP2}`)
