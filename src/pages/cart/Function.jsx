@@ -20,6 +20,7 @@ export function ContextProviderS({ children }) {
           setCart(unique);
           
             addToDb(id.animeId)
+            console.log(id.animeId)
      
             localStorage.setItem("cartItems", JSON.stringify(newCart))
             getCart();
@@ -60,38 +61,46 @@ export function ContextProviderS({ children }) {
     }
     const addToDb = id => {
       const exists = getDb();
-      let shopping_cart = {};
+      let cartItems = {};
       if (!exists) {
-        shopping_cart[id] = 1;
+        cartItems[id] = 1;
       }
       else {
-        shopping_cart = JSON.parse(exists);
-        if (shopping_cart[id]) {
-          const newCount = shopping_cart[id] + 1;
-          shopping_cart[id] = newCount;
+        cartItems = JSON.parse(exists);
+        if (cartItems[id]) {
+          const newCount = cartItems[id] + 1;
+          cartItems[id] = newCount;
         }
         else {
-          shopping_cart[id] = 1;
+          cartItems[id] = 1;
         }
       }
-      updateDb(shopping_cart);
+      updateDb(cartItems);
       // console.log(shopping_cart);
     }
-    const getDb = () => localStorage.getItem('shopping_cart');
+    const getDb = () => localStorage.getItem('cartItems');
     const updateDb = cart => {
-      localStorage.setItem('shopping_cart', JSON.stringify(cart));
+      localStorage.setItem('cartItems', JSON.stringify(cart));
     }
     const removeFromDb = id => {
       console.log(id)
-      const exists = getDb();
-      if (!exists) {
-      }
-      else {
-        const shopping_cart = JSON.parse(exists);
-        delete shopping_cart[id];
-        updateDb(shopping_cart);
-      }
-      getCart()
+      
+const indexOfObject = cart.filter(object => {
+  return object.animeId  !== id;
+});
+console.log(indexOfObject)
+setCart(indexOfObject)
+localStorage.setItem("cartItems", JSON.stringify(indexOfObject))
+
+      // const exists = getDb();
+      // if (!exists) {
+      // }
+      // else {
+      //   const cartItems = JSON.parse(exists);
+      //   delete cartItems[id];
+      //   updateDb(cartItems);
+      // }
+      // getCart()
     }
     const getStoredCart = () => {
       const exists = getDb();
@@ -103,7 +112,7 @@ export function ContextProviderS({ children }) {
       setCart([]) 
       localStorage.removeItem('shopping_cart');
       localStorage.removeItem('cartItems');
-      console.log(localStorage.getItem('shopping_cart'));
+
     }
 
 

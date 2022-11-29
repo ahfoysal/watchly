@@ -94,7 +94,7 @@ const getCat = (num, terms) =>{
     
           </div> </></Link>
         
-          {/* <p className="product__rating" onClick={() => removeFromDb(product.animeId)}>Remove</p> */}
+          <p className="product__ratig" onClick={() => removeFromDb(product.animeId)}>Remove</p>
 
          
           

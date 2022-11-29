@@ -111,7 +111,7 @@ if(cartItems[0].lastEP){
   addToCart(np)
       
   if(cartItems[0].lastEP){
-    axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
+    axios(`https://pewds-api.herokuapp.com/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
    
     setDetails2(data)
