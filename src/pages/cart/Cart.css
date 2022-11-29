@@ -572,6 +572,11 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.Mu
 }
 
 @media (max-width: 550px){
+  .responsive-iframe {
+  
+    width: 100% !important;
+    height: 100%;
+  }
   .load-anime {
     position: relative;
     overflow: hidden;
