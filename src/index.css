@@ -357,6 +357,10 @@ line-height: 1.2;
 
 
 @media (max-width: 550px){
+  .responsive-iframe {
+
+    width: 100% !important;
+}
   .play-video {
     position: relative;
     overflow: hidden;
