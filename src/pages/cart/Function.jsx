@@ -14,6 +14,16 @@ export function ContextProviderS({ children }) {
     function addToList(id) {
 
       const unsubscribe2 = (id) => {
+        const indexOfObject = list.filter(object => {
+          return object.animeTitle === id.animeTitle;
+        });
+        console.log(indexOfObject)
+        if(indexOfObject.length >= 1){
+          alert('Already Added To List')
+          return
+
+        }
+        
         const newCart2 = [id, ...list];
         // const merged = [].concat.apply([], newCart);
         // let uniqueChars = [...new Set(merged)];

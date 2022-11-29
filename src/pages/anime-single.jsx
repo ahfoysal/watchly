@@ -45,6 +45,7 @@ const fetchDetails = () =>{
     axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data)
+      console.log(details)
      
       const cartItems = cart.map((cart) => cart ).filter((val)=> {
         return val.animeTitle   === data.animeTitle

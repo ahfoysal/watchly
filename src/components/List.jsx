@@ -77,7 +77,7 @@ function WacthList() {
     
           </div> </></Link>
         
-          <p className="product__ratig" onClick={() => removeFromList(product.animeTitle)}>Remove</p>
+          <p className="product__ratig" onClick={() => removeFromList(product.animeTitle)}>Remove From WatchList</p>
 
          
           
