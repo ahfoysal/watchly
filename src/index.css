@@ -223,7 +223,7 @@ svg.star {
 }
 .btn-ep {
   padding: 0px !important;
-  background: #0E0E0E !important;
+  background: red !important;
   color: white !important;
   width: 50px;
   font-weight: 400 !important;
