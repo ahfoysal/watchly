@@ -26,7 +26,7 @@ function SingleProduct() {
 
 
   const[ np,  setNp] = useState('')
-  const[ ql,  setQl] = useState('360p')
+  const[ ql,  setQl] = useState('')
 
 
   let params = useParams();
@@ -96,8 +96,10 @@ if(cartItems[0].lastEP){
     setDetails2(data)
  
 
-    setSrc2(data.sources[0].url)
-  console.log(data.sources)
+    setSrc2(data.sources[1].url)
+    setQl(data.sources[1].quality)
+
+  console.log(data.sources[1].quality)
   setNp(`Episode-${cartItems[0].lastEP2}`)
   setLoading(true)
   setLoading3(true)
@@ -126,9 +128,12 @@ if(cartItems[0].lastEP){
    
     setDetails2(data)
     console.log(details2.sources)
-    setSrc2(data.sources[0].url)
+    setSrc2(data.sources[1].url)
     console.log(data.sources)
   setLoading3(true)
+  setQl(data.sources[1].quality)
+
+  console.log(data.sources[1].quality)
 
   setNp(`Episode-${cartItems[0].lastEP2}`)
 

@@ -242,6 +242,11 @@ p.inline {
   margin: 0px 10px !important;
   max-width: fit-content !important;
 }
+.load-anime {
+  position: relative;
+  width: 100%;
+  min-height: 600px !important;
+}
 .play{
   position: absolute;
   bottom: 0;
