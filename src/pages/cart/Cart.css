@@ -12,9 +12,10 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.Mu
 }
 .load-anime {
   position: relative;
-  width: 100%;
+  width: 100%
+ 
 
-  padding-top: 45.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+
 }
 .responsive-iframe {
   background-repeat: no-repeat !important;
@@ -581,7 +582,7 @@ button.MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-sizeMedium.Mu
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding-top: 80.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
   }
   .cart__inner {
     flex-direction: column;

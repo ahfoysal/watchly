@@ -7,6 +7,8 @@ import axios from 'axios'
 import { useContextS } from './cart/Function';
 
 import Iframe from 'react-iframe'
+import Video from './video'
+import 'video.js/dist/video-js.css';
 
 
 
@@ -15,7 +17,7 @@ function SingleProduct() {
   let {  addToCart , cart , addToList,  list } =  useContextS();
 
   const [details , setDetails] = useState([]);
-  const [src , setSrc] = useState('');
+  const [src2 , setSrc2] = useState('');
 
   const [loading , setLoading] = useState(true);
   const [loading2 , setLoading2] = useState(false);
@@ -31,6 +33,35 @@ useEffect(() => {
   fetchDetails()
   console.log('watchlist', list)
 },[])
+
+//////////////////
+// const playerRef = React.useRef(null);
+
+// const videoJsOptions = {
+//   autoplay: true,
+//   controls: true,
+//   responsive: true,
+//   fluid: true,
+//   sources: [{
+//     src: "https://cache.387e6278d8e06083d813358762e0ac63.com/6993cea6-6fa3-11ed-bcc9-48df37269fd0.m3u8?videoid=222941268063",
+//     type: 'video/mp4'
+//   }]
+// };
+
+// const handlePlayerReady = (player) => {
+//   playerRef.current = player;
+
+//   // You can handle player events here, for example:
+//   player.on('waiting', () => {
+//     VideoJS.log('player is waiting');
+//   });
+
+//   player.on('dispose', () => {
+//     VideoJS.log('player will dispose');
+//   });
+// };
+
+//////////////
 
 const play = () =>{
   const data5 = details.episodesList[details.episodesList.length - 1].episodeId
@@ -90,8 +121,8 @@ if(cartItems[0].lastEP){
     setDetails2(data)
  
 
-    setSrc(data.headers.Referer)
-  console.log(data)
+    setSrc2(data.sources[0].url)
+  console.log(data.sources[0].url)
   setNp(`Episode-${cartItems[0].lastEP2}`)
   setLoading(true)
   setLoading3(true)
@@ -115,7 +146,8 @@ if(cartItems[0].lastEP){
   .then(data2 => { const data = data2.data  
    
     setDetails2(data)
-    setSrc(data.headers.Referer)
+    setSrc2(data.sources[0].url)
+    console.log(data.sources[0].url)
   setLoading3(true)
 
   setNp(`Episode-${cartItems[0].lastEP2}`)
@@ -133,7 +165,19 @@ if(cartItems[0].lastEP){
 }
 
 
-
+const play2 = {
+  fill: true,
+  fluid: true,
+  autoplay: true,
+  controls: true,
+  preload: "metadata",
+  sources: [
+    {
+      src: src2,
+      type: "application/x-mpegURL"
+    }
+  ]
+};
 
   return (
     
@@ -142,17 +186,21 @@ if(cartItems[0].lastEP){
 {
   loading ? 
   <div className='cart-page'>
+       
 
   <div className=' prodtSingle__inner'>
   {loading2 ?
     <>
-     <div className='load-anime'>
-    <div className="responsiveas">
+     <div className='container'>
+    <div className="load-anime">
 
     {loading3 ? 
+    <>
+    <Video {...play2} />
+    {/* <VideoJS options={videoJsOptions} onReady={handlePlayerReady} /> */}
     
    
-      <Iframe src={src}  
+      {/* <Iframe src2={src2}  
       width="100%"
       height='300px'
       id="myId"
@@ -162,10 +210,10 @@ if(cartItems[0].lastEP){
       autoplay='true'
       autostart= 'true'
       styles={{backgroundImage: `url(${details.animeImg})`}}
-       /> 
+       />  */}
     
 
-  
+  </>
     
     : <div className="spinnerdiv"><ReactBootstrap.Spinner animation="border" /> </div>}
 

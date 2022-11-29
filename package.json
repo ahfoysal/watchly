@@ -58,6 +58,7 @@
     ]
   },
   "devDependencies": {
-    "json-loader": "^0.5.7"
+    "json-loader": "^0.5.7",
+    "video.js": "^7.20.3"
   }
 }
