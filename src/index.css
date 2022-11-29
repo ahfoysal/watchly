@@ -361,6 +361,16 @@ line-height: 1.2;
 
     width: 100% !important;
 }
+.ep-button {
+  display: flex;
+  flex-flow: row wrap!important;
+  gap: 5px !important;
+  padding: 6px !important;
+}
+.episodes {
+  background: #000;
+  margin: 0 10px;
+}
   .play-video {
     position: relative;
     overflow: hidden;
