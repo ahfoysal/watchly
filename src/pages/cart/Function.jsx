@@ -9,25 +9,25 @@ export function ContextProviderS({ children }) {
     const [test2 , setTest2] = useState(false);
     const [cart , setCart] = useState([]);
 
-    
+    const unsubscribe = (id) => {
+      const newCart = [id, ...cart];
+      // const merged = [].concat.apply([], newCart);
+      // let uniqueChars = [...new Set(merged)];
+      const unique = [...new Map(newCart.map((m) => [m.animeId  , m])).values()];
+      setCart(unique);
+      
+
+        // console.log(id.animeId)
+ 
+        localStorage.setItem("cartItems", JSON.stringify(newCart))
+        getCart();
+   
+
+
+    };
     function addToCart(id) {
 
-        const unsubscribe = () => {
-          const newCart = [id, ...cart];
-          // const merged = [].concat.apply([], newCart);
-          // let uniqueChars = [...new Set(merged)];
-          const unique = [...new Map(newCart.map((m) => [m.animeId  , m])).values()];
-          setCart(unique);
-          
-            addToDb(id.animeId)
-            console.log(id.animeId)
-     
-            localStorage.setItem("cartItems", JSON.stringify(newCart))
-            getCart();
-            // console.log(id)
-
-
-        };
+        
         return unsubscribe(id)
          
     }
@@ -43,41 +43,10 @@ export function ContextProviderS({ children }) {
       const unique = [...new Map(test?.map((m) => [m.animeId , m])).values()];
 
     setCart(unique)
-    const nnnn = JSON.parse(newCart)
-    const savedCart = getStoredCart();
-    const savedId = Object.keys(savedCart);
-    // console.log(savedId)
-    // const cartPd = savedId.map( id => {
-    //   const product = nnnn?.find( pd => pd.animeId === id)
-    //   product.abc = savedCart[id];
-
-    //   return product
-    // } );
-    
-    
-    // setCart(cartPd)
-    
+  
     
     }
-    const addToDb = id => {
-      const exists = getDb();
-      let cartItems = {};
-      if (!exists) {
-        cartItems[id] = 1;
-      }
-      else {
-        cartItems = JSON.parse(exists);
-        if (cartItems[id]) {
-          const newCount = cartItems[id] + 1;
-          cartItems[id] = newCount;
-        }
-        else {
-          cartItems[id] = 1;
-        }
-      }
-      updateDb(cartItems);
-      // console.log(shopping_cart);
-    }
+  
     const getDb = () => localStorage.getItem('cartItems');
     const updateDb = cart => {
       localStorage.setItem('cartItems', JSON.stringify(cart));
@@ -92,15 +61,6 @@ console.log(indexOfObject)
 setCart(indexOfObject)
 localStorage.setItem("cartItems", JSON.stringify(indexOfObject))
 
-      // const exists = getDb();
-      // if (!exists) {
-      // }
-      // else {
-      //   const cartItems = JSON.parse(exists);
-      //   delete cartItems[id];
-      //   updateDb(cartItems);
-      // }
-      // getCart()
     }
     const getStoredCart = () => {
       const exists = getDb();
