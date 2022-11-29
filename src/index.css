@@ -223,11 +223,19 @@ svg.star {
 }
 .btn-ep {
   padding: 0px !important;
-  background: red !important;
+  background: #5A2E98 !important;
   color: white !important;
   width: 50px;
   font-weight: 400 !important;
   margin: 0px !important;
+}
+.btn-ep2 {
+  padding: 0px !important;
+  background: #5A2E98 !important;
+  color: white !important;
+  width: 70px;
+  font-weight: 400 !important;
+  margin: 0px 10px !important;
 }
 .play{
   position: absolute;

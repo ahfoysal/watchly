@@ -25,7 +25,7 @@ function SingleProduct() {
 
 
   const[ np,  setNp] = useState('')
-  const[ ql,  setQl] = useState('')
+  const[ ql,  setQl] = useState('360p')
 
 
   let params = useParams();
@@ -137,10 +137,12 @@ if(cartItems[0].lastEP){
   }
 }
 
-const qual = (url) =>{
+const qual = (url, type) =>{
+  setQl(type)
   setLoading3(false)
-    console.log(url)
+    console.log(type)
     setSrc2(url)
+  
     setTimeout(() => setLoading3(true) , 500)
     
 }
@@ -177,10 +179,11 @@ const play2 = {
     {loading3 ? 
     <>
     <Video {...play2} />
-    <p>Change  Quality: {details2?.sources?.map((qls) =>{
-      return <span onClick={() => qual(qls.url)}> {qls.quality}</span>
-    })} </p>
-    
+    <p>Current Quality : {ql}</p>
+    <p>Change  Quality: </p> {details2?.sources?.map((qls) =>{
+      return <button className='btn btn-ep2' onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
+    })} 
+  
 
   </>
     
