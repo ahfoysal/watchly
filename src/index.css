@@ -245,7 +245,7 @@ p.inline {
 .load-anime {
   position: relative;
   width: 100%;
-  min-height: 600px !important;
+  min-height: 600px ;
 }
 .play{
   position: absolute;
@@ -381,6 +381,11 @@ line-height: 1.2;
 
     font-size: 7px;
   
+}
+.load-anime {
+  position: relative;
+  width: 100%;
+  min-height: 400px !important;
 }
   .responsive-iframe {
 
