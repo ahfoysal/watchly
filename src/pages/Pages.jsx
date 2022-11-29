@@ -18,10 +18,11 @@ import { useContextS } from './cart/Function';
 
 function Pages() {
   const location = useLocation();
-       let { getCart} =  useContextS();
+       let { getCart, getList} =  useContextS();
 
   useEffect(() => {
     getCart();
+    getList()
 
     }, [])
 

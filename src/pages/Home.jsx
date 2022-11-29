@@ -4,6 +4,8 @@ import Movie from "../components/movie";
 import Air from "../components/air";
 
 import RecentlyUpdated from "../components/Recent-anime";
+import List from "../components/List";
+
 import Banner from "../components/banner";
 import { useContext, useEffect } from "react";
 import { TestContext } from "../App";
@@ -34,6 +36,7 @@ import { TestContext } from "../App";
       {/* <Banner /> */}
       <Featured />
       <RecentlyUpdated /> 
+      <List /> 
     <Common />
     <Air />
     <Movie /> 

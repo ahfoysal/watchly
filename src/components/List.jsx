@@ -13,13 +13,10 @@ import { useContextS } from "../pages/cart/Function";
 // import { darken } from 'polished';
 // import api from '../pages/api';
 
-function RecentlyUpdated() {
+function WacthList() {
 
 
- 
-  const [ctg , setCtg] = useState([]);
-  const [pro , setPro] = useState([]);
-  let {  addToCart , cart,  removeFromDb,clearTheCart } =  useContextS();
+  let {  addToCart   , list, removeFromList } =  useContextS();
 
 
  
@@ -27,38 +24,24 @@ function RecentlyUpdated() {
 
   useEffect(() => {
   
-    // gteProducts2()
-    getCat(1, 'recent-release')
+
  
    
     
   }, []);
-  const [term, setTerm] =useState('')
 
 
 
-const getCat = (num, terms) =>{
-  setTerm(terms)
-  axios(`https://pewds-anime1-api.herokuapp.com/${terms}?page=${num}`)
-          .then(data2 => { const data = data2.data
- 
-            // console.log(num);
-               setPro(data) })}
 
-  
-  const pages = (num) => {
-  
- getCat(num, term)
-   
 
-  }
+
   
     return (
       <>
-      {cart?.length >= 1 && <>
+      {list?.length >= 1 && <>
 <div  className="single-page">  
-<p className="product__rating" onClick={() => clearTheCart( )}> Remove All</p>
-  <p className="top-line">Continue Watching </p>
+
+  <p className="top-line">Watch List</p>
   
 
 <div className=" bg-trasparent "  style={{position: "relative"}}>
@@ -76,7 +59,7 @@ const getCat = (num, terms) =>{
 }}>
         
   
-        { cart?.map(product => (
+        { list?.map(product => (
         <SplideSlide >
         
         <div className="   " key={product.animeId} >
@@ -89,12 +72,12 @@ const getCat = (num, terms) =>{
       
       
         <div className="card-body">
-          <span className="product__category">EP {product?.lastEP2}</span>
+        
         <p className="product__name">{product.animeTitle} </p>
     
           </div> </></Link>
         
-          <p className="product__ratig" onClick={() => removeFromDb(product.animeId)}>Remove</p>
+          <p className="product__ratig" onClick={() => removeFromList(product.animeTitle)}>Remove</p>
 
          
           
@@ -127,4 +110,4 @@ const getCat = (num, terms) =>{
 
   
   
-  export default RecentlyUpdated;
+  export default WacthList;

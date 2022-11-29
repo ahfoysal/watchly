@@ -12,7 +12,7 @@ import Iframe from 'react-iframe'
 
 
 function SingleProduct() {
-  let {  addToCart , cart, getCart } =  useContextS();
+  let {  addToCart , cart , addToList,  list } =  useContextS();
 
   const [details , setDetails] = useState([]);
   const [src , setSrc] = useState('');
@@ -29,7 +29,7 @@ function SingleProduct() {
 
 useEffect(() => { 
   fetchDetails()
-  console.log(details)
+  console.log('watchlist', list)
 },[])
 
 const play = () =>{
@@ -46,7 +46,6 @@ const fetchDetails = () =>{
     .then(data2 => { const data = data2.data
       setDetails(data)
      
-      console.log(cart)
       const cartItems = cart.map((cart) => cart ).filter((val)=> {
         return val.animeTitle   === data.animeTitle
         })
@@ -116,7 +115,6 @@ if(cartItems[0].lastEP){
    
     setDetails2(data)
     setSrc(data.headers.Referer)
-  console.log(data)
   setLoading3(true)
 
   setNp(`Episode-${cartItems[0].lastEP2}`)
@@ -124,8 +122,6 @@ if(cartItems[0].lastEP){
 
 
   setLoading(true)
-  console.log(cartItems[0].lastEP)
-  console.log(full)
   })  
 
   }
@@ -183,6 +179,13 @@ if(cartItems[0].lastEP){
       <i className="fa fa-play" aria-hidden="true">  </i>
 
            Play</button>
+
+{/* 
+           <button className="btn  play" onClick={() => addToList(details)}>
+      <i className="fa fa-play" aria-hidden="true">  </i>
+
+           Add To WatchList</button> */}
+
     
     </div>}
 <div className='productSingle__details  single-page'> 
@@ -201,6 +204,10 @@ if(cartItems[0].lastEP){
  </div> 
 
 <div className='single-page'>
+<button className="btn  btn-primary" onClick={() => addToList(details)}>
+      <i className="fa fa-play" aria-hidden="true">  </i>
+
+           Add To WacthList</button>
 <p className='top-line2'>Episodes</p>
 </div>
 
