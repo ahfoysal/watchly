@@ -229,13 +229,18 @@ svg.star {
   font-weight: 400 !important;
   margin: 0px !important;
 }
+p.inline {
+  display: inline-block !important;
+}
+
 .btn-ep2 {
-  padding: 0px !important;
+  padding: 2px 5px !important;
   background: #5A2E98 !important;
   color: white !important;
-  width: 70px;
+  width: fit-content;
   font-weight: 400 !important;
   margin: 0px 10px !important;
+  max-width: fit-content !important;
 }
 .play{
   position: absolute;

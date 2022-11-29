@@ -18,6 +18,7 @@ function SingleProduct() {
 
   const [details , setDetails] = useState([]);
   const [src2 , setSrc2] = useState('');
+  const [id2 , setId2] = useState('');
 
   const [loading , setLoading] = useState(true);
   const [loading2 , setLoading2] = useState(false);
@@ -40,7 +41,7 @@ useEffect(() => {
 const play = () =>{
   const data5 = details.episodesList[details.episodesList.length - 1].episodeId
       const data6 = details.episodesList[details.episodesList.length - 1].episodeNum
-      getEpisode(data5,data6,details)
+      getEpisode(data5,data6,details,0)
 }
 
 const fetchDetails = () =>{
@@ -50,7 +51,6 @@ const fetchDetails = () =>{
     axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data)
-      console.log(details)
      
       const cartItems = cart.map((cart) => cart ).filter((val)=> {
         return val.animeTitle   === data.animeTitle
@@ -60,7 +60,7 @@ const fetchDetails = () =>{
 
         if(cartItems[0].lastEP){
           setLoading2(true)
-          getEpisode(data3,data4,data)
+          getEpisode(data3,data4,data,0)
         }
  
     })  
@@ -72,17 +72,18 @@ const fetchDetails = () =>{
 }
 const [details2 , setDetails2] = useState(true);
 
-const getEpisode = (id,num,full) =>{
+const getEpisode = (id,num, full) =>{
   
     setLoading2(true)
     setLoading3(false)
+    // console.log(index)
+    // setId2(index)
 
   
   if(full === undefined){
     const cartItems = cart.map((cart) => cart ).filter((val)=> {
       return val.animeTitle   === details.animeTitle
       })
-      console.log(cartItems[0].lastEP2)
       cartItems[0].lastEP = id
   cartItems[0].lastEP2 = num
   const np = cartItems[0]
@@ -101,7 +102,11 @@ if(cartItems[0].lastEP){
   setLoading(true)
   setLoading3(true)
 
-  })  
+  }).catch(error => {
+    const rslt = error;
+    console.log('error', rslt)
+  });
+     
 }
 
  
@@ -130,7 +135,7 @@ if(cartItems[0].lastEP){
 
 
   setLoading(true)
-  })  
+  })
 
   }
   
@@ -161,6 +166,10 @@ const play2 = {
   ]
 };
 
+const next = () => {
+  document.getElementById(`${id2}`).click();
+}
+
   return (
     
     <div >
@@ -180,10 +189,14 @@ const play2 = {
     <>
     <Video {...play2} />
     <p>Current Quality : {ql}</p>
-    <p>Change  Quality: </p> {details2?.sources?.map((qls) =>{
+    <p className='inline'>Change  Quality: </p> {details2?.sources?.map((qls) =>{
       return <button className='btn btn-ep2' onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
     })} 
   
+  <button className="btn  btn-ep2" >
+      <i className="fa fa-play" aria-hidden="true">  </i>
+
+           Play Next Episode</button>
 
   </>
     
@@ -234,8 +247,8 @@ const play2 = {
 
 <div className=' episodes '> 
 <div className="ep-button">
-{details.episodesList?.map((ep) => {
-return  <button className='btn btn-ep' onClick={() => getEpisode(ep.episodeId,ep.episodeNum)}>{ep.episodeNum}</button>
+{details.episodesList?.map((ep,index) => {
+return  <button className='btn btn-ep' id={index+1} onClick={() => getEpisode(ep.episodeId,ep.episodeNum)}>{ep.episodeNum}</button>
 })}
 
 </div>
