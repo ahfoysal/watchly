@@ -27,6 +27,7 @@ function SingleProduct() {
 
   const[ np,  setNp] = useState('')
   const[ ql,  setQl] = useState('')
+  const[ total,  setTotal] = useState()
 
 
   let params = useParams();
@@ -34,6 +35,7 @@ function SingleProduct() {
 useEffect(() => { 
   fetchDetails()
   console.log('watchlist', list)
+ 
 },[])
 
 
@@ -51,6 +53,8 @@ const fetchDetails = () =>{
     axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data)
+      setTotal(data?.episodesList?.length)
+
      
       const cartItems = cart.map((cart) => cart ).filter((val)=> {
         return val.animeTitle   === data.animeTitle
@@ -100,7 +104,7 @@ if(cartItems[0].lastEP){
     setQl(data.sources[1].quality)
 
   console.log(data.sources[1].quality)
-  setNp(`Episode-${cartItems[0].lastEP2}`)
+  setNp(`Episode ${cartItems[0].lastEP2}`)
   setLoading(true)
   setLoading3(true)
 
@@ -127,15 +131,12 @@ if(cartItems[0].lastEP){
   .then(data2 => { const data = data2.data  
    
     setDetails2(data)
-    console.log(details2.sources)
     setSrc2(data.sources[1].url)
-    console.log(data.sources)
   setLoading3(true)
   setQl(data.sources[1].quality)
 
-  console.log(data.sources[1].quality)
 
-  setNp(`Episode-${cartItems[0].lastEP2}`)
+  setNp(`Episode ${cartItems[0].lastEP2}`)
 
 
 
@@ -172,8 +173,14 @@ const play2 = {
 };
 
 const next = () => {
-  document.getElementById(`${id2}`).click();
+ 
+  console.log(np)
+  var newStr = np.replace('Episode','')
+  document.getElementById(`${Number(newStr)+1}`).click();
+  const ey=newStr.replace(/ /g," ")
+  console.log(newStr, ey)
 }
+
 
   return (
     
@@ -198,7 +205,7 @@ const next = () => {
       return <button className='btn btn-ep2' onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
     })} 
   
-  <button className="btn  btn-ep2" >
+  <button className="btn  btn-ep2"  onClick={() => next()}> 
       <i className="fa fa-play" aria-hidden="true">  </i>
 
            Play Next Episode</button>
@@ -253,7 +260,7 @@ const next = () => {
 <div className=' episodes '> 
 <div className="ep-button">
 {details.episodesList?.map((ep,index) => {
-return  <button className='btn btn-ep' id={index+1} onClick={() => getEpisode(ep.episodeId,ep.episodeNum)}>{ep.episodeNum}</button>
+return  <button className='btn btn-ep' id={total - index} onClick={() => getEpisode(ep.episodeId,ep.episodeNum)}>{ep.episodeNum}</button>
 })}
 
 </div>
