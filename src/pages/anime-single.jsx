@@ -25,6 +25,7 @@ function SingleProduct() {
 
 
   const[ np,  setNp] = useState('')
+  const[ ql,  setQl] = useState('')
 
 
   let params = useParams();
@@ -34,34 +35,7 @@ useEffect(() => {
   console.log('watchlist', list)
 },[])
 
-//////////////////
-// const playerRef = React.useRef(null);
 
-// const videoJsOptions = {
-//   autoplay: true,
-//   controls: true,
-//   responsive: true,
-//   fluid: true,
-//   sources: [{
-//     src: "https://cache.387e6278d8e06083d813358762e0ac63.com/6993cea6-6fa3-11ed-bcc9-48df37269fd0.m3u8?videoid=222941268063",
-//     type: 'video/mp4'
-//   }]
-// };
-
-// const handlePlayerReady = (player) => {
-//   playerRef.current = player;
-
-//   // You can handle player events here, for example:
-//   player.on('waiting', () => {
-//     VideoJS.log('player is waiting');
-//   });
-
-//   player.on('dispose', () => {
-//     VideoJS.log('player will dispose');
-//   });
-// };
-
-//////////////
 
 const play = () =>{
   const data5 = details.episodesList[details.episodesList.length - 1].episodeId
@@ -146,6 +120,7 @@ if(cartItems[0].lastEP){
   .then(data2 => { const data = data2.data  
    
     setDetails2(data)
+    console.log(details2.sources)
     setSrc2(data.sources[0].url)
     console.log(data.sources)
   setLoading3(true)
@@ -160,10 +135,15 @@ if(cartItems[0].lastEP){
   }
   
   }
-   
-
 }
 
+const qual = (url) =>{
+  setLoading3(false)
+    console.log(url)
+    setSrc2(url)
+    setTimeout(() => setLoading3(true) , 500)
+    
+}
 
 const play2 = {
   fill: true,
@@ -197,20 +177,9 @@ const play2 = {
     {loading3 ? 
     <>
     <Video {...play2} />
-    {/* <VideoJS options={videoJsOptions} onReady={handlePlayerReady} /> */}
-    
-   
-      {/* <Iframe src2={src2}  
-      width="100%"
-      height='300px'
-      id="myId"
-      className="responsive-iframe"
-    allowFullScreen
-      scrolling="no" 
-      autoplay='true'
-      autostart= 'true'
-      styles={{backgroundImage: `url(${details.animeImg})`}}
-       />  */}
+    <p>Change  Quality: {details2?.sources?.map((qls) =>{
+      return <span onClick={() => qual(qls.url)}> {qls.quality}</span>
+    })} </p>
     
 
   </>
