@@ -52,14 +52,16 @@ const getCat = (num, terms) =>{
       <div className="card h-100 shadow-sm">
   
             <div>  <Link to={'/anime/'+product.animeId}> 
-          <img src={product.animeImg
+            <div className="imgg">    <img src={product.animeImg
 } className="card-img-top" alt="product.title" />
       
-      
+       <p className="tag"> New Episode  {product.episodeNum }</p></div>
       
         <div className="card-body">
      
-        <p className="product__name">{product.animeTitle }</p>
+        <p className="product__name">{product.animeTitle } </p>
+
+      
 
          
           </div>       
