@@ -19,6 +19,8 @@ function SingleProduct() {
 
   const [loading , setLoading] = useState(true);
   const [loading2 , setLoading2] = useState(false);
+  const [loading3 , setLoading3] = useState(false);
+
 
   const[ np,  setNp] = useState('')
 
@@ -27,7 +29,7 @@ function SingleProduct() {
 
 useEffect(() => { 
   fetchDetails()
-  getCart();
+  console.log(details)
 },[])
 
 const play = () =>{
@@ -66,8 +68,9 @@ const fetchDetails = () =>{
 const [details2 , setDetails2] = useState(true);
 
 const getEpisode = (id,num,full) =>{
-    setLoading(false)
+  
     setLoading2(true)
+    setLoading3(false)
 
   
   if(full === undefined){
@@ -85,12 +88,13 @@ if(cartItems[0].lastEP){
   axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setDetails2(data)
-    setLoading(false)
+ 
 
     setSrc(data.headers.Referer)
   console.log(data)
   setNp(`Episode-${cartItems[0].lastEP2}`)
   setLoading(true)
+  setLoading3(true)
 
   })  
 }
@@ -109,10 +113,12 @@ if(cartItems[0].lastEP){
   if(cartItems[0].lastEP){
     axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
-    setLoading(false)
+   
     setDetails2(data)
     setSrc(data.headers.Referer)
   console.log(data)
+  setLoading3(true)
+
   setNp(`Episode-${cartItems[0].lastEP2}`)
 
 
@@ -142,9 +148,13 @@ if(cartItems[0].lastEP){
 
   <div className=' prodtSingle__inner'>
   {loading2 ?
-    <div className='load-anime'>
+    <>
+     <div className='load-anime'>
     <div className="responsiveas">
 
+    {loading3 ? 
+    
+   
       <Iframe src={src}  
       width="100%"
       height='300px'
@@ -158,10 +168,16 @@ if(cartItems[0].lastEP){
        /> 
     
 
-    </div>
+  
+    
+    : <div className="spinnerdiv"><ReactBootstrap.Spinner animation="border" /> </div>}
+
+</div>
   
 
-    </div > : <div className='productSingle__image'>
+  </div > 
+  
+    </>: <div className='productSingle__image'>
       <img  src={details.animeImg} alt="" />
       <button className="btn  play" onClick={() => play()}>
       <i className="fa fa-play" aria-hidden="true">  </i>

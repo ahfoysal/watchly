@@ -359,6 +359,11 @@ line-height: 1.2;
 
 
 @media (max-width: 550px){
+  .tag {
+
+    font-size: 7px;
+  
+}
   .responsive-iframe {
 
     width: 100% !important;
