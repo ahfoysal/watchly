@@ -11,16 +11,16 @@ export function ContextProviderS({ children }) {
     const [list , setList] = useState([]);
 
     
-    function addToList(id) {
+    function addToList(id, name) {
 
       const unsubscribe2 = (id) => {
 
         const indexOfObject = list.filter(object => {
           return object.animeTitle === id.animeTitle;
         });
-        const ey=id.animeTitle.replace(/ /g,"-")
-        console.log(ey)
-            id.animeId = ey
+       
+        console.log(name.name)
+            id.animeId = name.name
         if(indexOfObject.length >= 1){
           alert('Already Added To List')
           return

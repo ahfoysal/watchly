@@ -250,7 +250,7 @@ const next = () => {
  </div> 
 
 <div className='single-page'>
-<button className="btn  btn-primary" onClick={() => addToList(details)}>
+<button className="btn  btn-primary" onClick={() => addToList(details, params)}>
       <i className="fa fa-play" aria-hidden="true">  </i>
 
            Add To WacthList</button>
