@@ -58,7 +58,7 @@ const getCat = (num, terms) =>{
       {cart?.length >= 1 && <>
 <div  className="single-page">  
 <p className="product__rating" onClick={() => clearTheCart( )}> Remove All</p>
-  <p className="top-line">Continue Wacting</p>
+  <p className="top-line">Continue Watching </p>
   
 
 <div className=" bg-trasparent "  style={{position: "relative"}}>
