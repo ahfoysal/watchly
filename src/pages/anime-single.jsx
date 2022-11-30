@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react'
-import {useParams, useNavigate} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import React from 'react'
 import * as ReactBootstrap from 'react-bootstrap'
 import axios from 'axios'
 
 import { useContextS } from './cart/Function';
 
-import Iframe from 'react-iframe'
+
 import Video from './video'
 import 'video.js/dist/video-js.css';
 
@@ -14,11 +14,10 @@ import 'video.js/dist/video-js.css';
 
 
 function SingleProduct() {
-  let {  addToCart , cart , addToList,  list } =  useContextS();
+  let {  addToCart , cart , addToList } =  useContextS();
 
   const [details , setDetails] = useState([]);
   const [src2 , setSrc2] = useState('');
-  const [id2 , setId2] = useState('');
 
   const [loading , setLoading] = useState(true);
   const [loading2 , setLoading2] = useState(false);
@@ -49,7 +48,7 @@ const fetchDetails = async () =>{
 
 
 
-    const test = await axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
+     await axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data)
       setTotal(data?.episodesList?.length)

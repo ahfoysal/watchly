@@ -5,11 +5,9 @@ import Searched from "./Searched";
 import AnimeSingle from "./anime-single";
 import Profile from "./profile";
 import{ Route, Routes, useLocation } from 'react-router-dom';
-import Cart from './cart/Cart';
-import Orders from './Orders';
-import Checkout from './checkout/Checkout';
-import Checkoutest from './checkout/Checkoutest';
+
 import Manga from './Manga';
+import MangaSingle from './Manga-single';
 import OrdersPage from '../components/OrdersPage/testDb';
 import Login from './login/login';
 import Signup from './login/signup';
@@ -35,14 +33,16 @@ function Pages() {
        <Route path="/searched/:search" element={<Searched />} />
        <Route path="/anime/:name" element={<AnimeSingle />} />
        <Route path="/manga/" element={<Manga /> } />
+       <Route path="/manga/test" element={<MangaSingle /> } />
+
        {/* <Route path="/order/:name" element={<Orders />} /> */}
        {/* <Route path="/cart" element={<Cart  />} /> */}
        {/* <Route path="/checkout" element={<Checkoutest />} /> */}
        {/* <Route path="/checkout-2" element={<Checkout />} /> */}
        <Route path="/login/" element={<Login   />} />
        <Route path="/signup/" element={<Signup />} />
-       <Route path="/orders/" element={  <OrdersPage /> }/>
-       <Route path="/profile/" element={  <Profile /> }/>
+       {/* <Route path="/orders/" element={  <OrdersPage /> }/> */}
+       {/* <Route path="/profile/" element={  <Profile /> }/> */}
 
        </Routes>  
       
