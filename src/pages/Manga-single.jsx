@@ -18,7 +18,7 @@ const fetchDetails = async () =>{
 
 
 
-  await axios(`https://api.10minuteschool.com/lms-auth-service/api/v4/pro/v3/content/course/1009/enrolled`)
+  await axios(`https://api.10minuteschool.com/lms-auth-service/api/v4/pro/v3/content/course/1009  /enrolled`)
  .then(data2 => { const data = data2.data.data
   console.log(data)
    setDetails(data)
