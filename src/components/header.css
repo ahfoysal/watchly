@@ -139,12 +139,27 @@ margin-top: 5px;
 }
 .header__back {
   margin-right: auto;
-  padding: .33rem .66rem;
+  padding: .33rem .33rem;
   display: inline-block;
   border: none;
 }
+.video-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.video-responsive iframe {
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
 .header__back, .header__search {
-  padding: .33rem .15rem .33rem .66rem;
+  padding: .33rem .15rem .33rem .33rem;
   border-radius: .5rem;
   font-size: .85rem;
   margin-right: 1rem;

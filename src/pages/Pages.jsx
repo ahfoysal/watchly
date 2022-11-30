@@ -33,7 +33,7 @@ function Pages() {
        <Route path="/searched/:search" element={<Searched />} />
        <Route path="/anime/:name" element={<AnimeSingle />} />
        <Route path="/manga/" element={<Manga /> } />
-       <Route path="/manga/test" element={<MangaSingle /> } />
+       <Route path="/10min" element={<MangaSingle /> } />
 
        {/* <Route path="/order/:name" element={<Orders />} /> */}
        {/* <Route path="/cart" element={<Cart  />} /> */}
