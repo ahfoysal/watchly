@@ -45,7 +45,7 @@ const fetchDetails = async () =>{
         {details?.steps?.map((less) =>{
             return<> <p>{less.content_details.name}            </p>
             <p>            {less?.chapter_content?.map((lss) =>{
-              return <>{lss?.content_details.name} <br /> </>
+              return <> {lss?.content_details.file_url && <> <span className='text-primary' onClick={() => setSrc(lss?.content_details.file_url)}>{lss?.content_details.name} </span><br /></> } </>
             })}</p>
 
             
