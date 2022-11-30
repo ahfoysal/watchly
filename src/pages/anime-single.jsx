@@ -46,11 +46,11 @@ const play = () =>{
       getEpisode(data5,data6,details,0)
 }
 
-const fetchDetails = () =>{
+const fetchDetails = async () =>{
 
 
 
-    axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
+    const test = await axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data)
       setTotal(data?.episodesList?.length)
