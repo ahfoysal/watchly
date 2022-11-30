@@ -12,13 +12,8 @@ import { TestContext } from "../App";
 
 
   function Home() {
-    const {    setActiveTabCart, setActiveTabOrder,setActiveTabHome, setActiveTabUser, setHeaderActive} = useContext(TestContext);
     useEffect(() => {
-      setActiveTabCart(false)
-      setActiveTabOrder(false)
-      setActiveTabHome(true)
-      setActiveTabUser(false)
-      setHeaderActive(false)
+ 
     
     }, [])
     

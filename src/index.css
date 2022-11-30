@@ -215,6 +215,7 @@ svg.star {
   padding: 20px 20px;
   display: flex;
   flex-flow: row wrap !important;
+  justify-content: center;
   gap: 10px;
 }
 .episodes {

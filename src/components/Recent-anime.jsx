@@ -76,10 +76,10 @@ const getCat = async (num, terms) =>{
 }}>
         
   
-        { cart?.map(product => (
-        <SplideSlide >
+        { cart?.map((product, index) => (
+        <SplideSlide  key={index +1}>
         
-        <div className="   " key={product.animeId} >
+        <div  >
       <div className="card h-100 shadow-sm">
   
             <div >  <Link to={'/anime/'+product.animeId}> <>

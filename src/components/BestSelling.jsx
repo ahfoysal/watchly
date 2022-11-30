@@ -45,10 +45,10 @@ const getCat = (num, terms) =>{
     640 : { gap: 0 , perPage: 2},
   },
 }}>
-        { pro?.map(product => (
-         <SplideSlide >
+        { pro?.map((product,index) => (
+         <SplideSlide key={index + 1}>
    
-        <div className="col hp" key={product.animeId} onClick={() => addToCart(product)}>
+        <div className="col hp" key={index + 1} onClick={() => addToCart(product)}>
       <div className="card h-100 shadow-sm">
   
             <div>  <Link to={'/anime/'+product.animeId}> 

@@ -20,11 +20,11 @@ function App() {
 //////////////////
 
   //////// Nav & Icon State
-          const [headerActive , setHeaderActive] = useState(false);
-          const [activeTabHome , setActiveTabHome] = useState(false);
-          const [activeTabCart , setActiveTabCart] = useState(false);
-          const [activeTabOrder , setActiveTabOrder] = useState(false);
-          const [activeTabUser , setActiveTabUser] = useState(false);
+          // const [headerActive , setHeaderActive] = useState(false);
+          // const [activeTabHome , setActiveTabHome] = useState(false);
+          // const [activeTabCart , setActiveTabCart] = useState(false);
+          // const [activeTabOrder , setActiveTabOrder] = useState(false);
+          // const [activeTabUser , setActiveTabUser] = useState(false);
   ////////////
   
     ///////test2 = All Products Local Storage  
@@ -32,7 +32,6 @@ function App() {
     ////////////////////
    useEffect(() => {
 
-    gteProducts();
     }, [])
    
   
@@ -66,11 +65,11 @@ const gteProducts = () =>{
         <ContextProviderS>
 
         <TestContext.Provider value={{ allProducts,  
-                activeTabCart ,setActiveTabCart,
-                setActiveTabHome, setActiveTabOrder,
-                setActiveTabUser,  activeTabUser,
-                activeTabHome, activeTabOrder,
-                headerActive, setHeaderActive
+                // activeTabCart ,setActiveTabCart,
+                // setActiveTabHome, setActiveTabOrder,
+                // setActiveTabUser,  activeTabUser,
+                // activeTabHome, activeTabOrder,
+                // headerActive, setHeaderActive
               }}>
     <Header />
     {/* <Header2  /> */}

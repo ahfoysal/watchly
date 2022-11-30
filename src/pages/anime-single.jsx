@@ -34,7 +34,6 @@ function SingleProduct() {
 
 useEffect(() => { 
   fetchDetails()
-  console.log('watchlist', list)
  
 },[])
 
@@ -80,7 +79,7 @@ const getEpisode = (id,num, full) =>{
   
     setLoading2(true)
     setLoading3(false)
-    // console.log(index)
+    console.log(id)
     // setId2(index)
 
   
@@ -95,7 +94,7 @@ const getEpisode = (id,num, full) =>{
 
 
 if(cartItems[0].lastEP){
-  axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
+  axios(`https://pewds-api.herokuapp.com/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setDetails2(data)
  
@@ -141,7 +140,11 @@ if(cartItems[0].lastEP){
 
 
   setLoading(true)
-  })
+  }).catch(error => {
+    const rslt = error;
+    console.log('error', rslt)
+  });
+     
 
   }
   
@@ -151,7 +154,6 @@ if(cartItems[0].lastEP){
 const qual = (url, type) =>{
   setQl(type)
   setLoading3(false)
-    console.log(type)
     setSrc2(url)
   
     setTimeout(() => setLoading3(true) , 500)
@@ -202,7 +204,7 @@ const next = () => {
     <Video {...play2} />
     <p>Current Quality : {ql}</p>
     <p className='inline'>Change  Quality: </p> {details2?.sources?.map((qls) =>{
-      return <button className='btn btn-ep2' onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
+      return <button className='btn btn-ep2' key={qls.quality} onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
     })} 
   
   <button className="btn  btn-ep2"  onClick={() => next()}> 
@@ -260,7 +262,7 @@ const next = () => {
 <div className=' episodes '> 
 <div className="ep-button">
 {details.episodesList?.map((ep,index) => {
-return  <button className='btn btn-ep' id={total - index} onClick={() => getEpisode(ep.episodeId,ep.episodeNum)}>{ep.episodeNum}</button>
+return  <button key={total - index} className='btn btn-ep' id={total - index} onClick={() => getEpisode(ep.episodeId,ep.episodeNum)}>{ep.episodeNum}</button>
 })}
 
 </div>
