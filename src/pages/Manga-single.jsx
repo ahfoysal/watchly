@@ -45,7 +45,7 @@ const fetchDetails = async () =>{
         {details?.steps?.map((less) =>{
             return<> <p>{less.content_details.name}            </p>
             <p>            {less?.chapter_content?.map((lss) =>{
-              return <>{lss?.content_details.name}</>
+              return <>{lss?.content_details.name} <br /> </>
             })}</p>
 
             
