@@ -8,12 +8,12 @@ import { TestContext } from '../../App';
 import GoogleButton from 'react-google-button'
 import { useForm } from 'react-hook-form';
 import { motion } from "framer-motion";
+import Logo  from '../../components/ytembed';
 
 
 
 
 const Login = () => {
-  const {    setActiveTabCart, setActiveTabOrder,setActiveTabHome, setActiveTabUser} = useContext(TestContext);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const { logIn, googleSignIn, user } = useUserAuth();
   const [error, setError] = useState("");
@@ -76,10 +76,7 @@ const location= useLocation()
     useEffect(() => {
       // console.log(watch("example"))
 
-      setActiveTabCart(false)
-      setActiveTabOrder(false)
-      setActiveTabHome(false)
-      setActiveTabUser(true) 
+    
      if(user){ navigate(`/profile`)}
   
     })

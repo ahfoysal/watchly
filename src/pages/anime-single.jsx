@@ -48,7 +48,7 @@ const fetchDetails = async () =>{
 
 
 
-     await axios(`https://pewds-anime1-api.herokuapp.com/anime-details/${params.name}`)
+     await axios(`https://gogoanime.consumet.org/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       setDetails(data)
       setTotal(data?.episodesList?.length)
@@ -93,7 +93,7 @@ const getEpisode = (id,num, full) =>{
 
 
 if(cartItems[0].lastEP){
-  axios(`https://pewds-api.herokuapp.com/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
+  axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setDetails2(data)
  
@@ -125,7 +125,7 @@ if(cartItems[0].lastEP){
   addToCart(np)
       
   if(cartItems[0].lastEP){
-    axios(`https://pewds-api.herokuapp.com/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
+    axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
    
     setDetails2(data)

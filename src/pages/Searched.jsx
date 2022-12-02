@@ -31,7 +31,7 @@ function Searched() {
     const getSearched = (num) => {
 
    
-      axios(`https://pewds-anime1-api.herokuapp.com/search?keyw=${params.search}&page=${num}`)
+      axios(`https://gogoanime.consumet.org/search?keyw=${params.search}&page=${num}`)
       .then(data2 => { const data = data2.data  
     console.log(data)
     setPro(data)

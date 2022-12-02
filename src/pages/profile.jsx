@@ -2,9 +2,9 @@ import React, { useContext, useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
 import { TestContext } from '../App';
 import { useUserAuth } from '../context/UserAuthContext';
+import Logo  from '../components/ytembed';
 
 const Profile = () => {
-  const {    setActiveTabCart, setActiveTabOrder,setActiveTabHome, setActiveTabUser} = useContext(TestContext);
 
   let { user } =  useUserAuth();
   const navigate = useNavigate();
@@ -21,11 +21,7 @@ const Profile = () => {
 
   useEffect(() => {
 
-console.log(user)
-    setActiveTabCart(false)
-    setActiveTabOrder(false)
-    setActiveTabHome(false)
-    setActiveTabUser(true) 
+
    if(!user){ navigate(`/login`)}      
 
   })
@@ -52,7 +48,10 @@ console.log(user)
         <p>   <span>Name</span> <span>   {user.displayName}   </span>  </p>
         <p>   <span>Name</span> <span>   {user.displayName}   </span>  </p> */}
       </div>
+
+ 
     </div>
+
   )
 }
 
