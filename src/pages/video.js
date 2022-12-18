@@ -53,7 +53,7 @@ import "video.js/dist/video-js.css";
 //   );
 // }
 
-// export default VideoJS;
+// export default VideoJS;  
 const Video = (props) => {
     const videoNode = useRef(null);
     const [player, setPlayer] = useState(null);

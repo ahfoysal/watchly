@@ -127,7 +127,7 @@ if(cartItems[0].lastEP){
   if(cartItems[0].lastEP){
     axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
-   
+    addToCart(data)
     setDetails2(data)
     setSrc2(data.sources[1].url)
   setLoading3(true)
