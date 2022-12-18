@@ -50,6 +50,8 @@ const fetchDetails = async () =>{
 
      await axios(`https://gogoanime.consumet.org/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
+      addToCart(data)
+
       setDetails(data)
       setTotal(data?.episodesList?.length)
 
@@ -86,7 +88,7 @@ const getEpisode = (id,num, full) =>{
     const cartItems = cart.map((cart) => cart ).filter((val)=> {
       return val.animeTitle   === details.animeTitle
       })
-      cartItems[0].lastEP = id
+      cartItems[0].lastEP = id 
   cartItems[0].lastEP2 = num
   const np = cartItems[0]
   addToCart(np)
@@ -127,7 +129,6 @@ if(cartItems[0].lastEP){
   if(cartItems[0].lastEP){
     axios(`https://api.consumet.org/anime/gogoanime/watch/${cartItems[0].lastEP}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
-    addToCart(data)
     setDetails2(data)
     setSrc2(data.sources[1].url)
   setLoading3(true)
