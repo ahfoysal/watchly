@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
 import Home from "./Home";
-import Category from "./Category";
 import Searched from "./Searched";
 import AnimeSingle from "./anime-single";
+import AnimeWatch from "./anime-watch";
 import Profile from "./profile";
 import{ Route, Routes, useLocation } from 'react-router-dom';
 
-import Manga from './Manga';
-import MangaSingle from './Manga-single';
-import OrdersPage from '../components/OrdersPage/testDb';
 import Login from './login/login';
 import Signup from './login/signup';
 import { useContextS } from './cart/Function';
@@ -29,16 +26,10 @@ function Pages() {
     
         <Routes location={location} key={location.pathname}>
        <Route path="/" element={<Home />}/>
-       {/* <Route path="/category/:name" element={<Category  />} /> */}
        <Route path="/searched/:search" element={<Searched />} />
        <Route path="/anime/:name" element={<AnimeSingle />} />
-       <Route path="/manga/" element={<Manga /> } />
-       <Route path="/10min" element={<MangaSingle /> } />
+       <Route path="/anime/watch/:name/:id" element={<AnimeWatch />} />
 
-       {/* <Route path="/order/:name" element={<Orders />} /> */}
-       {/* <Route path="/cart" element={<Cart  />} /> */}
-       {/* <Route path="/checkout" element={<Checkoutest />} /> */}
-       {/* <Route path="/checkout-2" element={<Checkout />} /> */}
        <Route path="/login/" element={<Login   />} />
        <Route path="/signup/" element={<Signup />} />
        {/* <Route path="/orders/" element={  <OrdersPage /> }/> */}

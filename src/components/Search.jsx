@@ -46,7 +46,7 @@ const [visible, setVisible] = useState(true);
     <div className=" search-bar header__search ">
         
         <div>
-         <Form className="d-flex " onSubmit={submitHandler}>
+         <Form className="d-flex " onChange={submitHandler}>
 
         <aside className='open'>
           <input placeholder="Search..." type="text" className='border-none'  onChange={(e) => setInput(e.target.value)} 

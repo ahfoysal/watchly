@@ -25,7 +25,7 @@ function Searched() {
     const pages = (num) => {
   
       getSearched(num)
-        
+        console.log(params.search)
      
        }
     const getSearched = (num) => {
@@ -50,18 +50,17 @@ function Searched() {
 },[params.search]);
   return (
     <div className="gridd">
-    <h3 className="top-line">Search Result :  {params.search}</h3>
-    <Pagination className="paginatin" count={100}
-      onChange={(_, value) => {
-        pages(value);    
-      }}
-      />
+    {/* <h3 className="top-line">Search Result :  {params.search}</h3> */}
+ 
+
   
  
   
   
           <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
+          {pro?.length <= 0 && <p> No anime found</p>}
           <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
+         
           { pro?.map(product => (
           <>
           
@@ -106,7 +105,11 @@ function Searched() {
             
       
   
-    
+          {pro?.length > 0 &&   <Pagination className="paginatin" count={2}
+      onChange={(_, value) => {
+        pages(value);    
+      }}
+      />} 
      </div>
 
   )

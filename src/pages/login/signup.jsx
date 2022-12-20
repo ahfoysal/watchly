@@ -10,7 +10,6 @@ import {  updateProfile, getAuth, updatePhoneNumber } from "firebase/auth"
 import { TestContext } from '../../App';
 import GoogleButton from 'react-google-button';
 
-
 const Signup = () => {
   const {    setActiveTabCart, setActiveTabOrder,setActiveTabHome, setActiveTabUser} = useContext(TestContext);
 
@@ -147,7 +146,7 @@ console.log(id)
             <input  type="password" required="required" onChange={(e) => setPassword(e.target.value)}/>
             <span>Password</span>
         </div>     <br />
-
+    
 
         <div className="buttons form__element">
       <Button type="submit">  Sign Up</Button></div>

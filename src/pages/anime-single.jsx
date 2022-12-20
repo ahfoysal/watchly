@@ -8,6 +8,7 @@ import { useContextS } from './cart/Function';
 
 
 import Video from './video'
+import 'videojs-errors';
 import 'video.js/dist/video-js.css';
 
 
@@ -163,13 +164,20 @@ const qual = (url, type) =>{
 const play2 = {
   fill: true,
   fluid: true,
+  playbackRates: [0.5, 1, 1.5, 2],
   autoplay: true,
   controls: true,
   preload: "metadata",
   sources: [
     {
       src: src2,
-      type: "application/x-mpegURL"
+      type: "application/x-mpegURL",
+      label: "480P",
+    },
+    {
+      src: src2,
+      type: "application/x-mpegURL",
+      label: "720P  ",
     }
   ]
 };
@@ -202,6 +210,7 @@ const next = () => {
     {loading3 ? 
     <>
     <Video {...play2} />
+
     <p>Current Quality : {ql}</p>
     <p className='inline'>Change  Quality: </p> {details2?.sources?.map((qls) =>{
       return <button className='btn btn-ep2' key={qls.quality} onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
