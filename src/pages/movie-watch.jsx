@@ -17,13 +17,15 @@ const Animewatch = () => {
     return new URLSearchParams (useLocation().search)
   }
     let query = useQuery()
- 
+    const ep = query.get('ep')
+
     let params = useParams();
     const [details , setDetails] = useState([]);
     const[ total,  setTotal] = useState()
     const[ ql,  setQl] = useState('')
     const[ np,  setNp] = useState('')
     const [details2 , setDetails2] = useState(true);
+    const [loading2 , setLoading2] = useState(true);
 
     const [src2 , setSrc2] = useState('');
     const [loading3 , setLoading3] = useState(false);
@@ -32,13 +34,13 @@ const Animewatch = () => {
         await axios(`https://api.consumet.org/movies/flixhq/info?id=${params.type}/${params.term} `)
        .then(data2 => { const data = data2.data
       
-        console.log(data)
-        console.log(query.get('ep'))
+        console.log(data.episodes[0].id, data)
+        console.log(data?.episodes?.length)
          setDetails(data)
          setTotal(data?.episodes?.length)
-   
+        //  setSrc2(data.sources[1].url) 
         
-        
+       
        })  
      // }
    
@@ -46,14 +48,18 @@ const Animewatch = () => {
      
    
    }
-
 const getEp = () => {
-       
+  if( !ep ){
+   return console.log("hi")
+  }
+
+  
+
     axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=${query.get('ep')}&mediaId=${params.type}/${params.term}`)
     .then(data2 => { const data = data2.data  
       setDetails2(data)
  
-     console.log(data.sources[1].url)
+     console.log(data)
      setSrc2(data.sources[1].url)
      setQl(data.sources[1].quality)
      setLoading3(true)
@@ -72,7 +78,8 @@ const getEp2 = (id) => {
   axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=${id}&mediaId=${params.type}/${params.term}`)
   .then(data2 => { const data = data2.data  
     setLoading3(true)
-   console.log(data.sources[1].url)
+    setLoading2(false)
+   console.log(data)
    setSrc2(data.sources[1].url)
 
   }).catch(error => {
@@ -92,9 +99,13 @@ const qual = (url, type) =>{
 
 
     useEffect(() => { 
-       console.log(params)
+      //  console.log(params)
        getInfo()
        getEp()
+       if (ep){
+        console.log('hi')
+        setLoading2(false)
+       }
        
       },[])
       
@@ -114,13 +125,38 @@ const play2 = {
     ]
   };
 
+  const play = () =>{
+
+    document.getElementById(`${total}`).click();
+  }
+  
       
   return (
     <div>
        <div className='container'>
     <div className="load-anime">
 
-        {loading3 ? 
+      {loading2 ? <div className='productSingle__image'>
+      <img  src={details.image} alt="" />
+      <button className="btn  play" onClick={() => play()}>
+      <i className="fa fa-play" aria-hidden="true">  </i>
+
+           Play</button>
+
+{/* 
+           <button className="btn  play" onClick={() => addToList(details)}>
+      <i className="fa fa-play" aria-hidden="true">  </i>
+
+           Add To WatchList</button> */}
+
+    
+    </div>: <>
+      
+      
+      
+      
+      
+      {loading3 ? 
     <>
     <Video {...play2} />
 
@@ -135,18 +171,19 @@ const play2 = {
 
 
 
-  </> : <><p>loading  </p>
-  
-  
-  </>}
+  </> :<> loading</>}
+      
+      
+      
+      </>}
 
     </div>
     
     
     <div className=' episodes '> 
 <div className="ep-button">
-{details.episodes?.map((ep,index) => {
-return  <button key={ index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.id)}>{ep.number}</button>
+{ details.episodes?.map((ep,index) => {
+return  <button key={ index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.id)}>{ ep?.number}  </button>
 })}
 
 </div>
