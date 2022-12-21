@@ -79,8 +79,10 @@ const getEp2 = (id) => {
   .then(data2 => { const data = data2.data  
     setLoading3(true)
     setLoading2(false)
+    setDetails2(data)
    console.log(data)
    setSrc2(data.sources[1].url)
+   setQl(data.sources[1].quality)
 
   }).catch(error => {
     const rslt = error;

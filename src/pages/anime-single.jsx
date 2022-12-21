@@ -168,18 +168,14 @@ const play2 = {
   autoplay: true,
   controls: true,
   preload: "metadata",
-  sources: [
-    {
-      src: src2,
-      type: "application/x-mpegURL",
-      label: "480P",
-    },
+  sources: 
+    
     {
       src: src2,
       type: "application/x-mpegURL",
       label: "720P  ",
-    }
-  ]
+    },
+  
 };
 
 const next = () => {
