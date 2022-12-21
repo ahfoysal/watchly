@@ -117,9 +117,12 @@ const qual = (url, type) =>{
 const play2 = {
     fill: true,
     fluid: true,
-    playbackRates: [0.5, 1, 1.5, 2],
+    playbackRates: [0.5, 1, 1.5, 2, 4],
     autoplay: true,
     controls: true,
+    tracks:[  {kind:"captions", src:"https://cc.2cdns.com/de/2b/de2b04afeb6f459907b63e85098bb2e7/eng-12.vtt", srclang:"en", label:"English",default:"1"},
+    
+],
     preload: "metadata",
    
     sources: 
@@ -128,13 +131,7 @@ const play2 = {
         type: "application/x-mpegURL",
      
       },
-      tracks: 
-      {
-        src: "https://cc.2cdns.com/de/2b/de2b04afeb6f459907b63e85098bb2e7/eng-12.vtt",
-         kind: "captions",
-          srclang: "en",
-           label: "English",
-      }
+     
   };
 
   const play = () =>{
