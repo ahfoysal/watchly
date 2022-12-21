@@ -2,12 +2,14 @@
 
 
 import React from 'react'
+import styled from 'styled-components'
 
 const trending = () => {
+    const Wrapper = styled.div``
   return (
-    <div>
+    <Wrapper>
       
-    </div>
+    </Wrapper>
   )
 }
 
