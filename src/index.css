@@ -295,6 +295,9 @@ right: 0;
   display: flex;
   flex-flow: column nowrap;
 }
+.shadow-sm {
+  background: #191919 !important;
+}
 .productSingle__name{
 font-size: 22px;
 margin-top: 0;
@@ -392,6 +395,8 @@ line-height: 1.2;
 
     width: 100% !important;
 }
+
+
 .ep-button {
   display: flex;
   flex-flow: row wrap!important;
@@ -435,9 +440,7 @@ line-height: 1.2;
   .cart-page {
     padding-left: 0px !important;
   }
-  .shadow-sm{
-    background-color: transparent !important;
-  }
+  
   .productSingle {
     padding: 3rem 1.5rem !important;
 }
