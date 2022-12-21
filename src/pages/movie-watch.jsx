@@ -33,7 +33,7 @@ const Animewatch = () => {
        .then(data2 => { const data = data2.data
       
         console.log(data)
-        // console.log(query.get('type'))
+        console.log(query.get('ep'))
          setDetails(data)
          setTotal(data?.episodes?.length)
    
@@ -49,7 +49,7 @@ const Animewatch = () => {
 
 const getEp = () => {
        
-    axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=1167571&mediaId=tv/watch-vincenzo-67955`)
+    axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=${query.get('ep')}&mediaId=${params.type}/${params.term}`)
     .then(data2 => { const data = data2.data  
       setDetails2(data)
  
@@ -68,8 +68,8 @@ const getEp = () => {
 const getEp2 = (id) => {
   // params2.pathname = id
   setLoading3(false)
-       console.log( params)
-  axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=1167571&mediaId=${id}`)
+       console.log( id)
+  axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=${id}&mediaId=${params.type}/${params.term}`)
   .then(data2 => { const data = data2.data  
     setLoading3(true)
    console.log(data.sources[1].url)
