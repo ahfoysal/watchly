@@ -62,6 +62,7 @@ const getEp = () => {
      console.log(data)
      setSrc2(data.sources[1].url)
      setQl(data.sources[1].quality)
+     setNp(`Episode ${data.sources[1].number}`)
      setLoading3(true)
     }).catch(error => {
       const rslt = error;
@@ -71,7 +72,7 @@ const getEp = () => {
 }
 
 
-const getEp2 = (id) => {
+const getEp2 = (id, number) => {
   // params2.pathname = id
   setLoading3(false)
        console.log( id)
@@ -82,6 +83,8 @@ const getEp2 = (id) => {
     setDetails2(data)
    console.log(data)
    setSrc2(data.sources[1].url)
+   setNp(`Episode ${number}`)
+   console.log(data.sources[1]  )
    setQl(data.sources[1].quality)
 
   }).catch(error => {
@@ -181,11 +184,15 @@ const play2 = {
 
     </div>
     
-    
+    <div className='productSingle__details  single-page'> 
+
+<p className='productSingle__name'>{details.title} {np}</p>
+   
+  </div>  
     <div className=' episodes '> 
 <div className="ep-button">
 { details.episodes?.map((ep,index) => {
-return  <button key={ index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.id)}>{ ep?.number}  </button>
+return  <button key={ index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.id, ep.number)}>{ ep?.number}  </button>
 })}
 
 </div>
