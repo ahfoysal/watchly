@@ -141,7 +141,7 @@ const play2 = {
     controls: true,
     tracks: sub,
     preload: "metadata",
-   
+
     sources: 
       {
         src: src2,
