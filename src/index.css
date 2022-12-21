@@ -435,6 +435,9 @@ line-height: 1.2;
   .cart-page {
     padding-left: 0px !important;
   }
+  .cards{
+    background-color: transparent !important;
+  }
   .productSingle {
     padding: 3rem 1.5rem !important;
 }
