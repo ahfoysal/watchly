@@ -22,6 +22,8 @@ const Animewatch = () => {
 
     let params = useParams();
     const [details , setDetails] = useState([]);
+    const [sub , setSub] = useState([]);
+
     const[ total,  setTotal] = useState()
     const[ ql,  setQl] = useState('')
     const[ np,  setNp] = useState('')
@@ -85,12 +87,16 @@ const getEp2 = (id, number) => {
     setLoading2(false)
     setDetails2(data)
    console.log(data.subtitles)
+   
    setSrc2(data.sources[1].url)
    setNp(`Episode ${number}`)
-   console.log(  data?.subtitles?.map(sub =>  {
-    return {kind:"captions", src:`${sub.url}`, srclang:"en", label:`${sub.lang}`,default:"1"}
+   const test =  data?.subtitles?.map(sub =>  {
+    return {kind:"captions", src:`${sub.url}`, label:`${sub.lang}`}
 
-    })   )
+    })
+    setSub(test)
+   console.log( test);
+   
    setQl(data.sources[1].quality)
 
   }).catch(error => {
@@ -128,12 +134,7 @@ const play2 = {
     playbackRates: [0.5, 1, 1.5, 2, 4],
     autoplay: true,
     controls: true,
-    tracks:[  
-      {kind:"captions", src:"https://cc.2cdns.com/5b/d9/5bd91d511b99a4e8f55b890407e00018/5bd91d511b99a4e8f55b890407e00018.vtt", label:"Arabic"},
-      {kind:"captions", src:"https://cc.2cdns.com/c3/e3/c3e3b3e8da2eec56e758e048a7445b9a/c3e3b3e8da2eec56e758e048a7445b9a.vtt", label:"English"}
-    
-    
-],
+    tracks: sub,
     preload: "metadata",
    
     sources: 
