@@ -3,19 +3,14 @@ import Common from "../components/BestSelling";
 import Movie from "../components/movie";
 import Air from "../components/air";
 
-import RecentlyUpdated from "../components/Recent-anime";
 import List from "../components/List";
+import Trending from "../components/home/trending";
 
-import Banner from "../components/banner";
-import { useContext, useEffect } from "react";
-import { TestContext } from "../App";
+
 
 
   function Home() {
-    useEffect(() => {
- 
-    
-    }, [])
+
     
     
 
@@ -28,10 +23,8 @@ import { TestContext } from "../App";
     transition={{duration: 0.5}}
     
     > 
-      {/* <Banner /> */}
+      <Trending />
       <Featured />
-      {/* <RecentlyUpdated />  */}
-   
     <Common />
     <Air />
     <List /> 
