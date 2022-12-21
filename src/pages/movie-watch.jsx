@@ -121,13 +121,20 @@ const play2 = {
     autoplay: true,
     controls: true,
     preload: "metadata",
-    sources: [
+   
+    sources: 
       {
         src: src2,
         type: "application/x-mpegURL",
-        label: "480P",
+     
+      },
+      tracks: 
+      {
+        src: "https://cc.2cdns.com/de/2b/de2b04afeb6f459907b63e85098bb2e7/eng-12.vtt",
+         kind: "captions",
+          srclang: "en",
+           label: "English",
       }
-    ]
   };
 
   const play = () =>{
