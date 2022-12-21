@@ -9,6 +9,7 @@ import axios from 'axios';
 import Video from './video'
 import 'videojs-errors';
 import 'video.js/dist/video-js.css';
+import Alert from 'react-bootstrap/Alert';
 
 
 
@@ -26,6 +27,7 @@ const Animewatch = () => {
     const[ np,  setNp] = useState('')
     const [details2 , setDetails2] = useState(true);
     const [loading2 , setLoading2] = useState(true);
+    const[ err,  setErr] = useState('')
 
     const [src2 , setSrc2] = useState('');
     const [loading3 , setLoading3] = useState(false);
@@ -67,6 +69,7 @@ const getEp = () => {
     }).catch(error => {
       const rslt = error;
       console.log('error', rslt)
+      setErr('Please try again after few minutes')
     });
 
 }
@@ -81,10 +84,13 @@ const getEp2 = (id, number) => {
     setLoading3(true)
     setLoading2(false)
     setDetails2(data)
-   console.log(data)
+   console.log(data.subtitles)
    setSrc2(data.sources[1].url)
    setNp(`Episode ${number}`)
-   console.log(data.sources[1]  )
+   console.log(  data?.subtitles?.map(sub =>  {
+    return {kind:"captions", src:`${sub.url}`, srclang:"en", label:`${sub.lang}`,default:"1"}
+
+    })   )
    setQl(data.sources[1].quality)
 
   }).catch(error => {
@@ -114,13 +120,18 @@ const qual = (url, type) =>{
        
       },[])
       
+
+
 const play2 = {
     fill: true,
     fluid: true,
     playbackRates: [0.5, 1, 1.5, 2, 4],
     autoplay: true,
     controls: true,
-    tracks:[  {kind:"captions", src:"https://cc.2cdns.com/de/2b/de2b04afeb6f459907b63e85098bb2e7/eng-12.vtt", srclang:"en", label:"English",default:"1"},
+    tracks:[  
+      {kind:"captions", src:"https://cc.2cdns.com/5b/d9/5bd91d511b99a4e8f55b890407e00018/5bd91d511b99a4e8f55b890407e00018.vtt", label:"Arabic"},
+      {kind:"captions", src:"https://cc.2cdns.com/c3/e3/c3e3b3e8da2eec56e758e048a7445b9a/c3e3b3e8da2eec56e758e048a7445b9a.vtt", label:"English"}
+    
     
 ],
     preload: "metadata",
@@ -168,6 +179,8 @@ const play2 = {
       {loading3 ? 
     <>
     <Video {...play2} />
+   {err && <Alert  variant="warning" > {err} </Alert>}
+
 
    
     <p>Current Quality : {ql}</p>
