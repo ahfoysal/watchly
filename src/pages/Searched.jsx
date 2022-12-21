@@ -14,7 +14,7 @@ import { Pagination } from '@mui/material';
 function Searched() {
   let {  addToCart , cart } =  useContextS();
 
-    const [searchedRecipes, setSearchedRecipes] = useState([]);
+    const [details, setDetails] = useState([]);
     const [loading , setLoading] = useState(true);
     const [pro , setPro] = useState([]);
 
@@ -39,6 +39,13 @@ function Searched() {
     setLoading(true)
       
       })  
+      axios(`https://api.consumet.org/movies/flixhq/${params.search}`)
+      .then(data2 => {  const data = data2.data.results.slice(1,10)  
+    console.log(data)
+    setDetails(data)
+    
+      
+      })  
    
 
 
@@ -50,19 +57,14 @@ function Searched() {
 },[params.search]);
   return (
     <div className="gridd">
-    {/* <h3 className="top-line">Search Result :  {params.search}</h3> */}
- 
-
-  
- 
-  
-  
-          <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
+      
+      <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
+            <p>Anime</p>
           {pro?.length <= 0 && <p> No anime found</p>}
           <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
          
-          { pro?.map(product => (
-          <>
+          { pro?.map((product, index )=> (
+          <div key={index+1}>
           
           <div className="col hp" key={product.animeId} onClick={() => addToCart(product)}>
         <div className="card h-100 shadow-sm">
@@ -81,25 +83,12 @@ function Searched() {
             </div>
           
             </></Link>
-            <div className="add-to-cart">
             
-            
-            </div>
-            
-            {/* <div className="clearfix mb-1">
-  
-              <span className="float-start"><i className="fas fa-question-circle"></i></span>
-  
-              <span className="float-end">
-                <i className="far fa-heart" ></i>
-  
-              </span>
-            </div> */}
           </div>
         </div>
       </div>
   
-          </>
+          </div>
           )) }
           </div>    </div>
             
@@ -110,6 +99,43 @@ function Searched() {
         pages(value);    
       }}
       />} 
+<div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
+      <p>Movie & Series</p>
+      <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
+          { details?.map((product, index )=> (
+          <div key={index+1}>
+          
+          <div className="col hp" key={product?.id}>
+        <div className="card h-100 shadow-sm">
+    
+              <div>  <Link to={`/${product.id}`}> <>
+            <img src={product.image
+  } className="card-img-top" alt="product.title" />
+        
+        
+        
+          <div className="card-body">
+       
+          <p className="product__name">{product.title }</p>
+          <p className="product__name">{product.type }</p>
+  
+           
+            </div>
+          
+            </></Link>
+            
+          </div>
+        </div>
+      </div>
+  
+          </div>
+          )) }</div>
+
+
+      </div>
+
+
+
      </div>
 
   )
