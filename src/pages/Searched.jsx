@@ -40,7 +40,7 @@ function Searched() {
       
       })  
       axios(`https://api.consumet.org/movies/flixhq/${params.search}`)
-      .then(data2 => {  const data = data2.data.results.slice(1,10)  
+      .then(data2 => {  const data = data2.data.results.slice(0,15)  
     console.log(data)
     setDetails(data)
     
@@ -59,7 +59,7 @@ function Searched() {
     <div className="gridd">
       
       <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
-            <p>Anime</p>
+            <p>Anime ,  Movie & Series</p>
           {pro?.length <= 0 && <p> No anime found</p>}
           <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
          
@@ -90,19 +90,7 @@ function Searched() {
   
           </div>
           )) }
-          </div>    </div>
-            
-      
-  
-          {pro?.length > 0 &&   <Pagination className="paginatin" count={2}
-      onChange={(_, value) => {
-        pages(value);    
-      }}
-      />} 
-<div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
-      <p>Movie & Series</p>
-      <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
-          { details?.map((product, index )=> (
+            { details?.map((product, index )=> (
           <div key={index+1}>
           
           <div className="col hp" key={product?.id}>
@@ -129,10 +117,17 @@ function Searched() {
       </div>
   
           </div>
-          )) }</div>
+          )) }
+          </div>    </div>
+            
+      
+  
+          {pro?.length > 0 &&   <Pagination className="paginatin" count={2}
+      onChange={(_, value) => {
+        pages(value);    
+      }}
+      />} 
 
-
-      </div>
 
 
 
