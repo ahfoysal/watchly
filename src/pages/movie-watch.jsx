@@ -29,7 +29,7 @@ const Animewatch = () => {
     const[ np,  setNp] = useState('')
     const [details2 , setDetails2] = useState(true);
     const [loading2 , setLoading2] = useState(true);
-    const[ err,  setErr] = useState('')
+    const[ err,  setErr] = useState(false)
 
     const [src2 , setSrc2] = useState('');
     const [loading3 , setLoading3] = useState(false);
@@ -67,11 +67,16 @@ const getEp = () => {
      setSrc2(data.sources[1].url)
      setQl(data.sources[1].quality)
      setNp(`Episode ${data.sources[1].number}`)
+     const test =  data?.subtitles?.map(sub =>  {
+      return {kind:"captions", src:`${sub.url}`, label:`${sub.lang}`}
+  
+      })
+      setSub(test)
      setLoading3(true)
     }).catch(error => {
       const rslt = error;
       console.log('error', rslt)
-      setErr('Please try again after few minutes')
+      setErr(true)
     });
 
 }
@@ -180,7 +185,7 @@ const play2 = {
       {loading3 ? 
     <>
     <Video {...play2} />
-   {err && <Alert  variant="warning" > {err} </Alert>}
+ 
 
 
    
@@ -203,7 +208,7 @@ const play2 = {
     </div>
     
     <div className='productSingle__details  single-page'> 
-
+    {err ? <><Alert  variant="warning" > Error </Alert></> : <></>}
 <p className='productSingle__name'>{details.title} {np}</p>
    
   </div>  
