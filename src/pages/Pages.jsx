@@ -3,6 +3,7 @@ import Home from "./Home";
 import Searched from "./Searched";
 import AnimeSingle from "./anime-single";
 import AnimeWatch from "./anime-watch";
+import MovieWatch from "./movie-watch";
 import Profile from "./profile";
 import{ Route, Routes, useLocation } from 'react-router-dom';
 
@@ -28,7 +29,9 @@ function Pages() {
        <Route path="/" element={<Home />}/>
        <Route path="/searched/:search" element={<Searched />} />
        <Route path="/anime/:name" element={<AnimeSingle />} />
+       <Route path="/anime/watch/:name" element={<AnimeSingle />} />
        <Route path="/anime/watch/:name/:id" element={<AnimeWatch />} />
+       <Route path="/movie" element={<MovieWatch />} />
 
        <Route path="/login/" element={<Login   />} />
        <Route path="/signup/" element={<Signup />} />

@@ -75,7 +75,7 @@ const fetchDetails = async () =>{
   
 
 }
-const [details2 , setDetails2] = useState(true);
+const [details2 , setDetails2] = useState([]);
 
 const getEpisode = (id,num, full) =>{
   

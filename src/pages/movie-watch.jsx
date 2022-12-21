@@ -13,8 +13,11 @@ import 'video.js/dist/video-js.css';
 
 
 const Animewatch = () => {
-
-  let params2 = useLocation();
+  const useQuery = () => {
+    return new URLSearchParams (useLocation().search)
+  }
+    let query = useQuery()
+ 
     let params = useParams();
     const [details , setDetails] = useState([]);
     const[ total,  setTotal] = useState()
@@ -26,12 +29,13 @@ const Animewatch = () => {
     const [loading3 , setLoading3] = useState(false);
     const getInfo = async () =>{
 
-        await axios(`https://gogoanime.consumet.org/anime-details/${params.name}`)
+        await axios(`https://api.consumet.org/movies/flixhq/info?id=${query.get('name')}`)
        .then(data2 => { const data = data2.data
-        //  addToCart(data)
+      
         console.log(data)
+        // console.log(query.get('type'))
          setDetails(data)
-         setTotal(data?.episodesList?.length)
+         setTotal(data?.episodes?.length)
    
         
         
@@ -45,7 +49,7 @@ const Animewatch = () => {
 
 const getEp = () => {
        
-    axios(`https://api.consumet.org/anime/gogoanime/watch/${params.id}?server=gogocdn`)
+    axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=1167571&mediaId=tv/watch-vincenzo-67955`)
     .then(data2 => { const data = data2.data  
       setDetails2(data)
  
@@ -64,8 +68,8 @@ const getEp = () => {
 const getEp2 = (id) => {
   // params2.pathname = id
   setLoading3(false)
-       console.log( params2.pathname)
-  axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
+       console.log( params)
+  axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=1167571&mediaId=${id}`)
   .then(data2 => { const data = data2.data  
     setLoading3(true)
    console.log(data.sources[1].url)
@@ -122,8 +126,8 @@ const play2 = {
 
    
     <p>Current Quality : {ql}</p>
-    <p className='inline'>Change  Quality: </p> {details2?.sources?.map((qls) =>{
-      return <button className='btn btn-ep2' key={qls.quality} onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
+    <p className='inline'>Change  Quality: </p> {details2?.sources?.map((qls, index) =>{
+      return <button className='btn btn-ep2' key={index + 1} onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
     })} 
   
   
@@ -141,8 +145,8 @@ const play2 = {
     
     <div className=' episodes '> 
 <div className="ep-button">
-{details.episodesList?.map((ep,index) => {
-return  <button key={total - index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.episodeId)}>{ep.episodeNum}</button>
+{details.episodes?.map((ep,index) => {
+return  <button key={ index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.id)}>{ep.number}</button>
 })}
 
 </div>
