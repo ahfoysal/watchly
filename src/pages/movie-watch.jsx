@@ -29,7 +29,7 @@ const Animewatch = () => {
     const [loading3 , setLoading3] = useState(false);
     const getInfo = async () =>{
 
-        await axios(`https://api.consumet.org/movies/flixhq/info?id=${query.get('name')}`)
+        await axios(`https://api.consumet.org/movies/flixhq/info?id=${params.type}/${params.term} `)
        .then(data2 => { const data = data2.data
       
         console.log(data)

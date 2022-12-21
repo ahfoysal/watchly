@@ -31,7 +31,7 @@ function Pages() {
        <Route path="/anime/:name" element={<AnimeSingle />} />
        <Route path="/anime/watch/:name" element={<AnimeSingle />} />
        <Route path="/anime/watch/:name/:id" element={<AnimeWatch />} />
-       <Route path="/movie" element={<MovieWatch />} />
+       <Route path="/:type/:term" element={<MovieWatch />} />
 
        <Route path="/login/" element={<Login   />} />
        <Route path="/signup/" element={<Signup />} />
