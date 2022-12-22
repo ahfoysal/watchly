@@ -63,8 +63,12 @@ const AnimeInfo = () => {
     margin-left: 10px;
     
   }
-  span{
+  .details-data span{
     margin: 0px 10px;
+  }
+  .li{
+    padding: 1rem 0rem;
+    border-bottom: 1px solid rgb(63, 63, 63);
   }
   `
   return (
@@ -76,13 +80,13 @@ const AnimeInfo = () => {
     <div className="inner">
       <p>{details?.title?.english}</p>
       <p>({details?.title?.native})</p>
-      <Link>   <button className='watch'> <FaPlay /> Watch</button></Link>
+      <Link>   <button className='watch'> <FaPlay /> Play</button></Link>
           <Link to={`/anime/info/${details.id} `}>            <button className='watch watch2'> <FaPlay  /> Trailer</button></Link>
     </div>
   
   </div>
   <div className='container '>
-      <p> {details.rating && <span className='text-green'>{details.rating}% Rating</span>}
+      <p className='details-data'> {details.rating && <span className='text-green'>{details.rating}% Rating</span>}
       {details.season && <span >{details.season}</span>}
       {details.releaseDate && <span >{details.releaseDate}</span>}
       {details.totalEpisodes && <span >{details.totalEpisodes} Episodes</span>}
@@ -93,10 +97,14 @@ const AnimeInfo = () => {
       <h4>Episodes</h4>
       <div className="list">
         {details?.episodes?.map((data,index) => {
-              return <p> <span>{data.number}.  {data.title}</span>
+              return <p className='li' key={data.id}> <span>{data.number}.  {data.title}</span>
               <br /> <span>{data.description}</span>
               </p>
         })}
+      </div>
+      <div>
+        <p>About {details?.title?.english}</p>
+    <span style={{color: "#a08686b9"}} >Genres:</span>  {details?.genres?.map(gen =><span key={gen} className='text-white'> {gen},</span>)}
       </div>
     </div>
     </Wrapper>
