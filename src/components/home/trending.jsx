@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { FaPlay } from 'react-icons/fa';
 import { FaInfoCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 
 const Trending = () => {
@@ -20,10 +21,6 @@ const Trending = () => {
               
       }
     const Wrapper = styled.div`
-    height: 100vh;
-    p{
-      /* line-height: 1.8; */
-    }
     span{
       margin: 5px;
     }
@@ -94,8 +91,8 @@ const Trending = () => {
             <p > {data.rating && <span className='text-green'>{data.rating}% Rating</span>}  <span>{data.releaseDate} </span>
              {data.totalEpisodes &&  <span>{data.totalEpisodes}  Episodes</span>} </p>
              <p className='description' dangerouslySetInnerHTML={{ __html: data.description }}></p>
-             <button className='watch'> <FaPlay /> Watch</button>
-             <button className='watch watch2'> <FaInfoCircle  /> More Info</button>
+          <Link>   <button className='watch'> <FaPlay /> Watch</button></Link>
+          <Link to={`/anime/info/${data.id} `}>            <button className='watch watch2'> <FaInfoCircle  /> More Info</button></Link>
            </div>
             </div></SplideSlide>
          })}

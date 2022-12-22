@@ -10,6 +10,7 @@ import{ Route, Routes, useLocation } from 'react-router-dom';
 import Login from './login/login';
 import Signup from './login/signup';
 import { useContextS } from './cart/Function';
+import AnimeInfo from './Anime/Anime-info';
 
 
 function Pages() {
@@ -29,7 +30,7 @@ function Pages() {
        <Route path="/" element={<Home />}/>
        <Route path="/searched/:search" element={<Searched />} />
        <Route path="/anime/:name" element={<AnimeSingle />} />
-       <Route path="/anime/info/:name" element={<AnimeSingle />} />
+       <Route path="/anime/info/:name" element={<AnimeInfo />} />
        <Route path="/anime/watch/:name" element={<AnimeSingle />} />
        <Route path="/anime/watch/:name/:id" element={<AnimeWatch />} />
        <Route path="/:type/:term" element={<MovieWatch />} />
