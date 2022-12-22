@@ -37,9 +37,7 @@ const Trending = () => {
   
   padding: 0px 10px;
     }
-    .text-green{
-      color: green;
-    }
+    
     .description{
       white-space: nowrap;
     overflow: hidden;

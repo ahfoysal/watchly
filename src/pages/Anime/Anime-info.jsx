@@ -2,8 +2,9 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { FaPlay } from 'react-icons/fa';
 
 const AnimeInfo = () => {
   let params = useParams();
@@ -13,8 +14,9 @@ const AnimeInfo = () => {
     await axios(`https://api.consumet.org/meta/anilist/info/${params.name}`)
     .then(data2 => { const data = data2.data
     
-console.log(data)
+
       setDetails(data)
+      console.log(data)
       // setTotal(data?.episodesList?.length)
 
      
@@ -46,8 +48,25 @@ console.log(data)
   bottom: 0;
   margin: 0;
   position: absolute;
-  padding: 0px 10px;
-    }`
+  padding: 50px 50px;
+
+    }
+    .watch{    text-shadow: none;
+    padding: min(1.5vw, .8rem) min(3vw, 4rem);
+    transition: opacity 200ms ease 0s;
+    border: none;
+    border-color: none;
+    border-radius: 5px;
+  }
+  .watch2{     
+    background-color: #4D4D4DCC;
+    margin-left: 10px;
+    
+  }
+  span{
+    margin: 0px 10px;
+  }
+  `
   return (
     <Wrapper>
       <div className='flex relative items-end bg-cover bg-center main'  style={{  
@@ -57,8 +76,29 @@ console.log(data)
     <div className="inner">
       <p>{details?.title?.english}</p>
       <p>({details?.title?.native})</p>
+      <Link>   <button className='watch'> <FaPlay /> Watch</button></Link>
+          <Link to={`/anime/info/${details.id} `}>            <button className='watch watch2'> <FaPlay  /> Trailer</button></Link>
     </div>
+  
   </div>
+  <div className='container '>
+      <p> {details.rating && <span className='text-green'>{details.rating}% Rating</span>}
+      {details.season && <span >{details.season}</span>}
+      {details.releaseDate && <span >{details.releaseDate}</span>}
+      {details.totalEpisodes && <span >{details.totalEpisodes} Episodes</span>}
+      {details.nextAiringEpisode && <span > Ep {details?.nextAiringEpisode?.episode}  airing in  {Math.floor(details?.nextAiringEpisode?.timeUntilAiring / (3600 * 24))} Days </span>}
+      </p>
+      <p className='description' dangerouslySetInnerHTML={{ __html: details.description }}></p>
+
+      <h4>Episodes</h4>
+      <div className="list">
+        {details?.episodes.map((data,index) => {
+              return <p> <span>{data.number}.  {data.title}</span>
+              <br /> <span>{data.description}</span>
+              </p>
+        })}
+      </div>
+    </div>
     </Wrapper>
   )
 }
