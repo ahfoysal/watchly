@@ -51,7 +51,8 @@ const Animewatch = () => {
    }
 
 const getEp = () => {
-       
+  setError('')
+
     axios(`https://api.consumet.org/meta/anilist/watch/${ep}?server=gogocdn`)
     .then(data2 => { const data = data2.data  
       setDetails2(data)
