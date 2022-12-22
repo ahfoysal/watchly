@@ -92,7 +92,7 @@ const AnimeInfo = () => {
 
       <h4>Episodes</h4>
       <div className="list">
-        {details?.episodes.map((data,index) => {
+        {details?.episodes?.map((data,index) => {
               return <p> <span>{data.number}.  {data.title}</span>
               <br /> <span>{data.description}</span>
               </p>
