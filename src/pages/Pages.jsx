@@ -31,8 +31,8 @@ function Pages() {
        <Route path="/searched/:search" element={<Searched />} />
        <Route path="/anime/:name" element={<AnimeSingle />} />
        <Route path="/anime/info/:name" element={<AnimeInfo />} />
-       <Route path="/anime/watch/:name" element={<AnimeSingle />} />
-       <Route path="/anime/watch/:name/:id" element={<AnimeWatch />} />
+       <Route path="/anime/watch/:name" element={<AnimeWatch />} />
+       {/* <Route path="/anime/watch/:name/:id" element={<AnimeWatch />} /> */}
        <Route path="/:type/:term" element={<MovieWatch />} />
 
        <Route path="/login/" element={<Login   />} />

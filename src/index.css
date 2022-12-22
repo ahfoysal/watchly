@@ -27,6 +27,19 @@ h4{
   font-size: 1rem;
 color: white;
 }
+.splide__pagination__page {
+  background: #ccc;
+  border: 0;
+  border-radius: 0px !important;
+  display: inline-block;
+  height: 2px !important;
+  margin: 6px !important;
+  opacity: .7;
+  padding: 0;
+  position: relative;
+  transition: transform .2s linear;
+  width: 40px !important;
+}
 h3{
   font-size: 1.5rem;
 color: white;

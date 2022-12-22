@@ -97,9 +97,9 @@ const AnimeInfo = () => {
       <h4>Episodes</h4>
       <div className="list">
         {details?.episodes?.map((data,index) => {
-              return <p className='li' key={data.id}> <span>{data.number}.  {data.title}</span>
+              return <Link to={`/anime/watch/${details.id}?ep=${data.id}`} key={data.id}> <p className='li' > <span>{data.number}.  {data.title}</span>
               <br /> <span>{data.description}</span>
-              </p>
+              </p></Link>
         })}
       </div>
       <div>

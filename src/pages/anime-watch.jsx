@@ -14,6 +14,13 @@ import 'video.js/dist/video-js.css';
 
 const Animewatch = () => {
 
+
+  const useQuery = () => {
+    return new URLSearchParams (useLocation().search)
+  }
+  let query = useQuery()
+    const ep = query.get('ep')
+
   let params2 = useLocation();
     let params = useParams();
     const [details , setDetails] = useState([]);
@@ -28,7 +35,6 @@ const Animewatch = () => {
 
         await axios(`https://gogoanime.consumet.org/anime-details/${params.name}`)
        .then(data2 => { const data = data2.data
-        //  addToCart(data)
         console.log(data)
          setDetails(data)
          setTotal(data?.episodesList?.length)
@@ -45,11 +51,11 @@ const Animewatch = () => {
 
 const getEp = () => {
        
-    axios(`https://api.consumet.org/anime/gogoanime/watch/${params.id}?server=gogocdn`)
+    axios(`https://api.consumet.org/meta/anilist/watch/${ep}?server=gogocdn`)
     .then(data2 => { const data = data2.data  
       setDetails2(data)
  
-     console.log(data.sources[1].url)
+     console.log(data)
      setSrc2(data.sources[1].url)
      setQl(data.sources[1].quality)
      setLoading3(true)
@@ -65,7 +71,7 @@ const getEp2 = (id) => {
   // params2.pathname = id
   setLoading3(false)
        console.log( params2.pathname)
-  axios(`https://api.consumet.org/anime/gogoanime/watch/${id}?server=gogocdn`)
+  axios(`https://api.consumet.org/meta/anilist/watch/${ep}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setLoading3(true)
    console.log(data.sources[1].url)
@@ -81,6 +87,7 @@ const qual = (url, type) =>{
   setQl(type)
   setLoading3(false)
     setSrc2(url)
+    
   
     setTimeout(() => setLoading3(true) , 500)
     
@@ -91,6 +98,7 @@ const qual = (url, type) =>{
        console.log(params)
        getInfo()
        getEp()
+       console.log(ep)
        
       },[])
       
