@@ -1,39 +1,18 @@
 
 
-import React, { useEffect, useState,  useRef} from 'react'
-import Plyr, {  PlyrProps, PlyrInstance } from "plyr-react";
+import React, { useEffect, useState } from 'react'
+import Plyr from "plyr-react";
 import "plyr-react/plyr.css"
 import { Link, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Video from './video'
-import { APITypes } from "plyr-react"
 import 'videojs-errors';
 import 'video.js/dist/video-js.css';
-import Hls from "hls.js"
 
 
 
 const Animewatch = () => {
-  // const ref = useRef<APITypes>(null);
-  // const ref = useRef<APITypes>(null);
 
-  
-  const videoSrc = {
-    type: "video",
-    sources: [
-      {
-        src: "https://cors.proxy.consumet.org/https://wwwx15.gofcdn.com/videos/hls/xzGbB_NaxGAazEaMOlkQiw/1671717708/10624/a80af13ae85820b664b87e68fa55f4c8/ep.1.1657688883.720.m3u8",
-        type: 'm3u8',
-        size: 720,
-      },
-      // {
-      //   src: src,
-      //   type: 'video/webm',
-      //   size: 1080,
-      // },
-    ],
-  
-  };
 
   const useQuery = () => {
     return new URLSearchParams (useLocation().search)
@@ -132,7 +111,7 @@ const qual = (url, type) =>{
     useEffect(() => { 
        console.log(params)
        getInfo()
-      //  getEp()
+       getEp()
        console.log(ep)
        
       },[])
@@ -158,7 +137,7 @@ const play2 = {
   return (
     <div>
        <div className='container'>
-       <Plyr source={videoSrc} />
+    
        {error && <p className='error'>{error}</p>}
     <div className="load-anime">
 
