@@ -23,12 +23,13 @@ import Trending from "../components/home/trending";
     transition={{duration: 0.5}}
     
     > 
-      <Trending />
+
       <Featured />
     <Common />
     <Air />
     <List /> 
     <Movie /> 
+    <Trending />
    
        
        
