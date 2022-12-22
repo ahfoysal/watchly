@@ -53,7 +53,7 @@ const Trending = () => {
     height: 150px;
     }
     .watch{    text-shadow: none;
-    padding: min(1.5vw, .5rem) min(3vw, 4rem);
+    padding: min(1.5vw, .8rem) min(3vw, 4rem);
     transition: opacity 200ms ease 0s;
     border: none;
     border-color: none;
