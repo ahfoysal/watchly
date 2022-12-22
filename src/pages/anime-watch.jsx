@@ -28,12 +28,13 @@ const Animewatch = () => {
     const[ ql,  setQl] = useState('')
     const[ np,  setNp] = useState('')
     const [details2 , setDetails2] = useState(true);
+    const [error, setError] = useState("");
 
     const [src2 , setSrc2] = useState('');
     const [loading3 , setLoading3] = useState(false);
     const getInfo = async () =>{
 
-        await axios(`https://gogoanime.consumet.org/anime-details/${params.name}`)
+        await axios(`https://api.consumet.org/meta/anilist/info/${params.name}`)
        .then(data2 => { const data = data2.data
         console.log(data)
          setDetails(data)
@@ -61,6 +62,7 @@ const getEp = () => {
      setLoading3(true)
     }).catch(error => {
       const rslt = error;
+      setError('Something Went wrong please try again after 2min. It`ll be fix automaticlly , Thank You.')
       console.log('error', rslt)
     });
 
@@ -70,8 +72,9 @@ const getEp = () => {
 const getEp2 = (id) => {
   // params2.pathname = id
   setLoading3(false)
-       console.log( params2.pathname)
-  axios(`https://api.consumet.org/meta/anilist/watch/${ep}?server=gogocdn`)
+       console.log( id)
+       window.history.replaceState(null, "Okay", `/anime/watch/${params.name}?ep=${id}`)
+  axios(`https://api.consumet.org/meta/anilist/watch/${id}?server=gogocdn`)
   .then(data2 => { const data = data2.data  
     setLoading3(true)
    console.log(data.sources[1].url)
@@ -101,7 +104,14 @@ const qual = (url, type) =>{
        console.log(ep)
        
       },[])
-      
+    
+      const test =  details?.episodes?.map(sub =>  {
+        return {src: src2, 
+          type: "application/x-mpegURL",
+          label: "480P",
+        }
+    
+        })
 const play2 = {
     fill: true,
     fluid: true,
@@ -109,19 +119,14 @@ const play2 = {
     autoplay: true,
     controls: true,
     preload: "metadata",
-    sources: [
-      {
-        src: src2,
-        type: "application/x-mpegURL",
-        label: "480P",
-      }
-    ]
+    sources: test
   };
 
       
   return (
     <div>
        <div className='container'>
+       {error && <p className='error'>{error}</p>}
     <div className="load-anime">
 
         {loading3 ? 
@@ -139,7 +144,8 @@ const play2 = {
 
 
 
-  </> : <><p>loading  </p>
+  </> : <>
+  <p>loading  </p>
   
   
   </>}
@@ -149,8 +155,9 @@ const play2 = {
     
     <div className=' episodes '> 
 <div className="ep-button">
-{details.episodesList?.map((ep,index) => {
-return  <button key={total - index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.episodeId)}>{ep.episodeNum}</button>
+
+{details.episodes?.map((ep,index) => {
+return  <button key={index} className='btn btn-ep' id={index} onClick={() => getEp2(ep.id)}>{ep.number}</button>
 })}
 
 </div>

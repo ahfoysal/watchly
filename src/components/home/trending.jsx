@@ -89,7 +89,7 @@ const Trending = () => {
             <p > {data.rating && <span className='text-green'>{data.rating}% Rating</span>}  <span>{data.releaseDate} </span>
              {data.totalEpisodes &&  <span>{data.totalEpisodes}  Episodes</span>} </p>
              <p className='description' dangerouslySetInnerHTML={{ __html: data.description }}></p>
-          <Link>   <button className='watch'> <FaPlay /> Watch</button></Link>
+          <Link to={`/anime/info/${data.id} `}>   <button className='watch'> <FaPlay /> Watch</button></Link>
           <Link to={`/anime/info/${data.id} `}>            <button className='watch watch2'> <FaInfoCircle  /> More Info</button></Link>
            </div>
             </div></SplideSlide>
