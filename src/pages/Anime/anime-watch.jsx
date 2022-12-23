@@ -30,6 +30,7 @@ const Animewatch = () => {
     const [error, setError] = useState("");
     const [src2 , setSrc2] = useState('');
     const [loading3 , setLoading3] = useState(false);
+    const [input, setInput] = useState("");
 
    
 
@@ -80,6 +81,7 @@ const getEp = () => {
 
 const getEp2 = (id) => {
   // params2.pathname = id
+  setError('')
   setLoading3(false) 
        console.log( id)
        window.history.replaceState(null, "Okay", `/anime/watch/${params.name}?ep=${id}`)
@@ -135,6 +137,7 @@ const play2 = {
 
   
 
+//  
 
    
   return (
@@ -156,15 +159,15 @@ const play2 = {
     <button className='btn text-white mt-3 ' >Next<RxDoubleArrowRight /> </button>
    
     <Dropdown className='mt-3'>
-      <Dropdown.Toggle variant="" className='text-white' id="dropdown-basic">
-      <button className='btn text-white  '><IoMdSettings /> Select  Resolution</button>     {ql }
+      <Dropdown.Toggle variant="" className='text-white mt-3' id="dropdown-basic">
+      <p className='btn text-white  '> Select  Resolution</p>    {ql }
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-      {details2?.sources?.map((qls) =>{
-      return <> <Dropdown.Item href="#/action-2" onClick={() => qual(qls.url, qls.quality)}>
-        <button className='btn  ' key={qls.quality} > {qls.quality}</button>
-        </Dropdown.Item></>
+      {details2?.sources?.map((qls, index) =>{
+      return  <Dropdown.Item href="#/action-2" key={index + 1} onClick={() => qual(qls.url, qls.quality)}>
+        <p className='btn  ' key={qls.quality} > {qls.quality}</p>
+        </Dropdown.Item>
     })} 
        
       
@@ -181,14 +184,15 @@ const play2 = {
     
     
     
-    
+ <form >  <input placeholder="Search..." type="text" className='border-none'  onChange={(e) => setInput(e.target.value)} 
+value={input}/></form>
+
     <div className=' episodes '> 
   
-
 <div className="ep-button" id='paragraph'>
 
 {details.episodes?.map((ep,index) => {
-return  <p key={index} className='btn btn-ep'  onClick={() => getEp2(ep.id)}>{ep.number}</p>
+return  <button key={index + 1}  id={`one${index}`} className={`btn btn-ep   ${Number(input) === ep.number ? 'cat-active' : ' '}`}  onClick={() => getEp2(ep.id)}>{ep.number}</button>
 })}
 
 </div>
