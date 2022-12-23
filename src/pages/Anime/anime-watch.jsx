@@ -21,8 +21,6 @@ const Animewatch = () => {
   }
   let query = useQuery()
     const ep = query.get('ep')
-
-  let params2 = useLocation();
     let params = useParams();
     const [details , setDetails] = useState([]);
     const[ total,  setTotal] = useState()
@@ -30,7 +28,6 @@ const Animewatch = () => {
     const[ np,  setNp] = useState('')
     const [details2 , setDetails2] = useState(true);
     const [error, setError] = useState("");
-
     const [src2 , setSrc2] = useState('');
     const [loading3 , setLoading3] = useState(false);
 
@@ -137,8 +134,7 @@ const play2 = {
  }
 
   
- 
-    
+
 
    
   return (
@@ -158,10 +154,10 @@ const play2 = {
   <div className='d-flex justify-content-center'>
     <button className='btn text-white mt-3 mr-6'><RxDoubleArrowLeft /> Previous </button > 
     <button className='btn text-white mt-3 ' >Next<RxDoubleArrowRight /> </button>
-    <button className='btn text-white mt-3 '><IoMdSettings /> Select Video Resolution</button>
+   
     <Dropdown className='mt-3'>
       <Dropdown.Toggle variant="" className='text-white' id="dropdown-basic">
-        {ql }
+      <button className='btn text-white  '><IoMdSettings /> Select  Resolution</button>     {ql }
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
@@ -187,10 +183,12 @@ const play2 = {
     
     
     <div className=' episodes '> 
-<div className="ep-button">
+  
+
+<div className="ep-button" id='paragraph'>
 
 {details.episodes?.map((ep,index) => {
-return  <button key={index} className='btn btn-ep' id={index} onClick={() => getEp2(ep.id)}>{ep.number}</button>
+return  <p key={index} className='btn btn-ep'  onClick={() => getEp2(ep.id)}>{ep.number}</p>
 })}
 
 </div>
