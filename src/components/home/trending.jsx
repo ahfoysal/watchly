@@ -29,7 +29,7 @@ const Trending = () => {
   width: 50%;
   /* height: 50%; */
   /* bottom: 50%; */
-  left: 0;
+  left: 5%;
   top: 20%;
   margin: 0;
   position: absolute;
@@ -82,7 +82,7 @@ const Trending = () => {
              linear-gradient(0deg, rgb(20, 20, 20) 1%, transparent 99%), url(${data.cover}) no-repeat`, height: "100vh",
              backgroundSize: "cover",   
   }} >
-           <div className="inner">
+           <div className="inner ">
            <p className='text-danger'>#{index + 1} in trending</p>
             <p>{data.title.english}</p>
             <p>({data.title.native})</p>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Home from "./Home";
 import Searched from "./Searched";
 import AnimeSingle from "./anime-single";
-import AnimeWatch from "./anime-watch";
+import AnimeWatch from "./Anime/anime-watch";
 import MovieWatch from "./movie-watch";
 import Profile from "./profile";
 import{ Route, Routes, useLocation } from 'react-router-dom';

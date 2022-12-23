@@ -1,18 +1,20 @@
 
-
 import React, { useEffect, useState } from 'react'
-import Plyr from "plyr-react";
 import "plyr-react/plyr.css"
-import { Link, useLocation, useParams } from 'react-router-dom';
+import {  useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
-import Video from './video'
+import Video from '../video'
 import 'videojs-errors';
 import 'video.js/dist/video-js.css';
+import { RxDoubleArrowLeft } from 'react-icons/rx';
+import { RxDoubleArrowRight } from 'react-icons/rx';
+
+import { IoMdSettings } from 'react-icons/io';
+import { Dropdown } from 'react-bootstrap';
 
 
 
 const Animewatch = () => {
-
 
   const useQuery = () => {
     return new URLSearchParams (useLocation().search)
@@ -32,8 +34,7 @@ const Animewatch = () => {
     const [src2 , setSrc2] = useState('');
     const [loading3 , setLoading3] = useState(false);
 
-
-
+   
 
 
 
@@ -82,7 +83,7 @@ const getEp = () => {
 
 const getEp2 = (id) => {
   // params2.pathname = id
-  setLoading3(false)
+  setLoading3(false) 
        console.log( id)
        window.history.replaceState(null, "Okay", `/anime/watch/${params.name}?ep=${id}`)
   axios(`https://api.consumet.org/meta/anilist/watch/${id}?server=gogocdn`)
@@ -123,47 +124,66 @@ const qual = (url, type) =>{
         }
     
         })
+        
 const play2 = {
     fill: true,
+    userActions: { hotkeys: true },
     fluid: true,
     playbackRates: [0.5, 1, 1.5, 2],
     autoplay: true,
     controls: true,
     preload: "metadata",
-    sources: test
-  };
+    sources: test,
+ }
 
-      
+  
+ 
+    
+
+   
   return (
     <div>
        <div className='container'>
-    
+        
        {error && <p className='error'>{error}</p>}
-    <div className="load-anime">
-
+        <div className="video-inner">
         {loading3 ? 
     <>
     <Video {...play2} />
-  
-
-   
-    <p>Current Quality : {ql}</p>
-    <p className='inline'>Change  Quality: </p> {details2?.sources?.map((qls) =>{
-      return <button className='btn btn-ep2' key={qls.quality} onClick={() => qual(qls.url, qls.quality)}> {qls.quality}</button>
-    })} 
-  
-  
-      
-
-
 
   </> : <>
-  <p>loading  </p>
-  
-  
+  {/* <Video {...play2} />   */}
+          
   </>}
+  <div className='d-flex justify-content-center'>
+    <button className='btn text-white mt-3 mr-6'><RxDoubleArrowLeft /> Previous </button > 
+    <button className='btn text-white mt-3 ' >Next<RxDoubleArrowRight /> </button>
+    <button className='btn text-white mt-3 '><IoMdSettings /> Select Video Resolution</button>
+    <Dropdown className='mt-3'>
+      <Dropdown.Toggle variant="" className='text-white' id="dropdown-basic">
+        {ql }
+      </Dropdown.Toggle>
 
-    </div>
+      <Dropdown.Menu>
+      {details2?.sources?.map((qls) =>{
+      return <> <Dropdown.Item href="#/action-2" onClick={() => qual(qls.url, qls.quality)}>
+        <button className='btn  ' key={qls.quality} > {qls.quality}</button>
+        </Dropdown.Item></>
+    })} 
+       
+      
+      </Dropdown.Menu>
+    </Dropdown>
+  </div>
+  </div>
+
+
+
+
+
+
+    
+    
     
     
     <div className=' episodes '> 

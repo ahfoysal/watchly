@@ -77,7 +77,7 @@ const AnimeInfo = () => {
             background: `linear-gradient(0deg, rgb(20, 20, 20) 1%, transparent 99%), url(${details.cover})`, height: "clamp(20rem, 34vw, 50rem)",
              backgroundSize: "cover",   
   }}>
-    <div className="inner">
+    <div className="inner  ">
       <p>{details?.title?.english}</p>
       <p>({details?.title?.native})</p>
       <Link>   <button className='watch'> <FaPlay /> Play</button></Link>
