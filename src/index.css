@@ -251,13 +251,34 @@ svg.star {
   background: black;
   margin: 0px 40px;
 }
+
 .btn-ep {
   padding: 0px !important;
-  background: #5A2E98 !important;
+  background: #2e2e2e !important;
   color: white !important;
   width: 50px;
   font-weight: 400 !important;
   margin: 0px !important;
+}
+.activeep {
+  background-color: #5A2E98 !important;
+}
+.sep {
+  margin: 20% 45% 0;
+  display:inline-block;
+  
+  font-size: 4em;
+  
+  border: 3px solid ;
+  border-color: #5A2E98;
+  animation-name: blinking;
+  animation-duration: 1s;
+  animation-iteration-count: 100;
+}
+@keyframes blinking {
+  50% {
+    border-color: #ffcd5f;
+  }
 }
 p.inline {
   display: inline-block !important;

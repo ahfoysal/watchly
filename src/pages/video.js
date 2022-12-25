@@ -22,7 +22,7 @@ const Video = (props) => {
     }, []);
   
     return (
-      <div data-vjs-player>
+      <div data-vjs-player> 
         <video ref={videoNode} className="video-js vjs-theme-fantasy" ></video>
       </div>
     );

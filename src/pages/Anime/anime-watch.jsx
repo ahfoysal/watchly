@@ -8,9 +8,9 @@ import 'videojs-errors';
 import 'video.js/dist/video-js.css';
 import { RxDoubleArrowLeft } from 'react-icons/rx';
 import { RxDoubleArrowRight } from 'react-icons/rx';
-
 import { IoMdSettings } from 'react-icons/io';
 import { Dropdown } from 'react-bootstrap';
+import styled from 'styled-components';
 
 
 
@@ -79,7 +79,8 @@ const getEp = () => {
 }
 
 
-const getEp2 = (id) => {
+const getEp2 = (id, number) => {
+  setNp(number)
   // params2.pathname = id
   setError('')
   setLoading3(false) 
@@ -90,6 +91,7 @@ const getEp2 = (id) => {
     setLoading3(true)
    console.log(data.sources[1].url)
    setSrc2(data.sources[1].url)
+  
 
   }).catch(error => {
     const rslt = error;
@@ -133,22 +135,31 @@ const play2 = {
     controls: true,
     preload: "metadata",
     sources: test,
+  
  }
+
 
   
 
 //  
+const Wrapper = styled.div`
+  .li{
+    padding: 1rem 0rem;
+    border-bottom: 1px solid rgb(63, 63, 63);
+  }
+ 
+  `
 
    
   return (
-    <div>
+    <Wrapper>
        <div className='container'>
         
        {error && <p className='error'>{error}</p>}
         <div className="video-inner">
         {loading3 ? 
     <>
-    <Video {...play2} />
+    <Video  {...play2} />
 
   </> : <>
   {/* <Video {...play2} />   */}
@@ -160,12 +171,12 @@ const play2 = {
    
     <Dropdown className='mt-3'>
       <Dropdown.Toggle variant="" className='text-white mt-3' id="dropdown-basic">
-      <p className='btn text-white  '> Select  Resolution</p>    {ql }
+      <p className='btn text-white  '> Select  Resolution {ql }</p>    
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
       {details2?.sources?.map((qls, index) =>{
-      return  <Dropdown.Item href="#/action-2" key={index + 1} onClick={() => qual(qls.url, qls.quality)}>
+      return  <Dropdown.Item  key={index + 1} onClick={() => qual(qls.url, qls.quality)}>
         <p className='btn  ' key={qls.quality} > {qls.quality}</p>
         </Dropdown.Item>
     })} 
@@ -182,24 +193,34 @@ const play2 = {
 
 
     
+  <div className=' episodes '>
     
-    
- <form >  <input placeholder="Search..." type="text" className='border-none'  onChange={(e) => setInput(e.target.value)} 
-value={input}/></form>
-
+   {/* <input placeholder="Search..." type="text" className='border-none form mt-3'  onChange={(e) => setInput(e.target.value)} 
+value={input}/>
+<input type="text" onChange={(e) => setInput(e.target.value)} /> */}
+</div>
     <div className=' episodes '> 
   
 <div className="ep-button" id='paragraph'>
+<div className="list">
+        {details?.episodes?.length < 50 && details?.episodes?.map((data,index) => {
+              return <p className='li' > <span>{data.number}.  {data.title}</span>
+              <br /> <span>{data.description}</span>
+              </p>
+        })}
+      </div>
 
-{details.episodes?.map((ep,index) => {
-return  <button key={index + 1}  id={`one${index}`} className={`btn btn-ep   ${Number(input) === ep.number ? 'cat-active' : ' '}`}  onClick={() => getEp2(ep.id)}>{ep.number}</button>
+{details?.episodes?.length > 50 && details.episodes?.map((ep,index) => {
+return  <button key={index + 1}  id={`one${index}`} className={`btn btn-ep ${np === ep.number ? 'activeep' : ' '} ${Number(input) === ep.number ? 'sep' : ' '}`}  onClick={() => getEp2(ep.id, ep.number)}>{ep.number}</button>
 })}
 
 </div>
 </div>
     
-    </div></div>
+    </div></Wrapper>
+  
   )
+  
 }
 
 export default Animewatch
