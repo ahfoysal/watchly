@@ -66,7 +66,7 @@ const getEp = () => {
      console.log(data)
      setSrc2(data.sources[1].url)
      setQl(data.sources[1].quality)
-     setNp(`Episode ${data.sources[1].number}`)
+     setNp(` ${data.sources[1].number}`)
      const test =  data?.subtitles?.map(sub =>  {
       return {kind:"captions", src:`${sub.url}`, label:`${sub.lang}`}
   
@@ -94,7 +94,7 @@ const getEp2 = (id, number) => {
    console.log(data.subtitles)
    
    setSrc2(data.sources[1].url)
-   setNp(`Episode ${number}`)
+   setNp(` ${number}`)
    const test =  data?.subtitles?.map(sub =>  {
     return {kind:"captions", src:`${sub.url}`, label:`${sub.lang}`}
 
