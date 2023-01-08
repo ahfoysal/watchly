@@ -215,7 +215,7 @@ const play2 = {
     <div className=' episodes '> 
 <div className="ep-button">
 { details.episodes?.map((ep,index) => {
-return  <button key={ index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.id, ep.number)}>{ ep?.number}  </button>
+return  <button key={ index} className='btn btn-ep' id={total - index} onClick={() => getEp2(ep.id, ep.number)}> S{ep?.season} : <span className='text-primary'> { ep?.title} </span>  </button>
 })}
 
 </div>
