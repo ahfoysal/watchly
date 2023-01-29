@@ -31,7 +31,7 @@ function Searched() {
     const getSearched = (num) => {
 
    
-      axios(`https://gogoanime.consumet.org/search?keyw=${params.search}&page=${num}`)
+      axios(`https://gogoanime.consumet.stream/search?keyw=${params.search}&page=${num}`)
       .then(data2 => {  const data = data2.data  
     console.log(data)
     setPro(data)

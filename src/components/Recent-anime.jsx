@@ -39,7 +39,7 @@ function RecentlyUpdated() {
 
 const getCat = async (num, terms) =>{
   setTerm(terms)
-  const data = await axios(`https://gogoanime.consumet.org/${terms}?page=${num}`)
+  const data = await axios(`https://gogoanime.consumet.stream/${terms}?page=${num}`)
           .then(data2 => { const data = data2.data
  
             // console.log(num);

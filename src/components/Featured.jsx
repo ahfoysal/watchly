@@ -23,7 +23,7 @@ function RecentlyUpdated() {
 
 const getCat = (num, terms) =>{
   setTerm(terms)
-  axios(`https://gogoanime.consumet.org/popular?page=1`)
+  axios(`https://gogoanime.consumet.stream/popular?page=1`)
           .then(data2 => { const data = data2.data
  
             // console.log(num);

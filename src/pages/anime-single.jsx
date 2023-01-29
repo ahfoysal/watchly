@@ -49,7 +49,7 @@ const fetchDetails = async () =>{
 
 
 
-     await axios(`https://gogoanime.consumet.org/anime-details/${params.name}`)
+     await axios(`https://gogoanime.consumet.stream/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       addToCart(data)
 

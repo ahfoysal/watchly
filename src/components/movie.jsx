@@ -23,14 +23,14 @@ function RecentlyUpdated() {
 
 const getCat = (num, terms) =>{
   setTerm(terms)
-  axios(`https://gogoanime.consumet.org/anime-movies?page=1`)
+  axios(`https://gogoanime.consumet.stream/top-airing?page=1`)
           .then(data2 => { const data = data2.data
  
             // console.log(num);
                setPro(data) })}
   
     return (
-<div  className="single-page">  
+<div  className="single-page">    
   <p className="top-line">Movies</p>
 <div className="container-fluid bg-trasparent my-4 p-3"  style={{position: "relative"}}>
         <div className="row g-3">
