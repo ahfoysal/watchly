@@ -39,7 +39,7 @@ function Searched() {
     setLoading(true)
       
       })  
-      axios(`https://api.consumet.org/movies/flixhq/${params.search}`)
+      axios(`https://c.delusionz.xyz/movies/flixhq/${params.search}`)
       .then(data2 => {  const data = data2.data.results.slice(0,15)  
     console.log(data)
     setDetails(data)
