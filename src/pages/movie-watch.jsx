@@ -35,7 +35,7 @@ const Animewatch = () => {
     const [loading3 , setLoading3] = useState(false);
     const getInfo = async () =>{
 
-        await axios(`https://api.consumet.org/movies/flixhq/info?id=${params.type}/${params.term} `)
+        await axios(`https://c.delusionz.xyz/movies/flixhq/info?id=${params.type}/${params.term} `)
        .then(data2 => { const data = data2.data
       
         console.log(data.episodes[0].id, data)
@@ -58,8 +58,7 @@ const getEp = () => {
   }
 
   
-
-    axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=${query.get('ep')}&mediaId=${params.type}/${params.term}`)
+    axios(`https://c.delusionz.xyz/movies/flixhq/watch?episodeId=${query.get('ep')}&mediaId=${params.type}/${params.term}`)
     .then(data2 => { const data = data2.data  
       setDetails2(data)
  
@@ -86,7 +85,7 @@ const getEp2 = (id, number) => {
   // params2.pathname = id
   setLoading3(false)
        console.log( id)
-  axios(`https://api.consumet.org/movies/flixhq/watch?episodeId=${id}&mediaId=${params.type}/${params.term}`)
+  axios(`https://c.delusionz.xyz/movies/flixhq/watch?episodeId=${id}&mediaId=${params.type}/${params.term}`)
   .then(data2 => { const data = data2.data  
     setLoading3(true)
     setLoading2(false)
