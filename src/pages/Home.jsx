@@ -1,10 +1,11 @@
-import Featured from "../components/Featured";
-import Common from "../components/BestSelling";
-import Movie from "../components/movie";
-import Air from "../components/air";
+// import Featured from "../components/Featured";
+// import Common from "../components/BestSelling";
+// import Movie from "../components/movie";
+// import Air from "../components/air";
 
 import List from "../components/List";
-import Trending from "../components/home/trending";
+import Trending from "../components/home/Trending";
+import Popular from "../components/home/Popular";
 
 
 
@@ -23,13 +24,14 @@ import Trending from "../components/home/trending";
     transition={{duration: 0.5}}
     
     > 
-
-      <Featured />
-    <Common />
-    {/* <Air /> */}
-    <List /> 
-    <Movie /> 
     <Trending />
+    <Popular />
+
+      {/* <Featured />
+    <Common />
+    <Air />
+    <List /> 
+    <Movie />  */}
    
        
        

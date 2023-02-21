@@ -52,6 +52,7 @@ const fetchDetails = async () =>{
      await axios(`https://gogoanime.consumet.stream/anime-details/${params.name}`)
     .then(data2 => { const data = data2.data
       addToCart(data)
+      console.log(data)
 
       setDetails(data)
       setTotal(data?.episodesList?.length)

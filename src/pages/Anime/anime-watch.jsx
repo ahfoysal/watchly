@@ -31,6 +31,7 @@ const Animewatch = () => {
     const [src2 , setSrc2] = useState('');
     const [loading3 , setLoading3] = useState(false);
     const [input, setInput] = useState("");
+    const [isDub, setIsDub] = useState(true);
 
    
 
@@ -43,7 +44,7 @@ const Animewatch = () => {
 
     const getInfo = async () =>{
 
-        await axios(`https://api.consumet.org/meta/anilist/info/${params.name}`)
+        await axios(`https://api.consumet.org/meta/anilist/info/${params.name}?dub=${isDub}`)
        .then(data2 => { const data = data2.data
         console.log(data)
          setDetails(data)
@@ -62,7 +63,7 @@ const Animewatch = () => {
 const getEp = () => {
   setError('')
 
-    axios(`https://api.consumet.org/meta/anilist/watch/${ep}?server=gogocdn`)
+    axios(`https://api.consumet.org/meta/anilist/watch/${ep}?dub=${isDub}`)
     .then(data2 => { const data = data2.data  
       setDetails2(data)
  
@@ -86,7 +87,7 @@ const getEp2 = (id, number) => {
   setLoading3(false) 
        console.log( id)
        window.history.replaceState(null, "Okay", `/anime/watch/${params.name}?ep=${id}`)
-  axios(`https://api.consumet.org/meta/anilist/watch/${id}?server=gogocdn`)
+  axios(`https://api.consumet.org/meta/anilist/watch/${id}`)
   .then(data2 => { const data = data2.data  
     setLoading3(true)
    console.log(data.sources[1].url)

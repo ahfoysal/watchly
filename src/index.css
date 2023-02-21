@@ -436,6 +436,9 @@ line-height: 1.2;
     font-size: 7px;
   
 }
+.hide-phone{
+  display: none !important;
+}
 .load-anime {
   position: relative;
   width: 100%;
