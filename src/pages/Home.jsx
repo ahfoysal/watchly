@@ -24,11 +24,11 @@ import Trending from "../components/home/trending";
     
     > 
 
-      <Featured />
-    <Common />
-    {/* <Air /> */}
-    <List /> 
-    <Movie /> 
+      {/* <Featured /> */}
+    {/* <Common /> */}
+    <Air />
+    {/* <List />  */}
+    {/* <Movie />  */}
     <Trending />
    
        
