@@ -24,9 +24,9 @@ import Trending from "../components/home/trending";
     
     > 
 
-      {/* <Featured /> */}
+      <Featured />
     {/* <Common /> */}
-    <Air />
+    {/* <Air /> */}
     {/* <List />  */}
     {/* <Movie />  */}
     <Trending />
