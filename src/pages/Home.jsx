@@ -4,7 +4,7 @@
 // import Air from "../components/air";
 
 import List from "../components/List";
-import Trending from "../components/home/Trending";
+// import Trending from "../components/home/Trending";
 import Popular from "../components/home/Popular";
 
 
@@ -24,7 +24,7 @@ import Popular from "../components/home/Popular";
     transition={{duration: 0.5}}
     
     > 
-    <Trending />
+    {/* <Trending /> */}
     <Popular />
 
       {/* <Featured />

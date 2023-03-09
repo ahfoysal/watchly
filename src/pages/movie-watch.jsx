@@ -160,7 +160,7 @@ const play2 = {
     <div>
        <div className='container'>
     <div className="load-anime">
-
+    <iframe title="player" allow="autoplay; fullscreen" id="iframee" allowfullscreen="" src="https://api.animeflix.live/v2/player?id=137822-3-source&amp;server=gogo&amp;position=undefined" __idm_id__="1040385"></iframe>
       {loading2 ? <div className='productSingle__image'>
       <img  src={details.image} alt="" />
       <button className="btn  play" onClick={() => play()}>

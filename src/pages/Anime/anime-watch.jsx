@@ -68,7 +68,7 @@ const getEp = () => {
       setDetails2(data)
  
      console.log(data)
-     setSrc2(data.sources[1].url)
+     setSrc2(`https://crunchy.animeflix.live/${data.sources[1].url}`)
      setQl(data.sources[1].quality)
      setLoading3(true)
     }).catch(error => {
@@ -91,7 +91,7 @@ const getEp2 = (id, number) => {
   .then(data2 => { const data = data2.data  
     setLoading3(true)
    console.log(data.sources[1].url)
-   setSrc2(data.sources[1].url)
+   setSrc2(`https://crunchy.animeflix.live/${data.sources[1].url}`)
   
 
   }).catch(error => {
