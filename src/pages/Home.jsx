@@ -25,7 +25,7 @@ import Popular from "../components/home/Popular";
     
     > 
     {/* <Trending /> */}
-    <Popular />
+    {/* <Popular /> */}
 
       {/* <Featured />
     <Common />
