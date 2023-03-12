@@ -3,6 +3,7 @@ import Hls from 'hls.js';
 import {useEffect} from 'react';
 // import "plyr/dist/plyr.css";
 import "plyr-react/plyr.css"
+import './css.css'
 
 const VideoPlayer = ({src, sub}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,6 +64,11 @@ const VideoPlayer = ({src, sub}) => {
                           <span class="plyr__sr-only">Skip Episode</span>
                         </button>
                         `);
+                         
+        //    window.parent.postMessage({type: "watchprogress", position: player.currentTime, duration: player.duration}, "*");
+        
+  
+        
                         if (hls.autoLevelEnabled) {
                             span.innerHTML = `AUTO (${hls.levels[data.level].height}p)`
                         } else {

@@ -92,7 +92,7 @@ const FlixWAtch = () => {
         {loading   && 
        <>
        <VideoPlayer src={src} sub={sub}/>
-            <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} />
+            <EpisodeModal item={params.name} handleOpen={handleOpen} isMovie={true}  handleClose={handleClose} setOpen={setOpen} open={open} />
             
        </>
             
