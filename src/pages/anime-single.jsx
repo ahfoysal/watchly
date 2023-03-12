@@ -40,8 +40,8 @@ useEffect(() => {
 
 
 const play = () =>{
-  const data5 = details.episodesList[details.episodesList.length - 1].episodeId
-      const data6 = details.episodesList[details.episodesList.length - 1].episodeNum
+  const data5 = details.episodes[details.episodes.length - 1].id
+      const data6 = details.episodes[details.episodes.length - 1].number
       getEpisode(data5,data6,details,0)
 }
 
@@ -49,17 +49,17 @@ const fetchDetails = async () =>{
 
 
 
-     await axios(`https://gogoanime.consumet.stream/anime-details/${params.name}`)
+     await axios(`https://api.consumet.org/anime/gogoanime/info/${params.name}`)
     .then(data2 => { const data = data2.data
       addToCart(data)
       console.log(data)
 
       setDetails(data)
-      setTotal(data?.episodesList?.length)
+      setTotal(data?.episodes?.length)
 
      
       const cartItems = cart.map((cart) => cart ).filter((val)=> {
-        return val.animeTitle   === data.animeTitle
+        return val.title   === data.title
         })
         const data3 = cartItems[0].lastEP
         const data4 = cartItems[0].lastEP2
@@ -88,7 +88,7 @@ const getEpisode = (id,num, full) =>{
   
   if(full === undefined){
     const cartItems = cart.map((cart) => cart ).filter((val)=> {
-      return val.animeTitle   === details.animeTitle
+      return val.title   === details.title
       })
       cartItems[0].lastEP = id 
   cartItems[0].lastEP2 = num
@@ -121,7 +121,7 @@ if(cartItems[0].lastEP){
   }else{
    
     const cartItems = cart.map((cart) => cart ).filter((val)=> {
-      return val.animeTitle   === full.animeTitle
+      return val.title   === full.title
       })
       cartItems[0].lastEP = id
   cartItems[0].lastEP2 = num
@@ -228,7 +228,7 @@ const next = () => {
   </div > 
   
     </>: <div className='productSingle__image'>
-      <img  src={details.animeImg} alt="" />
+      <img  src={details.image} alt="" />
       <button className="btn  play" onClick={() => play()}>
       <i className="fa fa-play" aria-hidden="true">  </i>
 
@@ -246,7 +246,7 @@ const next = () => {
  {/* <p>Quality {details2?.sources?.map((type) => {
   return <span className='margin-left'>{type?.quality}</span>
 })}</p> */}
-<p className='productSingle__name'>{details.animeTitle} {np}</p>
+<p className='productSingle__name'>{details.title} {np}</p>
 
 
 
@@ -267,8 +267,8 @@ const next = () => {
 
 <div className=' episodes '> 
 <div className="ep-button">
-{details.episodesList?.map((ep,index) => {
-return  <button key={total - index} className='btn btn-ep' id={total - index} onClick={() => getEpisode(ep.episodeId,ep.episodeNum)}>{ep.episodeNum}</button>
+{details.episodes?.map((ep,index) => {
+return  <button key={total - index} className='btn btn-ep' id={total - index} onClick={() => getEpisode(ep.id,ep.number)}>{ep.number}</button>
 })}
 
 </div>

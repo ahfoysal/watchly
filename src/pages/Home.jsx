@@ -24,7 +24,7 @@ import Popular from "../components/home/Popular";
     transition={{duration: 0.5}}
     
     > 
-   
+
    
        
        

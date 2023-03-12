@@ -23,8 +23,8 @@ function RecentlyUpdated() {
 
 const getCat = (num, terms) =>{
   setTerm(terms)
-  axios(`https://gogoanime.consumet.stream/popular?page=1`)
-          .then(data2 => { const data = data2.data
+  axios(`https://c.delusionz.xyz/anime/gogoanime/top-airing?page=1?page=1`)
+          .then(data2 => { const data = data2.data.results
  
             // console.log(num);
                setPro(data) })}
@@ -51,15 +51,15 @@ const getCat = (num, terms) =>{
         <div className="col hp" onClick={() => addToCart(product)}>
       <div className="card h-100 shadow-sm">
   
-            <div>  <Link to={'/anime/'+product.animeId}> 
-          <img src={product.animeImg
+            <div>  <Link to={'/anime/'+product.id}> 
+          <img src={product.image
 } className="card-img-top" alt="product.title" />
       
       
       
         <div className="card-body">
      
-        <p className="product__name">{product.animeTitle }</p>
+        <p className="product__name">{product.title }</p>
 
          
           </div>       

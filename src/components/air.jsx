@@ -23,7 +23,7 @@ function RecentlyUpdated() {
 
 const getCat = (num, terms) =>{
   setTerm(terms)
-  axios(`https://api.consumet.org/anime/gogoanime/top-airing?page=1`)
+  axios(`https://c.delusionz.xyz/anime/gogoanime/top-airing?page=1`)
           .then(data2 => { const data = data2.data
  
             console.log(data);
