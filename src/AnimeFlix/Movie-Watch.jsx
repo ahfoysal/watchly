@@ -70,7 +70,19 @@ const FlixWAtch = () => {
         // fetchData()
         fetchEpisode()
       
+        const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
+          console.log('ev', ev)
+          console.log(ev.data)
+          if(ev.data === 'backbutton-clicked')( navigate(`/`))
+          if(ev.data === 'nextepisode-pressed')(handleOpen())
+          if (typeof ev.data !== 'object') return
+          if (!ev.data.type) return
+          if (ev.data.type !== 'message') return
+          if (!ev.data.message) return      
         
+        }
+        window.addEventListener('message', handler)
+        return () => window.removeEventListener('message', handler)
         
     }, [ep])
   return (
@@ -80,7 +92,7 @@ const FlixWAtch = () => {
         {loading   && 
        <>
        <VideoPlayer src={src} sub={sub}/>
-            {/* <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} /> */}
+            <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} />
             
        </>
             
