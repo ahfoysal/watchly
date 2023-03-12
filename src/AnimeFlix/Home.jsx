@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import AnimeGrid from './AnimeGrid';
 import './Animeflix.css'
 import ModalContainer from './ModalContainer';
+import { json } from 'react-router-dom';
 // import MovieModalContainer from './MovieModal';
 
 const AniHome = () => {
@@ -46,7 +47,7 @@ const AniHome = () => {
     setTrending(Trending.trending)
     const Popular = await fetchDetails('getpopular')
     setPopular(Popular)
-    console.log(Popular)
+    console.log(JSON.stringify(popular))
     const Airing = await fetchDetails('getairing')
     setAiring(Airing)
     const TrendingMovie = await movieDetails('trending-movies')

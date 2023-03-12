@@ -102,7 +102,7 @@ console.log(sub, src)
                 kind="captions"
                 label={`${pro.label || pro.lang}`}
                 srcLang={`${index} `}
-                src={pro.src}
+                src={pro.src || pro.url}
             />
               })}
               
