@@ -11,7 +11,8 @@ const [input, setInput] = useState("");
 const navigate = useNavigate();
 const submitHandler = (e) => {
     e.preventDefault();
-    navigate('/searched/'+input)
+    console.log(e.target.value)
+    navigate('/searched/'+e.target.value)
 };
 const [visible, setVisible] = useState(true);
   const [width, setWidth] = useState(window.innerHeight);
