@@ -15,6 +15,7 @@ import AniHome from '../AnimeFlix/Home';
 import AniWatch from '../AnimeFlix/AniWatch';
 import PlyrContainer from '../PLYR/Plyr';
 import FlixWAtch from '../AnimeFlix/Movie-Watch';
+import AniSearch from '../AnimeFlix/Anisearch';
 
 
 function Pages() {
@@ -36,7 +37,8 @@ function Pages() {
            <Route path="/test" element={<PlyrContainer />}/>
            <Route path="/watch/:name" element={<AniWatch />} />
            <Route path="/watch/:type/:name" element={<FlixWAtch />} />
-       <Route path="/searched/:search" element={<Searched />} />
+       {/* <Route path="/searched/:search" element={<Searched />} /> */}
+       <Route path="/searched/:search" element={<AniSearch />} />
        {/* <Route path="/anime/:name" element={<AnimeSingle />} /> */}
        {/* <Route path="/anime/info/:name" element={<AnimeInfo />} /> */}
        {/* <Route path="/anime/watch/:name" element={<AnimeWatch />} /> */}
