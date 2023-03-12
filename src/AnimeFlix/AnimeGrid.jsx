@@ -63,7 +63,7 @@ const AnimeGrid = ({batch, handleOpen, setItem, isAnime, setIsMovie, term}) => {
 
   },
 }}>
-        { batch?.map((anime) => (
+        {batch.length > 0 && batch?.map((anime) => (
         <GridContiner key={anime.id} anime={anime}/>
         )) }
       

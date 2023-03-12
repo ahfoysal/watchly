@@ -21,7 +21,13 @@ const AniHome = () => {
     const [rTvShows , setRTvShows] = useState([]);
  
     async function fetchDetails (term) {
-   const response = await  axios.get(`https://api.animeflix.live/anime/${term}`)  
+   const response = await   axios({
+    method: 'get',
+    url: `https://cors.delusionz.xyz/https://api.animeflix.live/anime/${term}`,
+    headers: {'Origin': `https://api.animeflix.live`,
+    'x-cors-api-key': `${process.env.REACT_APP_KEY}`
+}
+})
     return response.data
   
     }
@@ -78,7 +84,7 @@ const AniHome = () => {
      <AnimeGrid batch={trending} term={'Trending Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/>
   
      <AnimeGrid batch={trendingMovie} term={'Trending Movie'} handleOpen={handleOpen} setIsMovie={setIsMovie} handleOpen2={handleOpen2} isAnime={false} setItem={setItem}/>
-
+{/* 
      <AnimeGrid batch={popular} term={'Popular Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true} />
     
      <AnimeGrid batch={tvShows} term={'Trending Tv Shows'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} handleOpen2={handleOpen2}  isAnime={false}/>
@@ -87,7 +93,7 @@ const AniHome = () => {
    
      <AnimeGrid batch={rTvShows} term='Recent TV Shows' handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} handleOpen2={handleOpen2} isAnime={false}/>
 
-     <AnimeGrid batch={airing} term='Currently Airing' handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/>
+     <AnimeGrid batch={airing} term='Currently Airing' handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/> */}
     
     </Wrapper>
   )

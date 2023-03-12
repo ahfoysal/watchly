@@ -24,7 +24,12 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
     
     async function fetchDetails () {
       setDetails({})
-   const response = await  axios.get(`https://api.animeflix.live/v2/episodes?id=${item.id}&dub=false`)  
+   const response = await  axios.get(`https://cors.delusionz.xyz/https://api.animeflix.live/v2/episodes?id=${item.id}&dub=false`,
+   {
+    headers: {
+      'Origin': 'https://animeflix.live'
+    }
+  })  
    setLoading(false)
     return response.data
   

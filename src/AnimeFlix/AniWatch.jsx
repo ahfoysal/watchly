@@ -28,7 +28,7 @@ const AniWatch = () => {
     };
 
     const fetchData =async () => {
-        await axios(`https://api.animeflix.live/v2/watch/${params.name}/${ep ? ep : 1}`)
+        await axios(`https://cors.delusionz.xyz/https://api.animeflix.live/v2/watch/${params.name}/${ep ? ep : 1}`)
     .then(data2 => { const data = data2.data
      
       console.log(data)
@@ -45,7 +45,7 @@ const AniWatch = () => {
     }
     )}
     const fetchEpisode =async () => {
-      await axios(`https://api.animeflix.live/v2/episodes?id=${params.name}&dub=false`)
+      await axios(`https://cors.delusionz.xyz/https://api.animeflix.live/v2/episodes?id=${params.name}&dub=false`)
   .then(data2 => { const data = data2.data
    
     console.log(data)
