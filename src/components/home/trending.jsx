@@ -63,7 +63,7 @@ const Trending = () => {
     `
     
   return (
-    <Wrapper>
+    <Wrapper className='hide-phone'>
       <Splide  options={{
   perPage    : 1,
   gap        : 0,

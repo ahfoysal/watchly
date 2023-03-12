@@ -1,0 +1,184 @@
+.splide__arrow:disabled {
+    opacity: .3;
+    display: none !important;
+}
+.cqRZkL {
+    width: fit-content;
+    display: flex;
+    padding: 0.25vw 1.5vw;
+}
+.card-img {
+    min-height: 100%;
+    object-fit: cover !important;
+    min-width: 100%;
+   
+}
+.card {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    
+    align-items: center;
+}
+.anime-name{
+    display: none;
+    position: absolute;
+    bottom: 25px;
+    font-size: 14px;
+    height: 18px !important;
+    text-align: center;
+}
+.card img:hover + .anime-name {
+    display: block !important;
+    
+  }
+.anime-name:hover{
+    display: block ;
+   
+}
+
+.splide__arrow--next {
+
+  background: #4a4a4a9c !important ;
+  right: 0px !important;
+  margin: 0.25vw 1.5vw;
+  color: #fff !important;
+  border-radius: 8px 0px 0px 8px   !important;
+  height: 95%;
+}
+.splide__arrow--prev {
+
+  background: #4a4a4a9c !important ;
+  left: 0px !important;
+  margin: 0.25vw 1.5vw;
+  color: #fff !important;
+  border-radius: 0px 8px 8px 0px  !important;
+  height: 95%;
+}
+
+
+
+
+
+  .card img {
+    -webkit-filter: brightness(100%);
+ }
+ .card img:hover {
+    -webkit-filter: brightness(40%);
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transform: scale(1.1); 
+    -ms-transition: all .3s ease;
+    transition: all .5s ease;
+ }
+ .css-1wvake5 {
+    bottom: 15%;
+    max-width: 20% !important;
+    position: absolute;
+    -webkit-animation: linear infinite;
+    -webkit-animation-name: run;
+    -webkit-animation-duration: 5s;
+  }
+  .css-1wvake5 {
+    position: relative;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-color: #efefef;
+    -webkit-transition: width,left,right,300ms;
+    transition: width,left,right,300ms;
+    max-width: 30% !important;
+    width: 30% !important;
+    min-width: 30% !important;
+    
+}
+.card {
+  
+  --bs-card-bg: transparent !important;
+  border: none !important;
+  border-radius: var(--bs-card-border-radius);
+}
+.dkMIQh   {
+    
+  margin-top: 5% !important;
+  /* width: 85% !important; */
+
+}
+.dkMIQh {
+  -ms-overflow-style: none !important; /* for Internet Explorer, Edge */
+  scrollbar-width: none !important; /* for Firefox */
+  overflow-y: scroll; 
+}
+
+.dkMIQh::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+.close-button {
+  position: absolute;
+  top: 5%;
+  right: 1%;
+  background-color: white;
+  border-radius: 50%;
+}
+@media (max-width: 550px){
+  .episode-container{
+      margin: 0px 10px;
+      margin-top: 20px;
+      margin-bottom: 60px;
+  }
+  
+  .dkMIQh   {
+    
+    margin-top: 20% !important;
+    width: 100% !important;
+  
+  }
+  .MuiBox-root{
+    max-width: 90% !important;
+   
+  }
+  .splide__arrow {
+    display: none !important;
+}
+.card img:hover {
+  -webkit-filter: brightness(40%);
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transform: none ; 
+  -ms-transition: all .3s ease;
+  transition: all .5s ease;
+}
+}
+.css-1wvake5.ps-collapsed {
+   display: none;
+}
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  color: white !important;
+
+}
+.dropdown-ep {
+  color: white !important;
+  padding: 0px 15px !important;
+}
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  color: white !important;
+ 
+}
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+  height: 10px !important;
+  min-height: 16px !important;
+
+}
+  @-webkit-keyframes run {
+    0% {
+      left: 0;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: 0;    
+    }
+  }

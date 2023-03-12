@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserAuthContextProvider } from './context/UserAuthContext';
 import {  ContextProviderS } from "./pages/cart/Function";
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 export const TestContext = createContext();
  
@@ -14,9 +15,10 @@ function App() {
 
 
   return (
-    <div >
+
       
       <BrowserRouter>  
+      <ProSidebarProvider>
       <UserAuthContextProvider>
         <ContextProviderS>
 
@@ -30,9 +32,10 @@ function App() {
      </TestContext.Provider  >
      </ContextProviderS>
      </UserAuthContextProvider>
+     </ProSidebarProvider>
       </BrowserRouter>
  
-    </div>
+
   );
 }
 

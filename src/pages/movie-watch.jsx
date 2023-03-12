@@ -10,6 +10,7 @@ import Video from './video'
 import 'videojs-errors';
 import 'video.js/dist/video-js.css';
 import Alert from 'react-bootstrap/Alert';
+import VideoPlayer from '../PLYR/HLS.tsx';
 
 
 
@@ -70,7 +71,7 @@ const getEp = () => {
       return {kind:"captions", src:`${sub.url}`, label:`${sub.lang}`}
   
       })
-      setSub(test)
+      setSub(data?.subtitles)
      setLoading3(true)
     }).catch(error => {
       const rslt = error;
@@ -90,9 +91,9 @@ const getEp2 = (id, number) => {
     setLoading3(true)
     setLoading2(false)
     setDetails2(data)
-   console.log(data.subtitles)
+   console.log(data.sources.length - 1)
    
-   setSrc2(data.sources[1].url)
+   setSrc2(data.sources[data.sources.length - 1].url)
    setNp(` ${number}`)
    const test =  data?.subtitles?.map(sub =>  {
     return {kind:"captions", src:`${sub.url}`, label:`${sub.lang}`}
@@ -160,7 +161,6 @@ const play2 = {
     <div>
        <div className='container'>
     <div className="load-anime">
-
       {loading2 ? <div className='productSingle__image'>
       <img  src={details.image} alt="" />
       <button className="btn  play" onClick={() => play()}>
@@ -183,7 +183,7 @@ const play2 = {
       
       {loading3 ? 
     <>
-    <Video {...play2} />
+   <VideoPlayer src={src2} sub={sub}/>
  
 
 

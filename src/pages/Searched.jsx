@@ -31,7 +31,7 @@ function Searched() {
     const getSearched = (num) => {
 
    
-      axios(`https://gogoanime.consumet.stream/search?keyw=${params.search}&page=${num}`)
+      axios(`https://api.consumet.org/meta/anilist/${params.search}?page=${num}`)
       .then(data2 => {  const data = data2.data  
     console.log(data)
     setPro(data)
@@ -63,21 +63,21 @@ function Searched() {
           {pro?.length <= 0 && <p> No anime found</p>}
           <div className="row row-cols-2 row-cols-xs-4 row-cols-sm-4 row-cols-lg-5 g-3">
          
-          { pro?.map((product, index )=> (
+          { pro?.results?.map((product, index )=> (
           <div key={index+1}>
           
-          <div className="col hp" key={product.animeId} onClick={() => addToCart(product)}>
+          <div className="col hp"  onClick={() => addToCart(product)}>
         <div className="card h-100 shadow-sm">
     
-              <div>  <Link to={'/anime/'+product.animeId}> <>
-            <img src={product.animeImg
+              <div>  <Link to={'/anime/info/'+product?.id}> <>
+            <img src={product?.image
   } className="card-img-top" alt="product.title" />
         
         
         
           <div className="card-body">
        
-          <p className="product__name">{product.animeTitle }</p>
+          <p className="product__name">{product?.title?.english  || product?.title?.native || product?.title}</p>
   
            
             </div>
