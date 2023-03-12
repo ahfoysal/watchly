@@ -31,14 +31,14 @@ function Searched() {
     const getSearched = (num) => {
 
    
-      axios(`https://api.consumet.org/meta/anilist/${params.search}?page=${num}`)
-      .then(data2 => {  const data = data2.data  
-    console.log(data)
-    setPro(data)
+    //   axios(`https://api.consumet.org/meta/anilist/${params.search}?page=${num}`)
+    //   .then(data2 => {  const data = data2.data  
+    // console.log(data)
+    // setPro(data)
   
-    setLoading(true)
+    // setLoading(true)
       
-      })  
+    //   })  
       axios(`https://c.delusionz.xyz/movies/flixhq/${params.search}`)
       .then(data2 => {  const data = data2.data.results.slice(0,15)  
     console.log(data)
