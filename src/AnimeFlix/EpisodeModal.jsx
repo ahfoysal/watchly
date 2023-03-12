@@ -58,7 +58,7 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
     setLoading(false)
     setOpen(false)
     setPage(1)
-    setDetails({})
+    // setDetails({})
     };
     const handleChange = (event) => {
       setPage(event.target.value);
@@ -301,10 +301,10 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
           </header>
           <div className='episode-container'>
       {details?.episodes?.length > 0 && details?.episodes?.slice(20 * (page - 1), 20 * page)?.map((pro) => {
-        return  <Link  key={pro?.id} to={`/watch/${item.id}?episode=${pro.number}`}>
+        return  <Link  key={pro?.id} to={`/watch/${item}?episode=${pro.number}`}>
             <div className="iEayIb">
             <div className="eppqhJ">
-            { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://crunchy.animeflix.live/${pro.image}` : pro.image } />
+            { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://cors.delusionz.xyz//${pro.image}` : pro.image } />
  :   <img alt="thumbnail" src={ item.image } />}
             </div>
             <div className="hhCCFl">

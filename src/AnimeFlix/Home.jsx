@@ -22,13 +22,15 @@ const AniHome = () => {
     const [rTvShows , setRTvShows] = useState([]);
  
     async function fetchDetails (term) {
-   const response = await   axios({
-    method: 'get',
-    url: `https://cors.delusionz.xyz/https://api.animeflix.live/anime/${term}`,
-    headers: {'Origin': `https://api.animeflix.live`,
-    'x-cors-api-key': `${process.env.REACT_APP_KEY}`
-}
-})
+   const response = await   axios.get(`https://cors.delusionz.xyz/https://api.animeflix.live/anime/${term}`)
+   .catch(function (error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data, 'error');
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    }})
     return response.data
   
     }
