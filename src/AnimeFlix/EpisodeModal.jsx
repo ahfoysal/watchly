@@ -304,7 +304,7 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
         return  <Link  key={pro?.id} to={`/watch/${item}?episode=${pro.number}`}>
             <div className="iEayIb">
             <div className="eppqhJ">
-            { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://cors.delusionz.xyz//${pro.image}` : pro.image } />
+            { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://crunchy.animeflix.live/${pro.image}` : pro.image } />
  :   <img alt="thumbnail" src={ item.image } />}
             </div>
             <div className="hhCCFl">
