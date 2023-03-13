@@ -41,7 +41,7 @@ const AniWatch = () => {
         
         setLoading(true)
         console.log("Delayed for 1 second.");
-      }, "2000");
+      }, "3000");
  
     
     }
@@ -78,7 +78,7 @@ const AniWatch = () => {
         return () => window.removeEventListener('message', handler)
         
         
-    }, [ep, params.name])
+    }, [ep, params.name, navigate])
   return (
     <div className='player-page'>
 
@@ -86,7 +86,7 @@ const AniWatch = () => {
         {loading   && 
        <>
        <VideoPlayer src={`https://proxy.vnxservers.com/`+src} sub={sub} ts={ts ?  ts : 0}/>
-            <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} />
+            {/* <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} /> */}
             
        </>
             

@@ -301,7 +301,7 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
           </header>
           <div className='episode-container'>
       {details?.episodes?.length > 0 && details?.episodes?.slice(20 * (page - 1), 20 * page)?.map((pro) => {
-        return  <Link  key={pro?.id} to={`/watch/${item}?episode=${pro.number}`}>
+        return  <Link  key={pro?.id} to={`/watch/${item}?episode=${pro.id}`}>
             <div className="iEayIb">
             <div className="eppqhJ">
             { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://crunchy.animeflix.live/${pro.image}` : pro.image } />
