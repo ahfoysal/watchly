@@ -65,6 +65,7 @@ const AniWatch = () => {
           console.log(ev.data)
           if(ev.data === 'backbutton-clicked')( navigate(`/`))
           if(ev.data === 'nextepisode-pressed')(handleOpen())
+        
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
           if (ev.data.type !== 'message') return

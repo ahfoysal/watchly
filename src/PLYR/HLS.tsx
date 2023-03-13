@@ -6,7 +6,7 @@ import "plyr-react/plyr.css"
 import './css.css'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 
-const VideoPlayer = ({src, sub}) => {
+const VideoPlayer = ({src, sub, ts}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const options = {
         seekTime: 5,
@@ -76,10 +76,11 @@ const VideoPlayer = ({src, sub}) => {
 
                     const player = new Plyr(video, options);
                     player.on('play', () => {
-                        player.currentTime = 300
+                        player.currentTime = Number(ts)
+
                         setInterval( function() {
                             window.parent.postMessage({type: "watchprogress", position: player.currentTime, duration: player.duration}, "*");
-                        }, 20000);
+                        }, 30000);
                     
                       
                       });
@@ -116,7 +117,7 @@ const VideoPlayer = ({src, sub}) => {
                
             }
             
-console.log(sub, src)
+console.log(sub, src, ts)
             function updateQuality(newQuality) {
                 if (newQuality === 0) {
                     window.hls.currentLevel = -1;

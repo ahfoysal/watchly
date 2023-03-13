@@ -13,6 +13,7 @@ const FlixWAtch = () => {
     }
       let query = useQuery()
       const ep = query.get('episode')
+      const ts = query.get('ts')
 
     
     const navigate = useNavigate();
@@ -66,15 +67,16 @@ const FlixWAtch = () => {
   )}
   
     useEffect(() => {
-      console.log(ep, params.name, params.type)
+      console.log(ep, ts)
         // fetchData()
         fetchEpisode()
       
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
-          console.log('ev', ev)
+          // console.log('ev', ev)  
           console.log(ev.data)
           if(ev.data === 'backbutton-clicked')( navigate(`/`))
           if(ev.data === 'nextepisode-pressed')(handleOpen())
+          if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
           if (ev.data.type !== 'message') return
@@ -84,14 +86,14 @@ const FlixWAtch = () => {
         window.addEventListener('message', handler)
         return () => window.removeEventListener('message', handler)
         
-    }, [ep])
+    }, [ep, params.name, params.type, ts, navigate])
   return (
     <div className='player-page'>
 
 
         {loading   && 
        <>
-       <VideoPlayer src={src} sub={sub}/>
+       <VideoPlayer src={src} sub={sub} ts={ts ?  ts : 0}/>
             <EpisodeModal item={params.name} handleOpen={handleOpen} isMovie={true}  handleClose={handleClose} setOpen={setOpen} open={open} />
             
        </>
