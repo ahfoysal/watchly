@@ -57,13 +57,13 @@ const VideoPlayer = ({src, sub}) => {
                             0: 'Auto',
                         },
                     }
-                 
+                   
                     hls.on(Hls.Events.LEVEL_SWITCHED, function (event, data) {
                         const span = document.querySelector(".plyr__menu__container [data-plyr='quality'][value='0'] span")
                         
                      
                          
-        //    window.parent.postMessage({type: "watchprogress", position: player.currentTime, duration: player.duration}, "*");
+           
         
   
         
@@ -75,6 +75,16 @@ const VideoPlayer = ({src, sub}) => {
                     })
 
                     const player = new Plyr(video, options);
+                    player.on('play', () => {
+                        player.currentTime = 300
+                        setInterval( function() {
+                            window.parent.postMessage({type: "watchprogress", position: player.currentTime, duration: player.duration}, "*");
+                        }, 20000);
+                    
+                      
+                      });
+                   
+                 
                     if (elem.length > 0) elem[0].insertAdjacentHTML("beforebegin", `
                     <button type="button" class="plyr__control plyr__control--pressed" id="nextepisode" onclick="parent.postMessage('nextepisode-pressed', '*')">
                       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-skip-end-fill" viewBox="3 2.5 11 11">
@@ -94,6 +104,7 @@ const VideoPlayer = ({src, sub}) => {
                     player.on('controlshidden', () => {
                         document.getElementById("backbutton").style.opacity=0;
                       });
+                   
                       player.on('controlsshown', () => {
                         document.getElementById("backbutton").style.opacity=1;
                       });
