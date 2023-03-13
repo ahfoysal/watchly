@@ -58,7 +58,7 @@ const FlixWAtch = () => {
         
         setLoading(true)
         console.log("Delayed for 1 second.");
-      }, "2000");
+      }, "1000");
     // setLoading(true)
     // setDetails(data)
     

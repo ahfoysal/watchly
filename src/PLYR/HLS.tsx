@@ -73,10 +73,37 @@ const VideoPlayer = ({src, sub, ts}) => {
                             span.innerHTML = `AUTO`
                         }
                     })
+                    
 
                     const player = new Plyr(video, options);
-                    player.on('play', () => {
+                    //  plyrplayer.addEventListener('ready', (event) => {
+                    //     var player = event.detail.plyr;
+                    //     player.play().then(() => {
+                    //      player.currentTime = Number(ts);
+                        
+                    //     })
+                    //   })
+                 
+                   
+     
+                     
+                   
+     
+                 
+                      
+                    player.on('ready', () => {
                         player.currentTime = Number(ts)
+                        setTimeout(() => {
+        
+                            player.currentTime = Number(ts)
+                            console.log("Delayed  ts .");
+                          }, "2000");
+                      console.log('test', ts)
+
+ 
+                      });
+                    player.on('play', () => {
+                        // player.currentTime = Number(ts)
 
                         setInterval( function() {
                             window.parent.postMessage({type: "watchprogress", position: player.currentTime, duration: player.duration}, "*");
@@ -84,6 +111,7 @@ const VideoPlayer = ({src, sub, ts}) => {
                     
                       
                       });
+                    
                    
                  
                     if (elem.length > 0) elem[0].insertAdjacentHTML("beforebegin", `
@@ -110,6 +138,7 @@ const VideoPlayer = ({src, sub, ts}) => {
                       });
                     
                 });
+
 
                 
                 hls.attachMedia(video);
