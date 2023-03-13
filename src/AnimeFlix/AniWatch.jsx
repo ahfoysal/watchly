@@ -63,7 +63,7 @@ const AniWatch = () => {
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
           console.log('ev', ev)
           console.log(ev.data)
-          if(ev.data === 'backbutton-clicked')( navigate(`/`))
+          if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.name}`))
           if(ev.data === 'nextepisode-pressed')(handleOpen())
         
           if (typeof ev.data !== 'object') return
