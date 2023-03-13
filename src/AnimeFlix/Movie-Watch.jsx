@@ -74,7 +74,7 @@ const FlixWAtch = () => {
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
           // console.log('ev', ev)  
           console.log(ev.data)
-          if(ev.data === 'backbutton-clicked')( navigate(`/`))
+          if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.type}/${params.name}`))
           if(ev.data === 'nextepisode-pressed')(handleOpen())
           if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
           if (typeof ev.data !== 'object') return
