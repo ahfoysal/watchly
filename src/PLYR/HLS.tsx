@@ -106,6 +106,7 @@ console.log(sub, src)
             width: '100%',
         }}>
             <video className='js-plyr plyr' id='player' key={src} crossOrigin="anonymous">
+                
               {sub?.slice(0,10).map((pro, index) => {
                 return  <track key={index}
                 kind="captions"
@@ -114,6 +115,7 @@ console.log(sub, src)
                 src={pro.src || pro.url}
             />
               })}
+        
               
           
             </video>
