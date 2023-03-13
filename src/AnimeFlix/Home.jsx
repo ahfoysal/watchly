@@ -89,7 +89,7 @@ const AniHome = () => {
   
      <AnimeGrid batch={trendingMovie} term={'Trending Movie'} handleOpen={handleOpen} setIsMovie={setIsMovie} handleOpen2={handleOpen2} isAnime={false} setItem={setItem}/>
 
-     <AnimeGrid batch={popular} term={'Popular Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true} />
+     {/* <AnimeGrid batch={popular} term={'Popular Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true} /> */}
     
      <AnimeGrid batch={tvShows} term={'Trending Tv Shows'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} handleOpen2={handleOpen2}  isAnime={false}/>
 
