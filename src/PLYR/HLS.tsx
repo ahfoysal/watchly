@@ -18,6 +18,7 @@ const VideoPlayer = ({src, sub}) => {
         ],
     };
     var elem = document.getElementsByClassName("plyr__menu");
+
     function backbutton() {
         window.parent.postMessage("backbutton-clicked", "*");
       }
@@ -40,15 +41,7 @@ const VideoPlayer = ({src, sub}) => {
               
              
                 hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-                    console.log(elem)
-                    if (elem.length > 0) elem[0].insertAdjacentHTML("beforebegin", `
-                    <button type="button" class="plyr__control plyr__control--pressed" id="nextepisode" onclick="parent.postMessage('nextepisode-pressed', '*')">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-skip-end-fill" viewBox="3 2.5 11 11">
-                        <path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.693 3.3 4 3.678 4 4.308v7.384c0 .63.692 1.01 1.233.697L11.5 8.753V12a.5.5 0 0 0 1 0V4z"/>
-                      </svg>
-                      <span class="plyr__sr-only">Skip Episode</span>
-                    </button>
-                    `);
+                    
                     const availableQualities = hls.levels.map((l) => l.height)
                     availableQualities.unshift(0)
                   
@@ -81,6 +74,15 @@ const VideoPlayer = ({src, sub}) => {
                     })
 
                     const player = new Plyr(video, options);
+                    console.log(elem)
+                    if (elem.length > 0) elem[0].insertAdjacentHTML("beforebegin", `
+                    <button type="button" class="plyr__control plyr__control--pressed" id="nextepisode" onclick="parent.postMessage('nextepisode-pressed', '*')">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-skip-end-fill" viewBox="3 2.5 11 11">
+                        <path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.693 3.3 4 3.678 4 4.308v7.384c0 .63.692 1.01 1.233.697L11.5 8.753V12a.5.5 0 0 0 1 0V4z"/>
+                      </svg>
+                      <span class="plyr__sr-only">Skip Episode</span>
+                    </button>
+                    `);
                     player.on('controlshidden', () => {
                         document.getElementById("backbutton").style.opacity=0;
                       });
@@ -121,9 +123,7 @@ console.log(sub, src)
             position: 'relative',
             width: '100%',
         }}>
-              <svg className="backicon back-icon" onClick={backbutton} focusable="false"  viewBox="0 0 24 24" aria-hidden="true" id="backbutton" >
-  <path d="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"></path>
-  </svg>
+           
             <video className='js-plyr plyr' id='player' key={src} crossOrigin="anonymous">
                 
               {sub?.slice(0,10).map((pro, index) => {
@@ -138,6 +138,10 @@ console.log(sub, src)
               
           
             </video>
+            <svg className="backicon back-icon" onClick={backbutton} focusable="false"  viewBox="0 0 24 24" aria-hidden="true" id="backbutton" >
+  <path d="M16.62 2.99c-.49-.49-1.28-.49-1.77 0L6.54 11.3c-.39.39-.39 1.02 0 1.41l8.31 8.31c.49.49 1.28.49 1.77 0s.49-1.28 0-1.77L9.38 12l7.25-7.25c.48-.48.48-1.28-.01-1.76z"></path>
+  </svg>
+            
         </div>
     )
 }
