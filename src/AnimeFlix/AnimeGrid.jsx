@@ -19,7 +19,7 @@ const AnimeGrid = ({batch, handleOpen, setItem, isAnime, setIsMovie, term}) => {
         
           if(isAnime)(setIsMovie(false))
           if(!isAnime)(setIsMovie(true))
-          window.history.replaceState(null, "Okay", `?title=${anime.id}`)
+
   setItem(anime)
   handleOpen()
 }
