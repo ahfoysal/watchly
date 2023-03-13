@@ -107,7 +107,7 @@ const VideoPlayer = ({src, sub, ts}) => {
 
                         setInterval( function() {
                             window.parent.postMessage({type: "watchprogress", position: player.currentTime, duration: player.duration}, "*");
-                        }, 30000);
+                        }, 20000);
                     
                       
                       });
@@ -175,7 +175,7 @@ console.log(sub, src, ts)
   </svg>
             <video className='js-plyr plyr' id='player' key={src} crossOrigin="anonymous">
                 
-              {sub?.slice(0,10).map((pro, index) => {
+              {sub?.length > 0 && sub?.slice(0,10).map((pro, index) => {
                 return  <track key={index}
                 kind="captions"
                 label={`${pro.label || pro.lang}`}
