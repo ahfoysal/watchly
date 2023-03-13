@@ -45,7 +45,7 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
 
    gettingData()
   
-  },[item, isMovie, details])
+  },[])
 
     const [page, setPage] = React.useState(1);
 
