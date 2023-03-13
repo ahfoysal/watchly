@@ -96,7 +96,7 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
           <div>
             <h2 className='modal-title'>{item?.title?.english  || item?.title?.native || item?.title || details?.title?.english  || details?.title?.native || details?.title}</h2>
             <div className="iwkpUn">
-            <button className="bNIKgw" onClick={() => navigate(isMovie ? `/watch/${item.id}?episode=${details?.episodes[0]?.id}` : `/watch/${item.id}?episode=${details.episodes[0].number}`)}>    <FaPlay   size={18}  color='#181818'/>  <strong> Play</strong></button>
+            <button className="bNIKgw" onClick={() => navigate(`/watch/${item.id}?episode=${details?.episodes[0]?.id}`)}>    <FaPlay   size={18}  color='#181818'/>  <strong> Play</strong></button>
 
             </div>
           </div>
@@ -137,7 +137,7 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
           </header>
           <div className='episode-container'>
       {details?.episodes?.length > 0 && details?.episodes?.slice(20 * (page - 1), 20 * page)?.map((pro) => {
-        return  <Link  key={pro?.id} to={isMovie ? `/watch/${item.id}?episode=${pro.id}` : `/watch/${item.id}?episode=${pro.number}`}>
+        return  <Link  key={pro?.id} to={`/watch/${item.id}?episode=${pro.id}`}>
             <div className="iEayIb">
             <div className="eppqhJ">
             { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://crunchy.animeflix.live/${pro.image}` : pro.image } />

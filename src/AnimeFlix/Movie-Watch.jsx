@@ -24,36 +24,17 @@ const FlixWAtch = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [page, setPage] = React.useState('');
+   
 
-    const handleChange = (event) => {
-      setPage(event.target.value);
-    };
-
-    const fetchData =async () => {
-        await axios(`https://api.animeflix.live/v2/watch/${params.name}/${ep ? ep : 1}`)
-    .then(data2 => { const data = data2.data
-     
-      console.log(data)
-    
   
-
-      setTimeout(() => {
-        setDetails(data)
-        setLoading(true)
-        console.log("Delayed for 1 second.");
-      }, "500");
- 
-    
-    }
-    )}
+  
     const fetchEpisode =async () => {
       await axios(`https://api-pewds.vercel.app/episode-movie/${params.type}/${params.name}/${ep}`)
   .then(data2 => { const data = data2.data
   
     console.log(data)
     setSrc(data.sources[data.sources.length - 1].url)
-    setSub(data.subtitles)
+    setSub(data?.subtitles)
     setTimeout(() => {
         
         setLoading(true)

@@ -3,7 +3,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-
+import VideoPlayer from '../PLYR/HLS.tsx';
 import EpisodeModal from './EpisodeModal';
 
 const AniWatch = () => {
@@ -13,10 +13,13 @@ const AniWatch = () => {
     }
       let query = useQuery()
       const ep = query.get('episode')
+      const ts = query.get('ts')
 
     
     const navigate = useNavigate();
     const [details, setDetails] = useState({})
+    const [src, setSrc] = useState({})
+    const [sub, setSub] = useState({})
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -28,18 +31,17 @@ const AniWatch = () => {
     };
 
     const fetchData =async () => {
-        await axios(`https://cors.delusionz.xyz/https://api.animeflix.live/v2/watch/${params.name}/${ep ? ep : 1}`)
-    .then(data2 => { const data = data2.data
+        await axios(`https://api-pewds.vercel.app/get/${ep}`)
+    .then(data2 => { const data = data2?.data
      
       console.log(data)
-    
-  
-
+      setSrc(data?.sources[data?.sources?.length - 1]?.url)
+      setSub(data?.subtitles)
       setTimeout(() => {
-        setDetails(data)
+        
         setLoading(true)
         console.log("Delayed for 1 second.");
-      }, "500");
+      }, "1000");
  
     
     }
@@ -59,10 +61,10 @@ const AniWatch = () => {
     useEffect(() => {
       console.log(ep)
         fetchData()
-        fetchEpisode()
+        // fetchEpisode()
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
-          console.log('ev', ev)
-          console.log(ev.data)
+          // console.log('ev', ev)
+          // console.log(ev.data)
           if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.name}`))
           if(ev.data === 'nextepisode-pressed')(handleOpen())
         
@@ -83,12 +85,8 @@ const AniWatch = () => {
 
         {loading   && 
        <>
-             {/* <iframe className='iframe-plyr' 
-            title="player" allow="autoplay; fullscreen" id="iframee" allowFullScreen="" 
-            src={details.source} __idm_id__="1040385">
-         
-            </iframe>  */}
-            <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} />
+       <VideoPlayer src={`https://proxy.vnxservers.com/`+src} sub={sub} ts={ts ?  ts : 0}/>
+            {/* <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} /> */}
             
        </>
             
