@@ -48,7 +48,7 @@ const AniWatch = () => {
       await axios(`https://cors.delusionz.xyz/https://api.animeflix.live/v2/episodes?id=${params.name}&dub=false`)
   .then(data2 => { const data = data2.data
     handleClose()
-    // console.log(data)
+    console.log(data)
 
     setDetails(data)
     
@@ -63,7 +63,7 @@ const AniWatch = () => {
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
           console.log('ev', ev)
           console.log(ev.data)
-          if(ev.data === 'backbutton-clicked')( navigate(`/`))
+          if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.name}`))
           if(ev.data === 'nextepisode-pressed')(handleOpen())
         
           if (typeof ev.data !== 'object') return
@@ -83,11 +83,11 @@ const AniWatch = () => {
 
         {loading   && 
        <>
-             <iframe className='iframe-plyr' 
+             {/* <iframe className='iframe-plyr' 
             title="player" allow="autoplay; fullscreen" id="iframee" allowFullScreen="" 
             src={details.source} __idm_id__="1040385">
          
-            </iframe> 
+            </iframe>  */}
             <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} />
             
        </>
