@@ -62,6 +62,7 @@ const VideoPlayer = ({src, sub}) => {
                           <span class="plyr__sr-only">Skip Episode</span>
                         </button>
                         `);
+                     
                          
         //    window.parent.postMessage({type: "watchprogress", position: player.currentTime, duration: player.duration}, "*");
         
@@ -75,6 +76,7 @@ const VideoPlayer = ({src, sub}) => {
                     })
 
                     const player = new Plyr(video, options);
+                    
                 });
 
                 
