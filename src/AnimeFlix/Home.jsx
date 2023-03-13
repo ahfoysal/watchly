@@ -22,7 +22,7 @@ const AniHome = () => {
     const [rTvShows , setRTvShows] = useState([]);
  
     async function fetchDetails (term) {
-   const response = await   axios.get(`https://cors.delusionz.xyz/https://api.animeflix.live/anime/${term}`)
+   const response = await   axios.get(`https://api-pewds.vercel.app/${term}`)
    .catch(function (error) {
     if (error.response) {
       // The request was made and the server responded with a status code
@@ -45,13 +45,13 @@ const AniHome = () => {
   
  
     const gettingData = async () => {
-    const Trending = await fetchDetails('gettrending')
-    setTrending(Trending.trending)
-    const Popular = await fetchDetails('getpopular')
+    const Trending = await fetchDetails('trending')
+    setTrending(Trending)
+    const Popular = await fetchDetails('popular')
     setPopular(Popular)
     console.log(popular)
-    const Airing = await fetchDetails('getairing')
-    setAiring(Airing)
+    // const Airing = await fetchDetails('getairing')
+    // setAiring(Airing)
     const TrendingMovie = await movieDetails('trending-movies')
     setTrendingMovie(TrendingMovie)
     const TvShows = await movieDetails('trending-tvshows')
@@ -89,7 +89,7 @@ const AniHome = () => {
   
      <AnimeGrid batch={trendingMovie} term={'Trending Movie'} handleOpen={handleOpen} setIsMovie={setIsMovie} handleOpen2={handleOpen2} isAnime={false} setItem={setItem}/>
 
-     {/* <AnimeGrid batch={popular} term={'Popular Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true} /> */}
+     <AnimeGrid batch={popular} term={'Popular Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true} />
     
      <AnimeGrid batch={tvShows} term={'Trending Tv Shows'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} handleOpen2={handleOpen2}  isAnime={false}/>
 
@@ -97,7 +97,7 @@ const AniHome = () => {
    
      <AnimeGrid batch={rTvShows} term='Recent TV Shows' handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} handleOpen2={handleOpen2} isAnime={false}/>
 
-     <AnimeGrid batch={airing} term='Currently Airing' handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/>
+     {/* <AnimeGrid batch={airing} term='Currently Airing' handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/> */}
     
     </Wrapper>
   )
