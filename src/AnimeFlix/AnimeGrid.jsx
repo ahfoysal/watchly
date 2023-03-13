@@ -13,7 +13,7 @@ const AnimeGrid = ({batch, handleOpen, setItem, isAnime, setIsMovie, term}) => {
     const GridContiner = ({anime}) => {
 
         let img = anime?.image 
-        let title= anime?.title?.english  || anime?.title?.native || anime?.title
+        let title= anime?.title?.english  || anime?.title?.native ||  anime?.title?.userPreferred || anime?.title?.romaji || anime?.title
         let id = anime?.id
         const  pressHandler = () => {
         
