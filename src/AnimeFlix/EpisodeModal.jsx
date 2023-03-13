@@ -16,7 +16,7 @@ import Backdrop from '@mui/material/Backdrop';
 
 
 const ModalContainer = ({open, setOpen, item, isMovie}) => {
-
+  const navigate = useNavigate();
 
   useEffect(() => { 
     
@@ -60,10 +60,126 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
     setPage(1)
     // setDetails({})
     };
-    const handleChange = (event) => {
-      setPage(event.target.value);
-    };
-    const Wrapper = styled.section`
+ 
+    
+   
+    const handleNavigate = (id) => {
+      console.log(id)
+      navigate(`/watch/${item}?episode=${id}`)
+      window.location.reload(false);
+      
+    }
+
+  return (
+    
+        <Modal
+        
+        open={open}
+        onClose={handleClose}
+        
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 3000,
+          },
+        }}
+      >
+       <Fade in={open}>
+        <Box sx={style} className='dkMIQh'>
+        <Wrapper  >
+   
+          
+          <main className="fxRBEX">
+          <div>
+            <div className="EIpBt">
+      {item.rating && <strong>{item?.rating}%Match</strong>} 
+   {item.releaseDate &&   <label>{item.releaseDate}</label>}
+    { item.totalEpisodes && <label> {item.totalEpisodes}  episodes</label>}
+{item.duration &&      <label>{item.duration}  minutes </label>}
+      
+                 </div>
+           
+          </div>
+          <div>
+     
+          { loading ?   <>
+            <p>not loaded</p>
+          </> : <>{details.type !== "Movie"  && <>
+          <header className="bJEMmB">
+          <h3>Episodes</h3>
+       { details?.episodes?.length > 20 &&  
+        <Dropdown className='iklKND'>
+      <Dropdown.Toggle variant="success" id="dropdown-basic" className='kXDwXI'>
+       Page {page}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu >
+        {details?.episodes?.slice(0, Math.ceil(details?.episodes.length/20))?.map((pro, index) => {
+        return   <Dropdown.Item  onClick={() => setPage(index+1)} key={index}>{index+1}</Dropdown.Item>
+        })}
+       
+      </Dropdown.Menu>
+    </Dropdown>}
+     
+          
+          </header>
+          <div className='episode-container'>
+      {details?.episodes?.length > 0 && details?.episodes?.slice(20 * (page - 1), 20 * page)?.map((pro) => {
+        return  <div  key={pro?.id} onClick={() => handleNavigate(pro.id)} >
+            <div className="iEayIb">
+            <div className="eppqhJ">
+            { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://crunchy.animeflix.live/${pro.image}` : pro.image } />
+ :   <img alt="thumbnail" src={ item.image } />}
+            </div>
+            <div className="hhCCFl">
+{  pro.title != null ?       <>       <h3 className='episode-title'>{pro?.number}. {pro?.title}</h3>
+                <p>{pro.description}</p> </> :
+              <>  <h3 className='episode-title'> Episode {pro?.number} -</h3>
+                <p> Episode {pro.number} of {item?.title?.english} </p> </>
+                }
+            </div>  
+            </div>
+          </div>
+      })}</div>
+          </> }</>}
+         
+
+          </div>
+
+          </main>
+        </Wrapper>
+
+
+
+
+
+   
+    
+       
+        </Box>
+        </Fade>
+      </Modal>
+    
+  )
+}
+
+export default ModalContainer
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  // right: '50%',
+  transform: 'translate(-50%, -50%)',
+  // width: 400,
+
+ 
+
+  backgroundColor: '#141414'
+};
+const Wrapper = styled.section`
    
     width: clamp(16rem, 65vw, 55rem);
     line-height: 1.5;
@@ -72,17 +188,7 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
     animation: 400ms ease 0s 1 normal none running ;
    
     
-    .cgXpiH {
-    height: clamp(25rem, 22vw, 30rem);
-    display: flex;
-    position: relative;
-    align-items: flex-end;
-    padding: 1.5vw 3vw;
-    border-radius: 0.5rem 0.5rem 0px 0px;
-    background: linear-gradient(0deg, rgb(24, 24, 24) 1%, transparent 99%) center center / contain, url(${item.cover || details.cover ||  details.image}) no-repeat;
-    background-position: center center;
-}
-
+ 
 .modal-title{
   color: white;
  
@@ -242,113 +348,3 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
 
     
     `
-
-  return (
-    
-        <Modal
-        
-        open={open}
-        onClose={handleClose}
-        
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{
-          backdrop: {
-            timeout: 3000,
-          },
-        }}
-      >
-       <Fade in={open}>
-        <Box sx={style} className='dkMIQh'>
-        <Wrapper  >
-   
-          
-          <main className="fxRBEX">
-          <div>
-            <div className="EIpBt">
-      {item.rating && <strong>{item?.rating}%Match</strong>} 
-   {item.releaseDate &&   <label>{item.releaseDate}</label>}
-    { item.totalEpisodes && <label> {item.totalEpisodes}  episodes</label>}
-{item.duration &&      <label>{item.duration}  minutes </label>}
-      
-                 </div>
-           
-          </div>
-          <div>
-     
-          { loading ?   <>
-            <p>not loaded</p>
-          </> : <>{details.type !== "Movie"  && <>
-          <header className="bJEMmB">
-          <h3>Episodes</h3>
-       { details?.episodes?.length > 20 &&  
-        <Dropdown className='iklKND'>
-      <Dropdown.Toggle variant="success" id="dropdown-basic" className='kXDwXI'>
-       Page {page}
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu >
-        {details?.episodes?.slice(0, Math.ceil(details?.episodes.length/20))?.map((pro, index) => {
-        return   <Dropdown.Item  onClick={() => setPage(index+1)} key={index}>{index+1}</Dropdown.Item>
-        })}
-       
-      </Dropdown.Menu>
-    </Dropdown>}
-     
-          
-          </header>
-          <div className='episode-container'>
-      {details?.episodes?.length > 0 && details?.episodes?.slice(20 * (page - 1), 20 * page)?.map((pro) => {
-        return  <Link  key={pro?.id} to={`/watch/${item}?episode=${pro.id}`}>
-            <div className="iEayIb">
-            <div className="eppqhJ">
-            { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://crunchy.animeflix.live/${pro.image}` : pro.image } />
- :   <img alt="thumbnail" src={ item.image } />}
-            </div>
-            <div className="hhCCFl">
-{  pro.title != null ?       <>       <h3 className='episode-title'>{pro?.number}. {pro?.title}</h3>
-                <p>{pro.description}</p> </> :
-              <>  <h3 className='episode-title'> Episode {pro?.number} -</h3>
-                <p> Episode {pro.number} of {item?.title?.english} </p> </>
-                }
-            </div>  
-            </div>
-          </Link>
-      })}</div>
-          </> }</>}
-         
-
-          </div>
-
-          </main>
-        </Wrapper>
-
-
-
-
-
-   
-    
-       
-        </Box>
-        </Fade>
-      </Modal>
-    
-  )
-}
-
-export default ModalContainer
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  // right: '50%',
-  transform: 'translate(-50%, -50%)',
-  // width: 400,
-
- 
-
-  backgroundColor: '#141414'
-};
