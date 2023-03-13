@@ -83,11 +83,11 @@ const AniWatch = () => {
 
         {loading   && 
        <>
-             <iframe className='iframe-plyr' 
+             {/* <iframe className='iframe-plyr' 
             title="player" allow="autoplay; fullscreen" id="iframee" allowFullScreen="" 
             src={details.source} __idm_id__="1040385">
          
-            </iframe> 
+            </iframe>  */}
             <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} />
             
        </>
