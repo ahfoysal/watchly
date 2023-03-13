@@ -19,9 +19,9 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
   const navigate = useNavigate();
 
   useEffect(() => { 
-    
     async function fetchDetails () {
-   const response = await  axios.get(`https://cors.delusionz.xyz/https://api.animeflix.live/v2/episodes?id=${item}&dub=false`)  
+      setDetails({})
+   const response = await  axios.get(`https://api-pewds.vercel.app/info/${item}`)  
    setLoading(false)
     return response.data
   
@@ -33,22 +33,21 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
     console.log(data)
    
   } 
-  async function fetchDetails2 () {
-    const response = await  axios.get(`https://api-pewds.vercel.app/info/${item}`)  
-    setLoading(false)
-     return response.data
+  // async function fetchDetails2 () {
+  //   setDetails({})
+  //   const response = await  axios.get(`https://api-pewds.vercel.app/info/${item.id}`)  
+  //   setLoading(false)
+  //    return response.data
    
-     }
+  //    }
      console.log(item.id)
-     const gettingData2 = async () => {
-     const data = await fetchDetails2()
-     setDetails(data)
-     console.log(data)
+  //    const gettingData2 = async () => {
+  //    const data = await fetchDetails2()
+  //    setDetails(data)
+  //    console.log(data)
     
-   } 
-  
-  if(!isMovie)(gettingData())
-  if(isMovie)(gettingData2())
+  //  } 
+   gettingData()
   },[item, isMovie])
 
     const [page, setPage] = React.useState(1);
