@@ -41,7 +41,7 @@ const AniWatch = () => {
         
         setLoading(true)
         console.log("Delayed for 1 second.");
-      }, "3000");
+      }, "2000");
  
     
     }
