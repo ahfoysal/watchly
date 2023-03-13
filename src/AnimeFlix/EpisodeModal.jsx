@@ -17,8 +17,15 @@ import Backdrop from '@mui/material/Backdrop';
 
 const ModalContainer = ({open, setOpen, item, isMovie}) => {
   const navigate = useNavigate();
-
+  const [details, setDetails] = React.useState({});
+  const handleClose = () =>{ 
+    setLoading(false)
+    setOpen(false)
+    setPage(1)
+    // setDetails({})
+    };
   useEffect(() => { 
+    if(details.type == "Movie")(handleClose())
     async function fetchDetails () {
       setDetails({})
    const response = await  axios.get(`https://api-pewds.vercel.app/info/${item}`)  
@@ -33,32 +40,17 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
     console.log(data)
    
   } 
-  // async function fetchDetails2 () {
-  //   setDetails({})
-  //   const response = await  axios.get(`https://api-pewds.vercel.app/info/${item.id}`)  
-  //   setLoading(false)
-  //    return response.data
-   
-  //    }
+
      console.log(item.id)
-  //    const gettingData2 = async () => {
-  //    const data = await fetchDetails2()
-  //    setDetails(data)
-  //    console.log(data)
-    
-  //  } 
+
    gettingData()
-  },[item, isMovie])
+  
+  },[item, isMovie, details])
 
     const [page, setPage] = React.useState(1);
-    const [details, setDetails] = React.useState({});
+
     const [loading, setLoading] = React.useState(true);
-    const handleClose = () =>{ 
-    setLoading(false)
-    setOpen(false)
-    setPage(1)
-    // setDetails({})
-    };
+
  
     
    
