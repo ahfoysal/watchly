@@ -37,16 +37,7 @@ const VideoPlayer = ({src, sub}) => {
                 hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
                     const availableQualities = hls.levels.map((l) => l.height)
                     availableQualities.unshift(0)
-                    var elem = document.getElementsByClassName("plyr__menu");
-                    console.log(elem)
-                    if (elem.length === 1) elem[0].insertAdjacentHTML("beforebegin", `
-                    <button type="button" class="plyr__control plyr__control--pressed" id="nextepisode" onclick="parent.postMessage('nextepisode-pressed', '*')">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-skip-end-fill" viewBox="3 2.5 11 11">
-                        <path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.693 3.3 4 3.678 4 4.308v7.384c0 .63.692 1.01 1.233.697L11.5 8.753V12a.5.5 0 0 0 1 0V4z"/>
-                      </svg>
-                      <span class="plyr__sr-only">Skip Episode</span>
-                    </button>
-                    `);
+                  
                     options.quality = {
                         default: 0,
                         options: availableQualities,
@@ -61,7 +52,16 @@ const VideoPlayer = ({src, sub}) => {
                   
                     hls.on(Hls.Events.LEVEL_SWITCHED, function (event, data) {
                         const span = document.querySelector(".plyr__menu__container [data-plyr='quality'][value='0'] span")
-                       
+                        var elem = document.getElementsByClassName("plyr__menu");
+                        console.log(elem)
+                        if (elem.length === 1) elem[0].insertAdjacentHTML("beforebegin", `
+                        <button type="button" class="plyr__control plyr__control--pressed" id="nextepisode" onclick="parent.postMessage('nextepisode-pressed', '*')">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-skip-end-fill" viewBox="3 2.5 11 11">
+                            <path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.693 3.3 4 3.678 4 4.308v7.384c0 .63.692 1.01 1.233.697L11.5 8.753V12a.5.5 0 0 0 1 0V4z"/>
+                          </svg>
+                          <span class="plyr__sr-only">Skip Episode</span>
+                        </button>
+                        `);
                          
         //    window.parent.postMessage({type: "watchprogress", position: player.currentTime, duration: player.duration}, "*");
         
