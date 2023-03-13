@@ -67,7 +67,7 @@ const AniWatch = () => {
           // console.log(ev.data)
           if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.name}`))
           if(ev.data === 'nextepisode-pressed')(handleOpen())
-        
+          if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `http://localhost:3000/watch/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
           if (ev.data.type !== 'message') return
@@ -78,7 +78,7 @@ const AniWatch = () => {
         return () => window.removeEventListener('message', handler)
         
         
-    }, [ep])
+    }, [ep, params.name])
   return (
     <div className='player-page'>
 
@@ -86,7 +86,7 @@ const AniWatch = () => {
         {loading   && 
        <>
        <VideoPlayer src={`https://proxy.vnxservers.com/`+src} sub={sub} ts={ts ?  ts : 0}/>
-            {/* <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} /> */}
+            <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} />
             
        </>
             
