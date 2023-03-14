@@ -17,7 +17,7 @@ const Header = () => {
   return (
 
       <>
-    <Navbar className=" header-top   "  >
+    <Navbar className={`header-top  ${param.includes("watch") && 'display-none'} `}  >
       <Container fluid>
     {/* <div className={`head-start ${headerActive ? '' : 'active'}`}> 
     
