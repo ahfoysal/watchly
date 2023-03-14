@@ -51,12 +51,15 @@ const FlixWAtch = () => {
 .then(data2 => { const data = data2.data
   // console.log(data)
   setDetails(data)
+  const next =  getPrevAndNext(data.episodes, ep)
+  console.log(next.id)
+  
+ 
+  window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&next=${next.id}&ts=${ts}`)
 
 
   
-   const next =  getPrevAndNext(data.episodes, ep)
-   console.log(next.id)
-  //  setNextEp(next.id)
+
   
  
  
@@ -81,18 +84,18 @@ const getPrevAndNext = (arr, activeID) => {
 
   return next
 }
-  
+const nextEp = query.get('next')
     useEffect(() => {
       // console.log(ep, ts)
         fetchData()
         fetchEpisode()
-      
+        
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
           // console.log('ev', ev)  
           console.log(ev.data)
           if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.type}/${params.name}`))
           if(ev.data === 'tabs')(handleOpen())
-          if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
+          if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&next=${nextEp}&ts=${ev.data.position.toFixed(0)}`))
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
           if (ev.data.type !== 'message') return
@@ -102,7 +105,7 @@ const getPrevAndNext = (arr, activeID) => {
         window.addEventListener('message', handler)
         return () => window.removeEventListener('message', handler)
         
-    }, [ep, params.name, params.type, ts, navigate])
+    }, [ep, nextEp ,params.name, params.type, ts, navigate])
   return (
     <div className='player-page'>
 

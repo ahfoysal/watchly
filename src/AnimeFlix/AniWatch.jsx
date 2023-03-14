@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import VideoPlayer from '../PLYR/HLS.tsx';
 import EpisodeModal from './EpisodeModal';
+import queryString  from 'query-string';
 
 const AniWatch = () => {
     let params = useParams();
@@ -13,7 +14,8 @@ const AniWatch = () => {
     }
       let query = useQuery()
       const ep = query.get('episode')
-      const ts = query.get('ts')
+      let ts = query.get('ts')
+      
 
     
     const navigate = useNavigate();
@@ -52,9 +54,16 @@ const AniWatch = () => {
     
      const next =  getPrevAndNext(data.episodes, ep)
      console.log(next.id)
-     
+     const parsed = queryString.parse(window.location.search);
+     console.log(parsed);
+     parsed.next = next.id;
+     const stringified = queryString.stringify(parsed);
+
+
+      window.history.replaceState(null, "Okay", `/watch/${params.name}?${stringified}`)
+      console.log(stringified)
     
-   
+    //  window.history.replaceState(null, "Okay", `/watch/${params.name}?episode=${ep}&next=${next.id}&ts=${ts}`)
    
 
   }
@@ -77,8 +86,25 @@ const AniWatch = () => {
  
     return next
   }
+  const nextEpHandle = () => {
+    const parsed = queryString.parse(window.location.search);
+console.log(parsed);
+      navigate(`/watch/${params.name}?episode=${parsed.next}`)
+      window.location.reload(false);
+
+  }
+  const tsHandler = (time) => {
+    const parsed = queryString.parse(window.location.search);
+console.log(parsed);
+parsed.ts = time;
+const stringified = queryString.stringify(parsed);
+window.history.replaceState(null, "Okay", `/watch/${params.name}?${stringified}`)
+console.log(stringified)
+
+  }
+  // const nextEp = query.get('next')
     useEffect(() => {
-     
+   
         fetchData()
         fetchEpisode()  
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
@@ -87,13 +113,12 @@ const AniWatch = () => {
           if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.name}`))
           if(ev.data === 'tabs')(handleOpen())
           if(ev.data === 'nextepisode-pressed'){
-            // console.log(nextEp)
-            
-            // navigate(`/watch/${params.name}?episode=${nextEp}`)
-            // window.location.reload(false);
-           
+            nextEpHandle()
           }
-          if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `/watch/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
+          if(ev.data.type === 'watchprogress')(   
+        // window.history.replaceState(null, "Okay", `/watch/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`)
+        tsHandler(ev.data.position.toFixed(0))
+            )
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
           if (ev.data.type !== 'message') return
