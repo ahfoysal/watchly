@@ -28,7 +28,7 @@ const FlixWAtch = () => {
 
   
   
-    const fetchEpisode =async () => {
+    const fetchData =async () => {
       await axios(`https://api-pewds.vercel.app/episode-movie/${params.type}/${params.name}/${ep}`)
   .then(data2 => { const data = data2.data
   
@@ -46,10 +46,45 @@ const FlixWAtch = () => {
   
   }
   )}
+  const fetchEpisode =async () => {
+    await axios(`https://api-pewds.vercel.app/info/${params.type}/${params.name}`)
+.then(data2 => { const data = data2.data
+  // console.log(data)
+  setDetails(data)
+
+
+  
+   const next =  getPrevAndNext(data.episodes, ep)
+   console.log(next.id)
+  //  setNextEp(next.id)
+  
+ 
+ 
+
+}
+)}
+
+const getPrevAndNext = (arr, activeID) => {
+ 
+  const index = arr.findIndex((a) => a.id === activeID)
+  if (index === -1) {
+ 
+    return undefined
+  }
+
+  const next = arr[index + 1]
+  if (!next) {
+    return undefined
+  }
+  
+
+
+  return next
+}
   
     useEffect(() => {
-      console.log(ep, ts)
-        // fetchData()
+      // console.log(ep, ts)
+        fetchData()
         fetchEpisode()
       
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
@@ -75,7 +110,7 @@ const FlixWAtch = () => {
         {loading   && 
        <>
        <VideoPlayer src={src} sub={sub} ts={ts ?  ts : 0}/>
-            <EpisodeModal details={details} item={`${params.type}/${params.name}`} handleOpen={handleOpen} isMovie={true}  handleClose={handleClose} setOpen={setOpen} open={open} />
+            <EpisodeModal details={details}  handleOpen={handleOpen}   setOpen={setOpen} open={open} />
             
        </>
             
