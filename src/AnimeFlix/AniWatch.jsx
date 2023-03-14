@@ -22,7 +22,7 @@ const AniWatch = () => {
     const [sub, setSub] = useState({})
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = React.useState(false);
-    const [nextEp, setNextEp] = useState('');
+   
    
 
     const handleOpen = () => setOpen(true);
@@ -52,7 +52,7 @@ const AniWatch = () => {
     
      const next =  getPrevAndNext(data.episodes, ep)
      console.log(next.id)
-     setNextEp(next.id)
+     
     
    
    
@@ -87,13 +87,13 @@ const AniWatch = () => {
           if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.name}`))
           if(ev.data === 'tabs')(handleOpen())
           if(ev.data === 'nextepisode-pressed'){
-            console.log(nextEp)
+            // console.log(nextEp)
             
             // navigate(`/watch/${params.name}?episode=${nextEp}`)
             // window.location.reload(false);
            
           }
-          if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `http://localhost:3000/watch/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
+          if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `/watch/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
           if (ev.data.type !== 'message') return
