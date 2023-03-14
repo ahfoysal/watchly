@@ -96,9 +96,9 @@ const VideoPlayer = ({src, sub, ts}) => {
                         setTimeout(() => {
         
                             player.currentTime = Number(ts)
-                            console.log("Delayed  ts .");
+                            
                           }, "2000");
-                      console.log('test', ts)
+                      
 
  
                       });
@@ -146,7 +146,7 @@ const VideoPlayer = ({src, sub, ts}) => {
                
             }
             
-console.log(sub, src, ts)
+// console.log(sub, src, ts)
             function updateQuality(newQuality) {
                 if (newQuality === 0) {
                     window.hls.currentLevel = -1;

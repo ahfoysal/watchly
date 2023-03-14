@@ -50,21 +50,20 @@ export function ContextProviderS({ children }) {
 
     function addToCart(id) {
 
-        const unsubscribe = () => {
+        console.log(id)
           const newCart = [id, ...cart];
-          // const merged = [].concat.apply([], newCart);
-          // let uniqueChars = [...new Set(merged)];
-          const unique = [...new Map(newCart.map((m) => [m.animeId  , m])).values()];
+          const merged = [].concat.apply([], newCart);
+          let uniqueChars = [...new Set(merged)];
+          const unique = [...new Map(newCart.map((m) => [m.id  , m])).values()];
           setCart(unique);
           
      
-            localStorage.setItem("cartItems", JSON.stringify(newCart))
-              getCart();
-            // console.log(id)
+            // localStorage.setItem("cw", JSON.stringify(newCart))
+              // getCart();
+          //   // console.log(id)
 
 
-        };
-        return unsubscribe(id)
+        
          
     }
 
@@ -80,7 +79,7 @@ export function ContextProviderS({ children }) {
     }
 
     const getCart = () => {
-      const newCart = localStorage?.getItem("cartItems" ) 
+      const newCart = localStorage?.getItem("cw" ) 
       const test = JSON.parse(newCart)
       const unique = [...new Map(test?.map((m) => [m.animeId , m])).values()];
 
@@ -102,9 +101,9 @@ export function ContextProviderS({ children }) {
     
     }
   
-    const getDb = () => localStorage.getItem('cartItems');
+    const getDb = () => localStorage.getItem('cw');
     const updateDb = cart => {
-      localStorage.setItem('cartItems', JSON.stringify(cart));
+      localStorage.setItem('cw', JSON.stringify(cart));
     }
 
     const removeFromList = id => {
