@@ -6,6 +6,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import VideoPlayer from '../PLYR/HLS.tsx';
 import EpisodeModal from './EpisodeModal';
 import queryString  from 'query-string';
+import * as ReactBootstrap from 'react-bootstrap'
 
 const AniWatch = () => {
     let params = useParams();
@@ -130,13 +131,13 @@ console.log(stringified)
     }, [ep, params, navigate])
   return (
     <div className='player-page'>
-        {loading   && 
+        {loading   ? 
        <>
        <VideoPlayer src={`https://proxy.vnxservers.com/`+src} sub={sub} ts={ts ?  ts : 0}/>
             <EpisodeModal  details={details}  handleOpen={handleOpen} setOpen={setOpen} open={open} />           
        </>
             
-
+       : <><div className="spinnerdiv"><ReactBootstrap.Spinner animation="border" /> </div></>
         }
     </div>
   )

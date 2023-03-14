@@ -14,6 +14,14 @@
 .display-none{
   display: none !important;
 }
+.spinner-border {
+  --bs-spinner-width: 2.5rem !important;
+  --bs-spinner-height: 2.5rem !important;
+  --bs-spinner-border-width: 0.35em !important;
+
+  border: var(--bs-spinner-border-width) solid red !important;
+  border-right-color: currentColor !important;
+}
 .card-img {
     min-height: 100%;
     object-fit: cover !important;

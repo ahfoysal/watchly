@@ -6,6 +6,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import VideoPlayer from '../PLYR/HLS.tsx';
 import EpisodeModal from './EpisodeModal';
 import queryString  from 'query-string';
+import * as ReactBootstrap from 'react-bootstrap'
 
 const FlixWAtch = () => {
     let params = useParams();
@@ -143,7 +144,7 @@ console.log(stringified)
     <div className='player-page'>
 
 
-        {loading   && 
+        {loading   ? 
        <>
        <VideoPlayer src={src} sub={sub} ts={ts ?  ts : 0}/>
             <EpisodeModal details={details}  handleOpen={handleOpen}   setOpen={setOpen} open={open} />
@@ -151,7 +152,7 @@ console.log(stringified)
        </>
             
 
-        }
+        : <><div className="spinnerdiv"><ReactBootstrap.Spinner animation="border" /> </div></>}
     </div>
   )
 }
