@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import VideoPlayer from '../PLYR/HLS.tsx';
 import EpisodeModal from './EpisodeModal';
+import queryString  from 'query-string';
 
 const FlixWAtch = () => {
     let params = useParams();
@@ -52,10 +53,14 @@ const FlixWAtch = () => {
   // console.log(data)
   setDetails(data)
   const next =  getPrevAndNext(data.episodes, ep)
-  console.log(next.id)
-  
- 
-  window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&next=${next.id}&ts=${ts}`)
+  const parsed = queryString.parse(window.location.search);
+  console.log(parsed);
+  parsed.next = next.id;
+  const stringified = queryString.stringify(parsed);
+
+
+   window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?${stringified}`)
+  // window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&next=${next.id}&ts=${ts}`)
 
 
   
@@ -84,7 +89,22 @@ const getPrevAndNext = (arr, activeID) => {
 
   return next
 }
-const nextEp = query.get('next')
+const nextEpHandle = () => {
+  const parsed = queryString.parse(window.location.search);
+console.log(parsed);
+    navigate(`/watch/${params.type}/${params.name}?episode=${parsed.next}`)
+    window.location.reload(false);
+
+}
+const tsHandler = (time) => {
+  const parsed = queryString.parse(window.location.search);
+console.log(parsed);
+parsed.ts = time;
+const stringified = queryString.stringify(parsed);
+window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?${stringified}`)
+console.log(stringified)
+
+}
     useEffect(() => {
       // console.log(ep, ts)
         fetchData()
@@ -95,7 +115,13 @@ const nextEp = query.get('next')
           console.log(ev.data)
           if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.type}/${params.name}`))
           if(ev.data === 'tabs')(handleOpen())
-          if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&next=${nextEp}&ts=${ev.data.position.toFixed(0)}`))
+          if(ev.data === 'nextepisode-pressed'){
+            nextEpHandle()
+          }
+          if(ev.data.type === 'watchprogress')( 
+            tsHandler(ev.data.position.toFixed(0))
+              // window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&next=${nextEp}&ts=${ev.data.position.toFixed(0)}`)
+              )
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
           if (ev.data.type !== 'message') return
@@ -105,7 +131,7 @@ const nextEp = query.get('next')
         window.addEventListener('message', handler)
         return () => window.removeEventListener('message', handler)
         
-    }, [ep, nextEp ,params.name, params.type, ts, navigate])
+    }, [ep ,params.name, params.type, ts, navigate])
   return (
     <div className='player-page'>
 

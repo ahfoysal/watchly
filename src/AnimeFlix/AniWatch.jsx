@@ -61,9 +61,9 @@ const AniWatch = () => {
 
 
       window.history.replaceState(null, "Okay", `/watch/${params.name}?${stringified}`)
-      console.log(stringified)
+      
     
-    //  window.history.replaceState(null, "Okay", `/watch/${params.name}?episode=${ep}&next=${next.id}&ts=${ts}`)
+    
    
 
   }

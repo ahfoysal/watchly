@@ -7,6 +7,10 @@
     display: flex;
     padding: 0.25vw 1.5vw;
 }
+.style-plyr{
+  position: relative;
+  width: 100%
+}
 .card-img {
     min-height: 100%;
     object-fit: cover !important;

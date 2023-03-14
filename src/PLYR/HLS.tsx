@@ -163,11 +163,7 @@ console.log(sub, src, ts)
     }, [ src, sub, elem]);
 
     return (
-        <div style={{
-            //keep in center
-            position: 'relative',
-            width: '100%',
-        }}>
+        <div className='style-plyr' >
             
 {/* <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="backicon back-icon" id="backbutton" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21v-2z"></path></svg> */}
 <svg className="backicon back-icon" onClick={backbutton} focusable="false"  viewBox="0 0 24 24" aria-hidden="true" id="backbutton" >
