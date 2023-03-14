@@ -52,7 +52,9 @@ const FlixWAtch = () => {
 .then(data2 => { const data = data2.data
   // console.log(data)
   setDetails(data)
-  const next =  getPrevAndNext(data.episodes, ep)
+
+  if(data.episodes.length > 1){
+    const next =  getPrevAndNext(data.episodes, ep)
   const parsed = queryString.parse(window.location.search);
   console.log(parsed);
   parsed.next = next.id;
@@ -61,6 +63,7 @@ const FlixWAtch = () => {
 
    window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?${stringified}`)
   // window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&next=${next.id}&ts=${ts}`)
+  }
 
 
   
@@ -92,8 +95,12 @@ const getPrevAndNext = (arr, activeID) => {
 const nextEpHandle = () => {
   const parsed = queryString.parse(window.location.search);
 console.log(parsed);
-    navigate(`/watch/${params.type}/${params.name}?episode=${parsed.next}`)
+
+if(parsed.next){
+  navigate(`/watch/${params.type}/${params.name}?episode=${parsed.next}`)
     window.location.reload(false);
+}
+    
 
 }
 const tsHandler = (time) => {
