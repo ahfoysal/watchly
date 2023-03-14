@@ -12,6 +12,22 @@
          transition: opacity 300ms ease 0s; 
          opacity: 1; color: white;
 }
+.playertitle {
+  text-align: center !important;
+  width: fit-content !important;
+  left: 40% !important;
+  font-size: 20px !important;
+  z-index: 200 !important;
+}
+@media(max-width:750px){
+  .playertitle {
+    text-align: center !important;
+    width: fit-content !important;
+    left: 40% !important;
+    font-size: 18px !important;
+  
+  }
+}
 .plyr__captions{
   animation:plyr-fade-in .3s ease;
   font-family:arial,sans-serif;
