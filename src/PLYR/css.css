@@ -294,10 +294,10 @@ i{
     fill:currentColor;
     display:block;
     height:18px;
-    height:var(--plyr-control-icon-size,25px);
+    height:var(--plyr-control-icon-size,20px);
     pointer-events:none;
     width:18px;
-    width:var(--plyr-control-icon-size,25px)
+    width:var(--plyr-control-icon-size,20px)
 }
 .plyr__control:focus{
     outline:0
@@ -556,7 +556,7 @@ a.plyr__control{
     color:var(--plyr-range-fill-background,var(--plyr-color-main,var(--plyr-color-main,#c40808)));
     display:block;
     height:19px;
-    height:calc(var(--plyr-range-thumb-active-shadow-width,3px)*2 + var(--plyr-range-thumb-height,30px));
+    height:calc(var(--plyr-range-thumb-active-shadow-width,3px)*2 + var(--plyr-range-thumb-height,20px));
     margin:0;
     min-width:0;
     padding:0;
