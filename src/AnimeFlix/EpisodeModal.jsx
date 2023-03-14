@@ -15,48 +15,50 @@ import Backdrop from '@mui/material/Backdrop';
 
 
 
-const ModalContainer = ({open, setOpen, item, isMovie}) => {
+const ModalContainer = ({open, setOpen, isMovie, details}) => {
   const navigate = useNavigate();
-  const [details, setDetails] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
+  // const [details, setDetails] = React.useState({});
   const handleClose = () =>{ 
-    setLoading(false)
+    // setLoading(false)
     setOpen(false)
-    setPage(1)
+    // setPage(1)
     // setDetails({})
     };
   useEffect(() => { 
-    if(details.type == "Movie")(handleClose())
-    async function fetchDetails () {
-      setDetails({})
-   const response = await  axios.get(`https://api-pewds.vercel.app/info/${item}`)  
-   setLoading(false)
-    return response.data
+    console.log(details)
+  //   if(details.type == "Movie")(handleClose())
+  //   async function fetchDetails () {
+  //     setDetails({})
+  //  const response = await  axios.get(`https://api-pewds.vercel.app/info/${item}`)  
+  //  setLoading(false)
+  //   return response.data
   
-    }
-    console.log(item.id)
-    const gettingData = async () => {
-    const data = await fetchDetails()
-    setDetails(data)
-    console.log(data)
+  //   }
+  //   console.log(item.id)
+  //   const gettingData = async () => {
+  //   const data = await fetchDetails()
+  //   setDetails(data)
+  //   console.log(data)
    
-  } 
+  // } 
 
-     console.log(item.id)
+  //    console.log(item.id)
 
-   gettingData()
+  //  gettingData()
   
   },[])
 
     const [page, setPage] = React.useState(1);
 
-    const [loading, setLoading] = React.useState(true);
+    
 
  
     
    
     const handleNavigate = (id) => {
       console.log(id)
-      navigate(`/watch/${item}?episode=${id}`)
+      navigate(`/watch/${details.id}?episode=${id}`)
       window.location.reload(false);
       
     }
@@ -84,21 +86,12 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
    
           
           <main className="fxRBEX">
-          <div>
-            <div className="EIpBt">
-      {item.rating && <strong>{item?.rating}%Match</strong>} 
-   {item.releaseDate &&   <label>{item.releaseDate}</label>}
-    { item.totalEpisodes && <label> {item.totalEpisodes}  episodes</label>}
-{item.duration &&      <label>{item.duration}  minutes </label>}
-      
-                 </div>
-           
-          </div>
+        
           <div>
      
           { loading ?   <>
             <p>not loaded</p>
-          </> : <>{details.type !== "Movie"  && <>
+          </> : <>{details?.type !== "Movie"  && <>
           <header className="bJEMmB">
           <h3>Episodes</h3>
        { details?.episodes?.length > 20 &&  
@@ -123,13 +116,13 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
             <div className="iEayIb">
             <div className="eppqhJ">
             { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://crunchy.animeflix.live/${pro.image}` : pro.image } />
- :   <img alt="thumbnail" src={ item.image } />}
+ :   <img alt="thumbnail" src={ details.image } />}
             </div>
             <div className="hhCCFl">
 {  pro.title != null ?       <>       <h3 className='episode-title'>{pro?.number}. {pro?.title}</h3>
                 <p>{pro.description}</p> </> :
               <>  <h3 className='episode-title'> Episode {pro?.number} -</h3>
-                <p> Episode {pro.number} of {item?.title?.english} </p> </>
+                <p> Episode {pro.number} of {details?.title?.english} </p> </>
                 }
             </div>  
             </div>

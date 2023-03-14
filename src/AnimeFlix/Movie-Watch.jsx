@@ -41,7 +41,7 @@ const FlixWAtch = () => {
         console.log("Delayed for 1 second.");
       }, "1000");
     // setLoading(true)
-    // setDetails(data)
+    setDetails(data)
     
   
   }
@@ -56,7 +56,7 @@ const FlixWAtch = () => {
           // console.log('ev', ev)  
           console.log(ev.data)
           if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.type}/${params.name}`))
-          if(ev.data === 'nextepisode-pressed')(handleOpen())
+          if(ev.data === 'tabs')(handleOpen())
           if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
@@ -75,7 +75,7 @@ const FlixWAtch = () => {
         {loading   && 
        <>
        <VideoPlayer src={src} sub={sub} ts={ts ?  ts : 0}/>
-            <EpisodeModal item={`${params.type}/${params.name}`} handleOpen={handleOpen} isMovie={true}  handleClose={handleClose} setOpen={setOpen} open={open} />
+            <EpisodeModal details={details} item={`${params.type}/${params.name}`} handleOpen={handleOpen} isMovie={true}  handleClose={handleClose} setOpen={setOpen} open={open} />
             
        </>
             

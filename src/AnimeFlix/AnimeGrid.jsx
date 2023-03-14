@@ -49,10 +49,10 @@ const AnimeGrid = ({batch, handleOpen, setItem, isAnime, setIsMovie, term}) => {
   return (
     <Wrapper>
 
-{batch.length > 0 && <> <h3 className="sc-fctJkW jbCcDw">{term}</h3>
+{batch?.length > 0 && <> <h3 className="sc-fctJkW jbCcDw">{term}</h3>
 
 <Splide  className='cqRZkL' options={{
-  perPage    : batch.length === 1 ? 1  : 7 ,
+  perPage    : batch?.length === 1 ? 1  : 7 ,
   gap        : 5,
   pagination : false,
   arrows : true,
@@ -63,7 +63,7 @@ const AnimeGrid = ({batch, handleOpen, setItem, isAnime, setIsMovie, term}) => {
 
   },
 }}>
-        {batch.length > 0 && batch?.map((anime) => (
+        {batch?.map((anime) => (
         <GridContiner key={anime.id} anime={anime}/>
         )) }
       

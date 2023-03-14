@@ -22,23 +22,19 @@ const AniWatch = () => {
     const [sub, setSub] = useState({})
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const [page, setPage] = React.useState('');
+    const [nextEp, setNextEp] = useState('');
+   
 
-    const handleChange = (event) => {
-      setPage(event.target.value);
-    };
+    const handleOpen = () => setOpen(true);
+
 
     const fetchData =async () => {
         await axios(`https://api-pewds.vercel.app/get/${ep}`)
     .then(data2 => { const data = data2?.data
-     
-      console.log(data)
+      // console.log(data)
       setSrc(data?.sources[data?.sources?.length - 1]?.url)
       setSub(data?.subtitles)
-      setTimeout(() => {
-        
+      setTimeout(() => {  
         setLoading(true)
         console.log("Delayed for 1 second.");
       }, "2000");
@@ -47,26 +43,56 @@ const AniWatch = () => {
     }
     )}
     const fetchEpisode =async () => {
-      await axios(`https://cors.delusionz.xyz/https://api.animeflix.live/v2/episodes?id=${params.name}&dub=false`)
+      await axios(`https://api-pewds.vercel.app/info/${params.name}`)
   .then(data2 => { const data = data2.data
-    handleClose()
-    console.log(data)
-
+    // console.log(data)
     setDetails(data)
+
+
     
-  
+     const next =  getPrevAndNext(data.episodes, ep)
+     console.log(next.id)
+     setNextEp(next.id)
+    
+   
+   
+
   }
   )}
+
+  const getPrevAndNext = (arr, activeID) => {
+   
+    const index = arr.findIndex((a) => a.id === activeID)
+    if (index === -1) {
+   
+      return undefined
+    }
+ 
+    const next = arr[index + 1]
+    if (!next) {
+      return undefined
+    }
+    
   
+ 
+    return next
+  }
     useEffect(() => {
-      console.log(ep)
+     
         fetchData()
-        // fetchEpisode()
+        fetchEpisode()  
         const handler = (ev: MessageEvent<{ type: string, message: string }>) => {
           // console.log('ev', ev)
           // console.log(ev.data)
           if(ev.data === 'backbutton-clicked')( navigate(`/?title=${params.name}`))
-          if(ev.data === 'nextepisode-pressed')(handleOpen())
+          if(ev.data === 'tabs')(handleOpen())
+          if(ev.data === 'nextepisode-pressed'){
+            console.log(nextEp)
+            
+            // navigate(`/watch/${params.name}?episode=${nextEp}`)
+            // window.location.reload(false);
+           
+          }
           if(ev.data.type === 'watchprogress')(   window.history.replaceState(null, "Okay", `http://localhost:3000/watch/${params.name}?episode=${ep}&ts=${ev.data.position.toFixed(0)}`))
           if (typeof ev.data !== 'object') return
           if (!ev.data.type) return
@@ -75,19 +101,14 @@ const AniWatch = () => {
         
         }
         window.addEventListener('message', handler)
-        return () => window.removeEventListener('message', handler)
-        
-        
-    }, [ep, params.name, navigate])
+        return () => window.removeEventListener('message', handler)       
+    }, [ep, params, navigate])
   return (
     <div className='player-page'>
-
-
         {loading   && 
        <>
        <VideoPlayer src={`https://proxy.vnxservers.com/`+src} sub={sub} ts={ts ?  ts : 0}/>
-            <EpisodeModal item={params.name} handleOpen={handleOpen}  handleClose={handleClose} setOpen={setOpen} open={open} />
-            
+            <EpisodeModal  details={details}  handleOpen={handleOpen} setOpen={setOpen} open={open} />           
        </>
             
 
