@@ -5,11 +5,10 @@ import { createContext} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { UserAuthContextProvider } from './context/UserAuthContext';
-import {  ContextProviderS } from "./pages/cart/Function";
-import { ProSidebarProvider } from 'react-pro-sidebar';
+// import { UserAuthContextProvider } from './context/UserAuthContext';
 
-export const TestContext = createContext();
+
+
  
 function App() {
 
@@ -18,21 +17,19 @@ function App() {
 
       
       <BrowserRouter>  
-      <ProSidebarProvider>
-      <UserAuthContextProvider>
-        <ContextProviderS>
+ 
+      {/* <UserAuthContextProvider> */}
 
-        <TestContext.Provider value={{ 
-         
-              }}>
+
+       
     <Header />
     {/* <Header2  /> */}
      <Pages  />
      <ToastContainer />
-     </TestContext.Provider  >
-     </ContextProviderS>
-     </UserAuthContextProvider>
-     </ProSidebarProvider>
+    
+
+     {/* </UserAuthContextProvider> */}
+   
       </BrowserRouter>
  
 
