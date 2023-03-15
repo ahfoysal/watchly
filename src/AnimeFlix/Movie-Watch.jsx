@@ -136,6 +136,14 @@ console.log(myObject)
 }
 
 }
+const tabshandle = () => {
+  const parsed = queryString.parse(window.location.search);
+console.log(parsed);
+
+if(parsed.next){
+  handleOpen()
+}
+}
 useEffect(() => {
     
   
@@ -153,7 +161,7 @@ useEffect(() => {
              navigate(`/?title=${params.type}/${params.name}`)
              window.location.reload(false);
             }
-          if(ev.data === 'tabs')(handleOpen())
+          if(ev.data === 'tabs')(tabshandle())
           if(ev.data === 'nextepisode-pressed'){
             nextEpHandle()
           }

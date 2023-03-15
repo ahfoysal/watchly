@@ -92,8 +92,11 @@ const AniWatch = ({handleAddToWatchlist}) => {
   const nextEpHandle = () => {
     const parsed = queryString.parse(window.location.search);
 console.log(parsed);
-      navigate(`/watch/${params.name}?episode=${parsed.next}`)
-      window.location.reload(false);
+if(parsed.next){
+  navigate(`/watch/${params.name}?episode=${parsed.next}`)
+  window.location.reload(false);
+}
+     
 
   }
   const tsHandler = (time, duration) => {
@@ -120,9 +123,15 @@ if (storedWatchlist) {
 
 console.log(myObject)
 
-
 }
+  }
+  const tabshandle = () => {
+    const parsed = queryString.parse(window.location.search);
+console.log(parsed);
 
+if(parsed.next){
+  handleOpen()
+}
   }
   useEffect(() => {
     
@@ -144,7 +153,7 @@ console.log(myObject)
              navigate(`/?title=${params.name}`)
              window.location.reload(false);
             }
-          if(ev.data === 'tabs')(handleOpen())
+          if(ev.data === 'tabs')(tabshandle())
           if(ev.data === 'nextepisode-pressed')(
             nextEpHandle()
 
