@@ -127,9 +127,9 @@ console.log(myObject)
   useEffect(() => {
     
   
-    return () => {
+    // return () => {
       fetchEpisode() 
-    }
+    // }
   }, [])
   
   // const nextEp = query.get('next')

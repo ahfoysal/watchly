@@ -49,6 +49,7 @@ const FlixWAtch = ({handleAddToWatchlist}) => {
   }
   )}
   const fetchEpisode =async () => {
+    console.log('ok')
     await axios(`https://api-pewds.vercel.app/info/${params.type}/${params.name}`)
 .then(data2 => { const data = data2.data
   console.log(data)
@@ -138,9 +139,9 @@ console.log(myObject)
 useEffect(() => {
     
   
-  return () => {
+  // return () => {
     fetchEpisode() 
-  }
+  // }
 }, [])
     useEffect(() => {
   
