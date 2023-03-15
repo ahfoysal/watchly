@@ -20,18 +20,25 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 const ModalContainer = ({open, setOpen, item}) => {
   const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
+  const [perPage, setPerPage] = React.useState(20);
+
     const [details, setDetails] = React.useState({});
     const [loading, setLoading] = React.useState(true);
     const [hasCw, setHasCw] = React.useState(false);
+    const [hasSeason, setHasSeason] = React.useState(false);
     const [cw, setCw] = React.useState({});
+  
  
   useEffect(() => { 
 
    
     async function fetchDetails () {
       setDetails({})
+      setHasSeason(false)
       setHasCw(false)
    const response = await  axios.get(`https://api-pewds.vercel.app/info/${item.id}`)  
+  //  console.log(response.data?.episodes[0]?.season )
+   if(response.data?.episodes[0]?.season )(setHasSeason(true))
    setLoading(false)
     return response.data
   
@@ -76,6 +83,27 @@ const ModalContainer = ({open, setOpen, item}) => {
    
     };
 
+    const SeasonMenuItem = ({item}) => {
+      let uniqueObjects = {};
+
+// loop through the objects array
+item.episodes.forEach(function(obj) {
+  // if the object ID is not in the uniqueObjects object, add it
+  if (!uniqueObjects[obj.season]) {
+    uniqueObjects[obj.season] = obj;
+  }
+});
+
+// get an array of the unique objects
+let uniqueObjectsArray = Object.values(uniqueObjects);
+      return(
+        <>
+        {uniqueObjectsArray?.map((pro, index) => {
+        return  <Dropdown.Item  onClick={() => setPage(index+1)} key={index}>{index+1}</Dropdown.Item>
+        })}
+        </>
+      )
+    }
   
 
   return (
@@ -141,7 +169,22 @@ const ModalContainer = ({open, setOpen, item}) => {
           </> : <>{details?.type !== "Movie"  && <>
           <header className="bJEMmB">
           <h3>Episodes</h3>
-       { details?.episodes?.length > 20 &&  
+      {hasSeason ? 
+      
+
+      <Dropdown className='iklKND'>
+      <Dropdown.Toggle variant="success" id="dropdown-basic" className='kXDwXI'>
+       Season {page}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu >
+      
+     <SeasonMenuItem item={details} />
+       
+      </Dropdown.Menu>
+    </Dropdown>
+
+      : <> { details?.episodes?.length > 20 && 
         <Dropdown className='iklKND'>
       <Dropdown.Toggle variant="success" id="dropdown-basic" className='kXDwXI'>
        Page {page}
@@ -154,11 +197,32 @@ const ModalContainer = ({open, setOpen, item}) => {
        
       </Dropdown.Menu>
     </Dropdown>}
+    </>}
      
           
           </header>
           <div className='episode-container'>
-      {details?.episodes?.length > 0 && details?.episodes?.slice(20 * (page - 1), 20 * page)?.map((pro) => {
+{hasSeason ? <>
+  {  details?.episodes?.map((pro) => {
+    if (pro.season === page)
+        return    <Link key={pro.id} to={`/watch/${item.id}?episode=${pro.id}`}>
+            <div className="iEayIb">
+            <div className="eppqhJ">
+            { pro?.image != null ?           <img alt="thumbnail" src={ pro?.image?.includes("thetvdb") ? `https://crunchy.animeflix.live/${pro.image}` : pro.image } />
+ :   <img alt="thumbnail" src={ item.image } />}
+            </div>
+            <div className="hhCCFl">
+{  pro.title != null ?       <>       <h3 className='episode-title'> {pro?.title}. (s{pro?.season})</h3>
+                <p>{pro.description}</p> </> :
+              <>  <h3 className='episode-title'>  Episode {pro.season} -</h3>
+                <p> Episode {pro.number} of {item?.title?.english || details?.title?.english || item?.title || details?.title } </p> </>
+                }
+            </div>  
+            </div>
+          </Link>
+      })} 
+</> : <>      
+{details?.episodes?.length > 0 && details?.episodes?.slice(perPage * (page - 1), perPage * page)?.map((pro) => {
         return  <Link  key={pro?.id} to={`/watch/${item.id}?episode=${pro.id}`}>
             <div className="iEayIb">
             <div className="eppqhJ">
@@ -174,8 +238,11 @@ const ModalContainer = ({open, setOpen, item}) => {
             </div>  
             </div>
           </Link>
-      })}</div>
-          </> }</>}
+      })} 
+      </>}
+      </div>
+          </> }
+          </>}
          
 
           </div>
