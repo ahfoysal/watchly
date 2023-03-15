@@ -132,7 +132,7 @@ const VideoPlayer = ({src, sub, ts}) => {
                    
                       player.on('controlsshown', () => {
                         document.getElementById("backbutton").style.opacity=1;
-                      });
+                      });   
                       player.on('ended', () => {
                         window.parent.postMessage('nextepisode-pressed', '*');
                       });
@@ -163,6 +163,7 @@ const VideoPlayer = ({src, sub, ts}) => {
     }, [ src, sub, elem]);
 
     return (
+        <>
         <div className='style-plyr' >
             
 {/* <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" class="backicon back-icon" id="backbutton" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21v-2z"></path></svg> */}
@@ -187,6 +188,7 @@ const VideoPlayer = ({src, sub, ts}) => {
 
             
         </div>
+        </>
     )
 }
 

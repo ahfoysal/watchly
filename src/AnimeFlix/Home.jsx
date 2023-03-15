@@ -9,12 +9,12 @@ import ModalContainer from './ModalContainer';
 import { json, useLocation } from 'react-router-dom';
 // import MovieModalContainer from './MovieModal';
 
-const AniHome = () => {
+const AniHome = ({cwList}) => {
   const useQuery = () => {
     return new URLSearchParams (useLocation().search)
   }
     let query = useQuery()
-    const anime = query.get('anime')
+ 
     const title = query.get('title')
 
     const [trending , setTrending] = useState([]);
@@ -55,12 +55,7 @@ const AniHome = () => {
     )}
 
   useEffect(() => { 
-    if(anime){
-      console.log('anime:' ,anime)
-      fetchAnime(anime)
-
-      // handleOpen()
-    }
+   
     if(title){
       console.log('title:' ,title)
       fetchAnime(title)
@@ -105,7 +100,8 @@ const AniHome = () => {
     <Wrapper>
     <ModalContainer item={item} handleOpen={handleOpen} isMovie={isMovie}  setOpen={setOpen} open={open}  />
 
-    
+    <AnimeGrid batch={cwList} term={'Continue Watch'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/>
+
      <AnimeGrid batch={trending} term={'Trending Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/>
   
      <AnimeGrid batch={trendingMovie} term={'Trending Movie'} handleOpen={handleOpen} setIsMovie={setIsMovie}  isAnime={false} setItem={setItem}/>

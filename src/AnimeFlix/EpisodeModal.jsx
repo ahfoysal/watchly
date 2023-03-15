@@ -15,7 +15,7 @@ import Backdrop from '@mui/material/Backdrop';
 
 
 
-const ModalContainer = ({open, setOpen, isMovie, details}) => {
+const EpisodeModal = ({open, setOpen, details}) => {
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
   // const [details, setDetails] = React.useState({});
@@ -25,29 +25,7 @@ const ModalContainer = ({open, setOpen, isMovie, details}) => {
     // setPage(1)
     // setDetails({})
     };
-  useEffect(() => { 
-    console.log(details)
-  //   if(details.type == "Movie")(handleClose())
-  //   async function fetchDetails () {
-  //     setDetails({})
-  //  const response = await  axios.get(`https://api-pewds.vercel.app/info/${item}`)  
-  //  setLoading(false)
-  //   return response.data
-  
-  //   }
-  //   console.log(item.id)
-  //   const gettingData = async () => {
-  //   const data = await fetchDetails()
-  //   setDetails(data)
-  //   console.log(data)
-   
-  // } 
 
-  //    console.log(item.id)
-
-  //  gettingData()
-  
-  },[])
 
     const [page, setPage] = React.useState(1);
 
@@ -150,7 +128,7 @@ const ModalContainer = ({open, setOpen, isMovie, details}) => {
   )
 }
 
-export default ModalContainer
+export default EpisodeModal
 const style = {
   position: 'absolute',
   top: '50%',

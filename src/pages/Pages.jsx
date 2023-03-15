@@ -12,7 +12,7 @@ import AniSearch from '../AnimeFlix/Anisearch';
 
 
 
-function Pages() {
+function Pages({handleAddToWatchlist, cwList}) {
   const location = useLocation();
 
 
@@ -22,12 +22,12 @@ function Pages() {
   
         <Routes location={location} key={location.pathname}>
 
-           <Route path="/" element={<AniHome />}/>
+           <Route path="/" element={<AniHome cwList={cwList} />}/>
  
-           <Route path="/watch/:name" element={<AniWatch />} />
-           <Route path="/watch/:type/:name" element={<FlixWAtch />} />
+           <Route path="/watch/:name" element={<AniWatch  handleAddToWatchlist={handleAddToWatchlist} />} />
+           <Route path="/watch/:type/:name" element={<FlixWAtch handleAddToWatchlist={handleAddToWatchlist} />} />
       
-       <Route path="/searched/:search" element={<AniSearch />} />
+       <Route path="/searched/:search" element={<AniSearch  />} />
 
     
 

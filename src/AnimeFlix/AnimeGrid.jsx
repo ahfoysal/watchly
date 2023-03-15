@@ -52,7 +52,8 @@ const AnimeGrid = ({batch, handleOpen, setItem, isAnime, setIsMovie, term}) => {
 {batch?.length > 0 && <> <h3 className="sc-fctJkW jbCcDw">{term}</h3>
 
 <Splide  className='cqRZkL' options={{
-  perPage    : batch?.length === 1 ? 1  : 7 ,
+  perPage    : batch?.length === 1 && 2.5 || batch?.length === 2 && 4.5
+   || batch?.length === 3 && 5.5   ||  7 ,
   gap        : 5,
   pagination : false,
   arrows : true,

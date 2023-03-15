@@ -12,52 +12,62 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Backdrop from '@mui/material/Backdrop';
 import { IoCloseCircle } from 'react-icons/io5';
 import { FaPlay } from 'react-icons/fa';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 
 
 
-const ModalContainer = ({open, setOpen, item, isMovie}) => {
-
-
+const ModalContainer = ({open, setOpen, item}) => {
   const navigate = useNavigate();
+  const [page, setPage] = React.useState(1);
+    const [details, setDetails] = React.useState({});
+    const [loading, setLoading] = React.useState(true);
+    const [hasCw, setHasCw] = React.useState(false);
+    const [cw, setCw] = React.useState({});
+ 
   useEffect(() => { 
-    
+
+   
     async function fetchDetails () {
       setDetails({})
+      setHasCw(false)
    const response = await  axios.get(`https://api-pewds.vercel.app/info/${item.id}`)  
    setLoading(false)
     return response.data
   
     }
-    console.log(item.id)
+    // console.log(item.id)
     const gettingData = async () => {
     const data = await fetchDetails()
     setDetails(data)
-    console.log(data)
+    const storedWatchlist = JSON.parse(localStorage.getItem(`${item.id}`));
+  if (storedWatchlist) {
+   
+    // const myObject = storedWatchlist.find(cw => cw.id === item.id);
+
+    if(!storedWatchlist){
+      return console.log('no cw')
+    }
+    else{
+      if(!storedWatchlist.position)return
+      setHasCw(true)
+      setCw(storedWatchlist)
+      // console.log(storedWatchlist)
+    }
+    // const currentEp = myObject.episodes.find(item => item.id === `${ep}`);
+  
+  }
+    // console.log(data)
    
   } 
-  // async function fetchDetails2 () {
-  //   setDetails({})
-  //   const response = await  axios.get(`https://api-pewds.vercel.app/info/${item.id}`)  
-  //   setLoading(false)
-  //    return response.data
-   
-  //    }
-     console.log(item.id)
-  //    const gettingData2 = async () => {
-  //    const data = await fetchDetails2()
-  //    setDetails(data)
-  //    console.log(data)
-    
-  //  } 
-   gettingData()
-  // if(!isMovie)(gettingData())
-  // if(isMovie)(gettingData2())
-  },[item, isMovie])
 
-    const [page, setPage] = React.useState(1);
-    const [details, setDetails] = React.useState({});
-    const [loading, setLoading] = React.useState(true);
+    //  console.log(item.id)
+
+   gettingData()
+
+  },[item])
+
+  
     const handleClose = () =>{ 
       window.history.replaceState(null, "Okay", `/`)
     setLoading(false)
@@ -65,9 +75,7 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
     setPage(1)
    
     };
-    const handleChange = (event) => {
-      setPage(event.target.value);
-    };
+
   
 
   return (
@@ -95,10 +103,24 @@ const ModalContainer = ({open, setOpen, item, isMovie}) => {
           <IoCloseCircle  onClick={handleClose} size={40} className='close-button' color='#181818'/> 
           <div>
             <h2 className='modal-title'>{item?.title?.english  || item?.title?.native || item?.title || details?.title?.english  || details?.title?.native || details?.title}</h2>
+            {hasCw ?  <>
+              <ProgressBar animated now={cw?.position} max={cw?.total} variant={'danger'}/>;
+              <div className="iwkpUn">
+            
+            <button className="bNIKgw" onClick={() => navigate(`/watch/${item?.id}?episode=${cw?.cwid}&ts=${cw?.position}`)}>    <FaPlay   size={18}  color='#181818'/>  <strong className='strong'> Resume {cw?.cw?.slice(0, 15) + (cw?.cw?.length > 15 ? "..." : "")}</strong></button>
+            
+            </div> 
+             
+        
+             
+            </>
+             :
             <div className="iwkpUn">
+            
             <button className="bNIKgw" onClick={() => navigate(`/watch/${item.id}?episode=${details?.episodes[0]?.id}`)}>    <FaPlay   size={18}  color='#181818'/>  <strong> Play</strong></button>
 
-            </div>
+            </div> 
+            }
           </div>
           </header>
           <main className="fxRBEX">

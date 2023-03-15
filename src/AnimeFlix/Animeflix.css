@@ -7,6 +7,15 @@
     display: flex;
     padding: 0.25vw 1.5vw;
 }
+.cw-container{
+  
+  margin: 10px 0px;
+}
+.progress {
+  --bs-progress-bg: hsla(0,0%,100%,.3) !important;
+  height: 4px !important;
+  
+}
 .style-plyr{
   position: relative; 
   width: 100%
@@ -142,7 +151,9 @@
       margin-top: 20px;
       margin-bottom: 60px;
   }
-  
+  .strong  {
+    font-size: 15px;
+  }
   .dkMIQh   {
     
     margin-top: 20% !important;
