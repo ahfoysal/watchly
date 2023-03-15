@@ -51,8 +51,9 @@ const AniWatch = ({handleAddToWatchlist}) => {
     // console.log(data)
     setDetails(data)
     console.log(data)
+    fetchData()  
     handleAddToWatchlist(data)
-      fetchData()  
+   
     
      const next =  getPrevAndNext(data.episodes, ep)  
      console.log(next.id)

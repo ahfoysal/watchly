@@ -51,10 +51,11 @@ const FlixWAtch = ({handleAddToWatchlist}) => {
   const fetchEpisode =async () => {
     await axios(`https://api-pewds.vercel.app/info/${params.type}/${params.name}`)
 .then(data2 => { const data = data2.data
-  // console.log(data)
+  console.log(data)
   setDetails(data)
-  handleAddToWatchlist(data)
   fetchData()
+  handleAddToWatchlist(data)
+
   if(data.episodes.length > 1){
     const next =  getPrevAndNext(data.episodes, ep)
   const parsed = queryString.parse(window.location.search);
