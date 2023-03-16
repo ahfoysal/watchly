@@ -117,6 +117,10 @@
     min-width: 30% !important;
     
 }
+.loading-progress{
+  display: flex;
+  justify-content: center;
+}
 .card {
   
   --bs-card-bg: transparent !important;

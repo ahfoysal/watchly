@@ -13,6 +13,7 @@ import Backdrop from '@mui/material/Backdrop';
 import { IoCloseCircle } from 'react-icons/io5';
 import { FaPlay } from 'react-icons/fa';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import { Spinner } from 'react-bootstrap';
 
 
 
@@ -34,6 +35,7 @@ const ModalContainer = ({open, setOpen, item}) => {
    
     async function fetchDetails () {
       setDetails({})
+      setLoading(true)
       setHasSeason(false)
       setHasCw(false)
         
@@ -146,7 +148,8 @@ let uniqueObjectsArray = Object.values(uniqueObjects);
           <IoCloseCircle  onClick={handleClose} size={40} className='close-button' color='#181818'/> 
           <div>
             <h2 className='modal-title'>{item?.title?.english  || item?.title?.native || item?.title || details?.title?.english  || details?.title?.native || details?.title}</h2>
-            {hasCw ?  <>
+          {!loading && <>
+            { hasCw ?  <>
               <ProgressBar animated now={cw?.position} max={cw?.total} variant={'danger'}/>;
               <div className="iwkpUn">
             
@@ -164,6 +167,7 @@ let uniqueObjectsArray = Object.values(uniqueObjects);
 
             </div> 
             }
+          </> }
           </div>
           </header>
           <main className="fxRBEX">
@@ -179,9 +183,12 @@ let uniqueObjectsArray = Object.values(uniqueObjects);
           </div>
           <div>
      
-          { loading ?   <>
-            <p>not loaded</p>
-          </> : <>{details?.type !== "Movie"  && <>
+          { loading ?   <div className='loading-progress'>
+
+            <Spinner variant='danger' size="sm" animation="grow" />
+            <Spinner variant='danger'  size="sm" animation="grow" />
+            <Spinner variant='danger' size="sm" animation="grow" />
+          </div> : <>{details?.type !== "Movie"  && <>
           <header className="bJEMmB">
           <h3>Episodes</h3>
       {hasSeason ? 
