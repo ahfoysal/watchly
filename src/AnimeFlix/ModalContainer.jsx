@@ -36,11 +36,26 @@ const ModalContainer = ({open, setOpen, item}) => {
       setDetails({})
       setHasSeason(false)
       setHasCw(false)
-   const response = await  axios.get(`https://api-pewds.vercel.app/info/${item.id}`)  
+        
+
+      const info = sessionStorage.getItem(item.id);
+      
+      if(info){
+          const data = JSON.parse(info)
+        if(data.episodes[0]?.season )(setHasSeason(true))
+        setLoading(false)
+        return data
+      }else{
+        const response = await  axios.get(`https://api-pewds.vercel.app/info/${item.id}`)  
+        sessionStorage.setItem(item.id, JSON.stringify(response.data));
+        if(response.data?.episodes[0]?.season )(setHasSeason(true))
+        setLoading(false)
+         return response.data
+      }
+
+
   //  console.log(response.data?.episodes[0]?.season )
-   if(response.data?.episodes[0]?.season )(setHasSeason(true))
-   setLoading(false)
-    return response.data
+ 
   
     }
     // console.log(item.id)

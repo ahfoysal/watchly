@@ -45,14 +45,40 @@ const AniHome = ({cwList}) => {
        }
    
        const fetchAnime =async (id) => {
-        await axios(`https://api-pewds.vercel.app/info/${id}`)
-    .then(data2 => { const data = data2.data
-     
-      console.log(data)
-      setItem(data)
+
+
+        const info = sessionStorage.getItem(id);
+
+      
+      if(info){
+          const data = JSON.parse(info)
+          console.log(data)
+          setItem(data)
+          handleOpen()
+       
+        return data
+      }else{
+        const response = await  axios.get(`https://api-pewds.vercel.app/info/${id}`)  
+        sessionStorage.setItem(id, JSON.stringify(response.data));
+        console.log(response.data)
+      setItem(response.data)
       handleOpen()
+         return response.data
+      }
+
+       }
+
+   const gettingDataStore = async (term) => {
+      const data = sessionStorage.getItem(term);
+  if (data) {
+    // If the data is already in session storage, return it
+    return JSON.parse(data);
+  }else{
+    const data = await fetchDetails(term)
+    sessionStorage.setItem(term, JSON.stringify(data));
+   return data
+  }
     }
-    )}
 
   useEffect(() => { 
    
@@ -61,20 +87,21 @@ const AniHome = ({cwList}) => {
       fetchAnime(title)
     }
 
+
     const gettingData = async () => {
-    const Trending = await fetchDetails('trending')
+    const Trending = await gettingDataStore('trending')
     setTrending(Trending)
-    const Popular = await fetchDetails('popular') 
+    const Popular = await gettingDataStore('popular') 
     setPopular(Popular)
     // const Airing = await fetchDetails('getairing')
     // setAiring(Airing)
-    const TrendingMovie = await movieDetails('trending-movies')
+    const TrendingMovie = await gettingDataStore('trending-movies')
     setTrendingMovie(TrendingMovie)
-    const TvShows = await movieDetails('trending-tvshows')
+    const TvShows = await gettingDataStore('trending-tvshows')
     setTvShows(TvShows)
-    const RMovies = await movieDetails('recent-movies')
+    const RMovies = await gettingDataStore('recent-movies')
     setRMovie(RMovies)
-    const RTvShows = await movieDetails('recent-tvshows')
+    const RTvShows = await gettingDataStore('recent-tvshows')
     setRTvShows(RTvShows)
     
     // console.log(trending,Popular ,  airing)
