@@ -134,6 +134,7 @@
 
 }
 .dkMIQh {
+  transition: opacity 0.5s linear !important  ;
   -ms-overflow-style: none !important; /* for Internet Explorer, Edge */
   scrollbar-width: none !important; /* for Firefox */
   overflow-y: scroll; 
