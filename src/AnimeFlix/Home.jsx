@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import AnimeGrid from './AnimeGrid';
 import './Animeflix.css'
 import ModalContainer from './ModalContainer';
-import { json, useLocation } from 'react-router-dom';
+import {  useLocation } from 'react-router-dom';
 // import MovieModalContainer from './MovieModal';
 import ReactGA from "react-ga4";
 

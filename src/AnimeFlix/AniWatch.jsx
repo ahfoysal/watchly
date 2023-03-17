@@ -7,7 +7,7 @@ import VideoPlayer from '../PLYR/HLS.tsx';
 import EpisodeModal from './EpisodeModal';
 import queryString  from 'query-string';
 import * as ReactBootstrap from 'react-bootstrap'
-
+import ReactGA from "react-ga4";
 const AniWatch = ({handleAddToWatchlist}) => {
     let params = useParams();
     const useQuery = () => {
@@ -138,7 +138,14 @@ if(parsed.next){
   }
   useEffect(() => {
     
-  
+    ReactGA.event({
+      category: params.name,
+      action: params.name,
+      label: params.name, // optional
+      value: 99, // optional, must be a number
+      nonInteraction: true, // optional, true/false
+      transport: "xhr", // optional, beacon/xhr/image
+    });
     // return () => {
       fetchEpisode() 
     // }
