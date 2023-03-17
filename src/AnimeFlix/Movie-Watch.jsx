@@ -63,7 +63,7 @@ const FlixWAtch = ({handleAddToWatchlist}) => {
   const currentEp = data.episodes.find(item => item.id === `${ep}`);
   console.log(currentEp)
   if(data.episodes.length > 1){
-    if(currentEp?.season)( setTitle(`${currentEp?.season}: ${currentEp?.title}`))
+    if(currentEp?.season)( setTitle(`S${currentEp?.season}: ${currentEp?.title}`))
   parsed.next = next.id;
   const stringified = queryString.stringify(parsed);
 
