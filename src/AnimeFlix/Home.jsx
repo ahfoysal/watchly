@@ -84,6 +84,14 @@ const AniHome = ({cwList}) => {
   useEffect(() => { 
     ReactGA.send({ hitType: "pageview", page: window.location.pathname, title: "Home View" });
     if(title){
+      ReactGA.event({
+        category: title,
+        action: title,
+        label: title, // optional
+        value: 99, // optional, must be a number
+        nonInteraction: true, // optional, true/false
+        transport: "xhr", // optional, beacon/xhr/image
+      });
       console.log('title:' ,title)
       fetchAnime(title)
     }
