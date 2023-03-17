@@ -38,7 +38,7 @@ const ModalContainer = ({open, setOpen, item}) => {
       setLoading(true)
       setHasSeason(false)
       setHasCw(false)
-        
+          setPage(1)
 
       const info = sessionStorage.getItem(item.id);
       
@@ -75,6 +75,7 @@ const ModalContainer = ({open, setOpen, item}) => {
     else{
       if(!storedWatchlist.position)return
       setHasCw(true)
+        if(storedWatchlist.season)(setPage(storedWatchlist.season))
       setCw(storedWatchlist)
       // console.log(storedWatchlist)
     }
@@ -96,7 +97,7 @@ const ModalContainer = ({open, setOpen, item}) => {
       window.history.replaceState(null, "Okay", `/`)
     setLoading(false)
     setOpen(false)
-    setPage(1)
+  
    
     };
 

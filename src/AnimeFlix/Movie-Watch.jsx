@@ -49,10 +49,10 @@ const FlixWAtch = ({handleAddToWatchlist}) => {
   }
   )}
   const fetchEpisode =async () => {
-    console.log('ok')
+    
     await axios(`https://api-pewds.vercel.app/info/${params.type}/${params.name}`)
 .then(data2 => { const data = data2.data
-  console.log(data)
+  // console.log(data)
   setDetails(data)
   fetchData()
   handleAddToWatchlist(data)
@@ -118,14 +118,16 @@ const storedWatchlist = JSON.parse(localStorage.getItem("cwList"));
 if (storedWatchlist) {
   // console.log(storedWatchlist)
   const myObjects = storedWatchlist.find(item => item.id === `${params.type}/${params.name}`);
-  // console.log(myObject)
+ 
   if(!myObjects){
     return console.log('no data')
   }
   const myObject = {}
   const currentEp = myObjects.episodes.find(item => item.id === `${ep}`);
+
   myObject.position = time
   myObject.total = duration
+  myObject.season = currentEp?.season
   myObject.cwid = currentEp.id
   myObject.cw =  currentEp?.title
   localStorage.setItem(`${params.type}/${params.name}`, JSON.stringify(myObject));

@@ -115,8 +115,10 @@ if (storedWatchlist) {
   }
   const myObject = {}
   const currentEp = myObjects.episodes.find(item => item.id === `${ep}`);
+  console.log(currentEp)
   myObject.position = time
   myObject.total = duration
+  myObject.season = Math?.ceil(currentEp?.number/20)
   myObject.cwid = currentEp.id
   myObject.cw = currentEp?.title?.english  || currentEp?.title?.native ||  currentEp?.title?.userPreferred || currentEp?.title?.romaji || currentEp?.title
   localStorage.setItem(`${params.name}`, JSON.stringify(myObject));
