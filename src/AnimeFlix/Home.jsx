@@ -8,6 +8,7 @@ import './Animeflix.css'
 import ModalContainer from './ModalContainer';
 import { json, useLocation } from 'react-router-dom';
 // import MovieModalContainer from './MovieModal';
+import ReactGA from "react-ga4";
 
 const AniHome = ({cwList}) => {
   const useQuery = () => {
@@ -81,7 +82,7 @@ const AniHome = ({cwList}) => {
     }
 
   useEffect(() => { 
-   
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname, title: "Home View" });
     if(title){
       console.log('title:' ,title)
       fetchAnime(title)

@@ -7,10 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DisableDevtool from 'disable-devtool';
+import ReactGA from "react-ga4";
 // import { UserAuthContextProvider } from './context/UserAuthContext';
 
+const TrackingId=  'UA-231741407-1'
 
-
+ReactGA.initialize(TrackingId)
 DisableDevtool();
 function App() {
 
