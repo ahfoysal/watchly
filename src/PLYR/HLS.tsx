@@ -6,7 +6,7 @@ import "plyr-react/plyr.css"
 import './css.css'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 
-const VideoPlayer = ({src, sub, ts}) => {
+const VideoPlayer = ({src, sub, ts, title}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const options = {
         seekTime: 5,
@@ -133,10 +133,16 @@ const VideoPlayer = ({src, sub, ts}) => {
                     player.on('controlshidden', () => {
                         document.getElementById("backbutton").style.opacity=0;
                       });
+                      player.on('controlshidden', () => {
+                        document.getElementById("title").style.opacity=0;
+                      });
                    
                       player.on('controlsshown', () => {
                         document.getElementById("backbutton").style.opacity=1;
                       });   
+                      player.on('controlsshown', () => {
+                        document.getElementById("title").style.opacity=1;
+                      }); 
                       player.on('ended', () => {
                         window.parent.postMessage('nextepisode-pressed', '*');
                       });
@@ -188,7 +194,8 @@ const VideoPlayer = ({src, sub, ts}) => {
               
           
             </video>
-            
+            {title && <p className="backicon back-icon playertitle" id='title'>{title}</p>}
+
 
             
         </div>

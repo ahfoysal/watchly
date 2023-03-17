@@ -25,6 +25,7 @@ const AniWatch = ({handleAddToWatchlist}) => {
     const [sub, setSub] = useState({})
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = React.useState(false);
+    const [title, setTitle] = React.useState('');
    
    
 
@@ -180,7 +181,7 @@ if(parsed.next){
     <div className='player-page'>
         {loading   ? 
        <>
-       <VideoPlayer src={`https://proxy.vnxservers.com/`+src} sub={sub} ts={ts ?  ts : 0}/>
+       <VideoPlayer title={title ? title : ''} src={`https://proxy.vnxservers.com/`+src} sub={sub} ts={ts ?  ts : 0}/>
             <EpisodeModal details={details}  handleOpen={handleOpen} setOpen={setOpen} open={open} />           
        </>
             

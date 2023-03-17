@@ -24,6 +24,8 @@ const FlixWAtch = ({handleAddToWatchlist}) => {
     const [sub, setSub] = useState({})
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = React.useState(false);
+    const [title, setTitle] = React.useState('');
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
    
@@ -56,18 +58,19 @@ const FlixWAtch = ({handleAddToWatchlist}) => {
   setDetails(data)
   fetchData()
   handleAddToWatchlist(data)
-
-  if(data.episodes.length > 1){
-    const next =  getPrevAndNext(data.episodes, ep)
+  const next =  getPrevAndNext(data.episodes, ep)
   const parsed = queryString.parse(window.location.search);
-  // console.log(parsed);
+  const currentEp = data.episodes.find(item => item.id === `${ep}`);
+  console.log(currentEp)
+  if(data.episodes.length > 1){
+    if(currentEp?.season)( setTitle(`${currentEp?.season}: ${currentEp?.title}`))
   parsed.next = next.id;
   const stringified = queryString.stringify(parsed);
 
 
    window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?${stringified}`)
   // window.history.replaceState(null, "Okay", `/watch/${params.type}/${params.name}?episode=${ep}&next=${next.id}&ts=${ts}`)
-  }
+  }else(setTitle(currentEp.title))
 
 
   
@@ -190,9 +193,9 @@ useEffect(() => {
         {loading   ? 
        <>
        <>
-       <VideoPlayer src={src} sub={sub} ts={ts ?  ts : 0}/>
+       <VideoPlayer title={title ? title : ''} src={src} sub={sub} ts={ts ?  ts : 0}/>
        </>
-            <EpisodeModal details={details} handleAddToWatchlist={handleAddToWatchlist}  handleOpen={handleOpen}   setOpen={setOpen} open={open} />
+            <EpisodeModal  details={details} handleAddToWatchlist={handleAddToWatchlist}  handleOpen={handleOpen}   setOpen={setOpen} open={open} />
             
        </>
             
