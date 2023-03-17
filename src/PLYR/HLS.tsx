@@ -130,19 +130,21 @@ const VideoPlayer = ({src, sub, ts, title}) => {
                     
                     </button>
                     `);
-                    player.on('controlshidden', () => {
-                        document.getElementById("backbutton").style.opacity=0;
-                      });
-                      player.on('controlshidden', () => {
-                        document.getElementById("title").style.opacity=0;
-                      });
+                    const backbtn =     document.getElementById("backbutton")
+                    const titlebtn =    document.getElementById("title")
+                   if(backbtn) { player.on('controlshidden', () => {
+                        backbtn.style.opacity=0;
+                      });}
+                  if(titlebtn)  { player.on('controlshidden', () => {
+                        titlebtn.style.opacity=0;
+                      });}
                    
-                      player.on('controlsshown', () => {
-                        document.getElementById("backbutton").style.opacity=1;
-                      });   
-                      player.on('controlsshown', () => {
-                        document.getElementById("title").style.opacity=1;
-                      }); 
+                   if(backbtn){   player.on('controlsshown', () => {
+                        backbtn.style.opacity=1;
+                      });   }
+                  if(titlebtn) {    player.on('controlsshown', () => {
+                        titlebtn.style.opacity=1;
+                      }); }
                       player.on('ended', () => {
                         window.parent.postMessage('nextepisode-pressed', '*');
                       });
