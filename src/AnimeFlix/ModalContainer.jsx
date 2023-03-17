@@ -81,13 +81,13 @@ const ModalContainer = ({open, setOpen, item}) => {
     // const currentEp = myObject.episodes.find(item => item.id === `${ep}`);
   
   }
-    // console.log(data)
+
    
   } 
 
     //  console.log(item.id)
 
-   gettingData()
+   if(item.id)( gettingData())
 
   },[item])
 
