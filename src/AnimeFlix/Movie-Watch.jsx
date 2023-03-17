@@ -129,7 +129,9 @@ if (storedWatchlist) {
   myObject.total = duration
   myObject.season = currentEp?.season
   myObject.cwid = currentEp.id
-  myObject.cw =  currentEp?.title
+  if(currentEp.season)( myObject.cw =`s${currentEp?.season}: ${currentEp?.title}`)
+  else( myObject.cw =currentEp?.title)
+ 
   localStorage.setItem(`${params.type}/${params.name}`, JSON.stringify(myObject));
 
 console.log(myObject)
