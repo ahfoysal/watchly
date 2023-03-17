@@ -43,7 +43,7 @@ const FlixWAtch = ({handleAddToWatchlist}) => {
         
         setLoading(true)
         console.log("Delayed for 1 second.");
-      }, "1000");
+      }, "500");
    
     
     
