@@ -184,7 +184,7 @@ const VideoPlayer = ({src, sub, ts, title}) => {
   </svg>
             <video  autoPlay={true} className='js-plyr plyr' id='player' key={src} crossOrigin="anonymous">
                 
-              {sub?.length > 0 && sub?.slice(0,10).map((pro, index) => {
+              {sub?.length > 0 && sub?.slice(0,20).map((pro, index) => {
                 return  <track key={index}
                 kind="captions"
                 label={`${pro.label || pro.lang}`}
