@@ -26,6 +26,7 @@ const ModalContainer = ({open, setOpen, item}) => {
     const [details, setDetails] = React.useState({});
     const [loading, setLoading] = React.useState(true);
     const [hasCw, setHasCw] = React.useState(false);
+    const [isDub, setIsDub] = React.useState(false);
     const [hasSeason, setHasSeason] = React.useState(false);
     const [cw, setCw] = React.useState({});
   
@@ -192,6 +193,18 @@ let uniqueObjectsArray = Object.values(uniqueObjects);
           </div> : <>{details?.type !== "Movie"  && <>
           <header className="bJEMmB">
           <h3>Episodes</h3>
+
+          <Dropdown className='iklKND'>
+      <Dropdown.Toggle variant="success" id="dropdown-basic" className='kXDwXI'>
+                {isDub ? 'Sub' : 'Dub'}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu >
+      <Dropdown.Item  onClick={() => setIsDub(false) }>Sub</Dropdown.Item>
+      <Dropdown.Item  onClick={() => setIsDub(true) }>Dub</Dropdown.Item>
+       
+      </Dropdown.Menu>
+    </Dropdown>
       {hasSeason ? 
       
 

@@ -4,8 +4,7 @@ import Pages from "./pages/Pages";
 import {BrowserRouter} from 'react-router-dom'
 import Header from "./components/Header";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import DisableDevtool from 'disable-devtool';
 import ReactGA from "react-ga4";
 // import { UserAuthContextProvider } from './context/UserAuthContext';
@@ -52,7 +51,7 @@ function App() {
     <Header />
     {/* <Header2  /> */}
      <Pages cwList={cwList} handleAddToWatchlist={handleAddToWatchlist} />
-     <ToastContainer />
+     
     
 
      {/* </UserAuthContextProvider> */}
