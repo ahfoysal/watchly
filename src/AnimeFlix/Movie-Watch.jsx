@@ -33,7 +33,10 @@ const FlixWAtch = ({handleAddToWatchlist}) => {
   
   
     const fetchData =async () => {
-      await axios(`https://api-pewds.vercel.app/episode-movie/${params.type}/${params.name}/${ep}`)
+      await axios(
+      // `https://api-pewds.vercel.app/episode-movie/${params.type}/${params.name}/${ep}`
+      `https://api.consumet.org/meta/tmdb/watch/${ep}?id=${params.type}/${params.name}`
+      )
   .then(data2 => { const data = data2.data
   
     // console.log(data)  

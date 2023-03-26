@@ -13,7 +13,7 @@ import ReactGA from "react-ga4";
 const TrackingId=  'UA-231741407-1'
 
 ReactGA.initialize(TrackingId)
-DisableDevtool();
+DisableDevtool(); 
 function App() {
 
 
