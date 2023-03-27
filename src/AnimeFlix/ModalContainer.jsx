@@ -194,7 +194,7 @@ let uniqueObjectsArray = Object.values(uniqueObjects);
           <header className="bJEMmB">
           <h3>Episodes</h3>
 
-          <Dropdown className='iklKND'>
+        {details?.subOrDub &&  <Dropdown className='iklKND'>
       <Dropdown.Toggle variant="success" id="dropdown-basic" className='kXDwXI'>
                 {isDub ? 'Sub' : 'Dub'}
       </Dropdown.Toggle>
@@ -204,7 +204,7 @@ let uniqueObjectsArray = Object.values(uniqueObjects);
       <Dropdown.Item  onClick={() => setIsDub(true) }>Dub</Dropdown.Item>
        
       </Dropdown.Menu>
-    </Dropdown>
+    </Dropdown>}
       {hasSeason ? 
       
 
