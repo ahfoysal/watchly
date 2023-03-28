@@ -75,32 +75,55 @@ const AniWatch = ({handleAddToWatchlist}) => {
     const fetchEpisode =async () => {
       const info = sessionStorage.getItem(params.name);
       // console.log(info)
-      await axios(`https://api-pewds.vercel.app/info/${params.name}`)
-  .then(data2 => { const data = data2.data
-    // console.log(data)
-    test(data)
-    setDetails(data)
-  
-    fetchData()  
-    handleAddToWatchlist(data)
-   
-    
-     const next =  getPrevAndNext(data.episodes, ep)  
-     console.log(next.id)
-     const parsed = queryString.parse(window.location.search);
-     console.log(parsed);
-     parsed.next = next.id;
-     const stringified = queryString.stringify(parsed);
-
-
-      window.history.replaceState(null, "Okay", `/watch/${params.name}?${stringified}`)
+         if(info){
+          const data = JSON.parse(info)
+          setDetails(data)
+        
+          fetchData()  
+          handleAddToWatchlist(data)
+         
+          
+           const next =  getPrevAndNext(data.episodes, ep)  
+           console.log(next.id)
+           const parsed = queryString.parse(window.location.search);
+           console.log(parsed);
+           parsed.next = next.id;
+           const stringified = queryString.stringify(parsed);
       
-    
-    
-   
-
-  }
-  )}
+      
+            window.history.replaceState(null, "Okay", `/watch/${params.name}?${stringified}`)
+            
+            test(data)
+        
+      }else{
+        await axios(`https://api-pewds.vercel.app/info/${params.name}`)
+        .then(data2 => { const data = data2.data
+          // console.log(data)
+        
+          setDetails(data)
+        
+          fetchData()  
+          handleAddToWatchlist(data)
+         
+          
+           const next =  getPrevAndNext(data.episodes, ep)  
+           console.log(next.id)
+           const parsed = queryString.parse(window.location.search);
+           console.log(parsed);
+           parsed.next = next.id;
+           const stringified = queryString.stringify(parsed);
+      
+      
+            window.history.replaceState(null, "Okay", `/watch/${params.name}?${stringified}`)
+            
+            test(data)
+          
+         
+      
+        }
+        )
+      }
+   }
 
   const getPrevAndNext = (arr, activeID) => {
    
