@@ -186,12 +186,12 @@ const VideoPlayer = ({src, sub, ts, title}) => {
             <video  autoPlay={true} className='js-plyr plyr' id='player' key={src} crossOrigin="anonymous">
                 
               {sub?.length > 0 && sub?.slice(0,20).map((pro, index) => {
-              if(  pro.label || pro.lang !== 'Default (maybe)')
+              if(  pro?.label || pro?.lang !== 'Default (maybe)')
                 return  <track key={index}
                 kind="captions"
-                label={`${pro.label || pro.lang}`}
+                label={`${pro?.label || pro?.lang}`}
                 srcLang={`${index} `}
-                src={pro.src || pro.url}
+                src={pro?.src || pro?.url}
             />
               })}
         
