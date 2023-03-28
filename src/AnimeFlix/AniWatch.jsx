@@ -33,6 +33,7 @@ const AniWatch = ({handleAddToWatchlist}) => {
 
 
     const fetchData =async () => {
+    
         await axios(`https://api-pewds.vercel.app/get/${ep}`)
     .then(data2 => { const data = data2?.data
      
@@ -46,12 +47,40 @@ const AniWatch = ({handleAddToWatchlist}) => {
     
     }
     )}
+    const test = async (item) => {
+      await axios(`https://api-pewds.vercel.app/info2/${params.name}`)
+      .then(data2 => { const data = data2.data
+       
+        const mergedObj = {};
+
+        // Add key-value pairs from obj1 to mergedObj
+        for (const [key, value] of Object.entries(data)) {
+          mergedObj[key] = value;
+        }
+      
+        // Merge key-value pairs from obj2 into mergedObj
+        for (const [key, value] of Object.entries(item)) {
+          if (mergedObj.hasOwnProperty(key)) {
+            mergedObj[key] = value;
+          } else {
+            mergedObj[key] = value;
+          }
+        }
+        console.log(mergedObj)
+        handleAddToWatchlist(mergedObj)
+      
+  }
+  )}
+    
     const fetchEpisode =async () => {
+      const info = sessionStorage.getItem(params.name);
+      // console.log(info)
       await axios(`https://api-pewds.vercel.app/info/${params.name}`)
   .then(data2 => { const data = data2.data
     // console.log(data)
+    test(data)
     setDetails(data)
-    console.log(data)
+  
     fetchData()  
     handleAddToWatchlist(data)
    
