@@ -30,7 +30,7 @@ const AnimeGrid = ({batch, handleOpen, setItem, isAnime, setIsMovie, term}) => {
           <div className="card  "  onClick={pressHandler}>
       
                 
-              <img src={img} className="card-img" alt="product.title" />
+              <img src={img} className="card-img" alt={title} />
               <p className="anime-name">{title}</p>
           
           

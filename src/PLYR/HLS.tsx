@@ -171,7 +171,7 @@ const VideoPlayer = ({src, sub, ts, title}) => {
                 }
             }
         })()
-        console.log(sub)
+      
         // eslint-disable-next-line     
     }, [ src, sub, elem]);
 
