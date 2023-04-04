@@ -36,7 +36,7 @@ const AniWatch = ({handleAddToWatchlist}) => {
     
         await axios(`https://api-pewds.vercel.app/get/${ep}`)
     .then(data2 => { const data = data2?.data
-     
+     console.log(data)
       setSrc(data?.sources[data?.sources?.length - 1]?.url)
       setSub(data?.subtitles)
       setTimeout(() => {  
@@ -240,7 +240,7 @@ if(parsed.next){
     <div className='player-page'>
         {loading   ? 
        <>
-       <VideoPlayer title={title ? title : ''} src={`https://proxy.vnxservers.com/`+src} sub={sub} ts={ts ?  ts : 0}/>
+       <VideoPlayer title={title ? title : ''} src={`https://hls.haikei.xyz/`+src} sub={sub} ts={ts ?  ts : 0}/>
             <EpisodeModal details={details}  handleOpen={handleOpen} setOpen={setOpen} open={open} />           
        </>
             
