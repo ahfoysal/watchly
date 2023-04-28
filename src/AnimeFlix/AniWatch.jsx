@@ -240,7 +240,7 @@ if(parsed.next){
     <div className='player-page'>
         {loading   ? 
        <>
-       <VideoPlayer title={title ? title : ''} src={`https://hls.haikei.xyz/`+src} sub={sub} ts={ts ?  ts : 0}/>
+       <VideoPlayer title={title ? title : ''} src={`https://cors.moopa.my.id/?url=`+src} sub={sub} ts={ts ?  ts : 0}/>
             <EpisodeModal details={details}  handleOpen={handleOpen} setOpen={setOpen} open={open} />           
        </>
             

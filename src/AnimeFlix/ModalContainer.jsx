@@ -45,7 +45,7 @@ const ModalContainer = ({open, setOpen, item}) => {
       
       if(info){
           const data = JSON.parse(info)
-        if(data.episodes[0]?.season )(setHasSeason(true))
+        if(data?.episodes[0]?.season )(setHasSeason(true))
         setLoading(false)
         return data
       }else{
