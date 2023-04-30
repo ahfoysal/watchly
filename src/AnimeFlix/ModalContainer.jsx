@@ -49,11 +49,31 @@ const ModalContainer = ({open, setOpen, item}) => {
         setLoading(false)
         return data
       }else{
-        const response = await  axios.get(`https://api-pewds.vercel.app/info/${item.id}`)  
-        sessionStorage.setItem(item.id, JSON.stringify(response.data));
-        if(response.data?.episodes[0]?.season )(setHasSeason(true))
-        setLoading(false)
-         return response.data
+        if (item.id.includes('anime')) {
+                console.log('nothing')
+        } else if (item.id.includes('movie')) {
+          const response = await  axios.get(`https://api.pewds.vercel.app/movie/info/${item.id}`)  
+          sessionStorage.setItem(item.id, JSON.stringify(response.data));
+          if(response.data?.episodes[0]?.season )(setHasSeason(true))
+          setLoading(false)
+           return response.data
+
+         
+        } else if (item.id.includes('tv')) {
+          const response = await  axios.get(`https://api.pewds.vercel.app/movie/info/${item.id}`)  
+          sessionStorage.setItem(item.id, JSON.stringify(response.data));
+          if(response.data?.episodes[0]?.season )(setHasSeason(true))
+          setLoading(false)
+           return response.data
+        } else {
+          const response = await  axios.get(`https://api.pewds.vercel.app/anime/info/${item.id}`) 
+          console.log(response) 
+          sessionStorage.setItem(item.id, JSON.stringify(response.data));
+          if(response.data?.episodes[0]?.season )(setHasSeason(true))
+          setLoading(false)
+           return response.data
+        }
+       
       }
 
 
@@ -251,7 +271,8 @@ let uniqueObjectsArray = Object.values(uniqueObjects);
 {  pro.title != null ?       <>       <h3 className='episode-title'> {pro?.title}. (s{pro?.season})</h3>
                 <p>{pro.description}</p> </> :
               <>  <h3 className='episode-title'>  Episode {pro.season} -</h3>
-                <p> Episode {pro.number} of {item?.title?.english || details?.title?.english || item?.title || details?.title } </p> </>
+                <p> Episode {pro.number} of {item?.title?.english || details?.title?.english || details?.title?.romaji || details?.title?.native || item?.title || details?.title } </p> 
+                </>
                 }
             </div>  
             </div>
@@ -269,7 +290,8 @@ let uniqueObjectsArray = Object.values(uniqueObjects);
 {  pro.title != null ?       <>       <h3 className='episode-title'>{pro?.number}. {pro?.title}</h3>
                 <p>{pro.description}</p> </> :
               <>  <h3 className='episode-title'> Episode {pro?.number} -</h3>
-                <p> Episode {pro.number} of {item?.title?.english || details?.title?.english || item?.title || details?.title } </p> </>
+                <p> Episode {pro.number} of {item?.title?.english || details?.title?.english || details?.title?.romaji || details?.title?.native || item?.title || details?.title } </p> 
+                </>
                 }
             </div>  
             </div>

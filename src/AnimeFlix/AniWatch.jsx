@@ -34,7 +34,7 @@ const AniWatch = ({handleAddToWatchlist}) => {
 
     const fetchData =async () => {
     
-        await axios(`https://api-pewds.vercel.app/get/${ep}`)
+        await axios(`https://api.pewds.vercel.app/anime/watch/${ep}`)
     .then(data2 => { const data = data2?.data
      console.log(data)
       setSrc(data?.sources[data?.sources?.length - 1]?.url)
@@ -47,30 +47,7 @@ const AniWatch = ({handleAddToWatchlist}) => {
     
     }
     )}
-    const test = async (item) => {
-      await axios(`https://api-pewds.vercel.app/info2/${params.name}`)
-      .then(data2 => { const data = data2.data
-       
-        const mergedObj = {};
-
-        // Add key-value pairs from obj1 to mergedObj
-        for (const [key, value] of Object.entries(data)) {
-          mergedObj[key] = value;
-        }
-      
-        // Merge key-value pairs from obj2 into mergedObj
-        for (const [key, value] of Object.entries(item)) {
-          if (mergedObj.hasOwnProperty(key)) {
-            mergedObj[key] = value;
-          } else {
-            mergedObj[key] = value;
-          }
-        }
-        console.log(mergedObj)
-        handleAddToWatchlist(mergedObj)
-      
-  }
-  )}
+  
     
     const fetchEpisode =async () => {
       const info = sessionStorage.getItem(params.name);
@@ -93,10 +70,10 @@ const AniWatch = ({handleAddToWatchlist}) => {
       
             window.history.replaceState(null, "Okay", `/watch/${params.name}?${stringified}`)
             
-            test(data)
+          
         
       }else{
-        await axios(`https://api-pewds.vercel.app/info/${params.name}`)
+        await axios(`https://api.pewds.vercel.app/anime/info/${params.name}`)
         .then(data2 => { const data = data2.data
           // console.log(data)
         
@@ -115,8 +92,7 @@ const AniWatch = ({handleAddToWatchlist}) => {
       
       
             window.history.replaceState(null, "Okay", `/watch/${params.name}?${stringified}`)
-            
-            test(data)
+          
           
          
       

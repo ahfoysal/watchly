@@ -21,14 +21,14 @@ const AniHome = ({cwList}) => {
     const [trending , setTrending] = useState([]);
     // const [featured , setFeatured] = useState([]);
     const [popular , setPopular] = useState([]);
-    const [airing , setAiring] = useState([]);
+    const [recent , setRecent] = useState([]);
     const [trendingMovie , setTrendingMovie] = useState([]);
     const [tvShows , setTvShows] = useState([]);
     const [rMovie , setRMovie] = useState([]);
     const [rTvShows , setRTvShows] = useState([]);
  
     async function fetchDetails (term) {
-   const response = await   axios.get(`https://api-pewds.vercel.app/${term}`)
+   const response = await   axios.get(`https://api.pewds.vercel.app/${term}`)
    .catch(function (error) {
     if (error.response) {
     
@@ -39,11 +39,7 @@ const AniHome = ({cwList}) => {
     return response.data
   
     }
-    async function movieDetails (term) {
-      const response = await  axios.get(`https://api-pewds.vercel.app/${term}`)  
-       return response.data
-     
-       }
+   
    
        const fetchAnime =async (id) => {
 
@@ -98,26 +94,22 @@ const AniHome = ({cwList}) => {
 
 
     const gettingData = async () => {
-    const Trending = await gettingDataStore('trending')
-    setTrending(Trending)
-    const Popular = await gettingDataStore('popular') 
-    setPopular(Popular)
-    // const Airing = await fetchDetails('getairing')
-    // setAiring(Airing)
-    const TrendingMovie = await gettingDataStore('trending-movies')
+    const Trending = await gettingDataStore('anime/trending')
+    setTrending(Trending?.results)
+    const Popular = await gettingDataStore('anime/popular') 
+    setPopular(Popular?.results)
+    const Airing = await fetchDetails('anime/recent')
+    setRecent(Airing?.results)
+    const TrendingMovie = await gettingDataStore('movie/trending')
     setTrendingMovie(TrendingMovie)
-    const TvShows = await gettingDataStore('trending-tvshows')
+    const TvShows = await gettingDataStore('tv/trending')
     setTvShows(TvShows)
-    const RMovies = await gettingDataStore('recent-movies')
+    const RMovies = await gettingDataStore('movie/recent')
     setRMovie(RMovies)
-    const RTvShows = await gettingDataStore('recent-tvshows')
+    const RTvShows = await gettingDataStore('tv/recent')
     setRTvShows(RTvShows)
     
-    // console.log(trending,Popular ,  airing)
 
-
-
-  
     
   } 
     gettingData()
@@ -137,17 +129,18 @@ const AniHome = ({cwList}) => {
     <ModalContainer item={item} handleOpen={handleOpen} isMovie={isMovie}  setOpen={setOpen} open={open}  />
 
     <AnimeGrid batch={cwList} term={'Continue Watch'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/>
+    <AnimeGrid batch={popular} term={'Popular Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true} />
 
-     <AnimeGrid batch={trending} term={'Trending Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/>
   
      <AnimeGrid batch={trendingMovie} term={'Trending Movie'} handleOpen={handleOpen} setIsMovie={setIsMovie}  isAnime={false} setItem={setItem}/>
 
-     <AnimeGrid batch={popular} term={'Popular Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true} />
-    
+     <AnimeGrid batch={trending} term={'Trending Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/>
+
      <AnimeGrid batch={tvShows} term={'Trending Tv Shows'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie}   isAnime={false}/>
 
      <AnimeGrid batch={rMovie} term={'Recent Movies'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie}  isAnime={false}/>
-   
+     <AnimeGrid batch={recent} term={'Recent Anime'} handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true} />
+
      <AnimeGrid batch={rTvShows} term='Recent TV Shows' handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie}  isAnime={false}/>
 
      {/* <AnimeGrid batch={airing} term='Currently Airing' handleOpen={handleOpen} setItem={setItem} setIsMovie={setIsMovie} isAnime={true}/> */}

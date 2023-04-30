@@ -22,18 +22,18 @@ function AniSearch() {
     const getSearched = () => {
 
    
-      axios(`https://api-pewds.vercel.app/search/${params.search}`)
+      axios(`https://api.pewds.vercel.app/anime/search/${params.search}`)
       .then(data2 => {  const data = data2.data  
     console.log(data)
-    setPro(data)
+    setPro(data.results)
   
     setLoading(true)
       
       })  
-      axios(`https://api-pewds.vercel.app/msearch/${params.search}`)
+      axios(`https://api.pewds.vercel.app/movie/search/${params.search}`)
       .then(data2 => {  const data = data2.data
     console.log(data)
-    setDetails(data)
+    setDetails(data.results)
     
       
       })  
