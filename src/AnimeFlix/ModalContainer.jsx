@@ -253,7 +253,7 @@ const ModalContainer = ({ open, setOpen, item }) => {
                         <header className="bJEMmB">
                           <h3>Episodes</h3>
 
-                          {details?.subOrDub && (
+                          {/* {details?.subOrDub && (
                             <Dropdown className="iklKND">
                               <Dropdown.Toggle
                                 variant="success"
@@ -272,7 +272,7 @@ const ModalContainer = ({ open, setOpen, item }) => {
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
-                          )}
+                          )} */}
                           {hasSeason ? (
                             <Dropdown className="iklKND">
                               <Dropdown.Toggle
@@ -391,7 +391,7 @@ const ModalContainer = ({ open, setOpen, item }) => {
                             <>
                               {details?.episodes?.length > 0 &&
                                 details?.episodes
-                                  .reverse()
+
                                   ?.slice(perPage * (page - 1), perPage * page)
                                   ?.map((pro) => {
                                     return (
