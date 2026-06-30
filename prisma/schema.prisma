@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Better Auth models ----------
+
+model User {
+  id            String          @id
+  name          String
+  email         String          @unique
+  emailVerified Boolean         @default(false)
+  image         String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  watchlist     WatchlistItem[]
+  progress      Progress[]
+  reviews       Review[]
+  lists         List[]          @relation("UserLists")
+  following     Follow[]        @relation("Following")
+  followers     Follow[]        @relation("Followers")
+
+  @@map("user")
+}
+
+model List {
+  id        String     @id @default(cuid())
+  userId    String
+  user      User       @relation("UserLists", fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  isPublic  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     ListItem[]
+
+  @@index([userId])
+  @@map("list")
+}
+
+model ListItem {
+  id        String   @id @default(cuid())
+  listId    String
+  list      List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  mediaId   String
+  kind      String
+  title     String
+  image     String?
+  createdAt DateTime @default(now())
+
+  @@unique([listId, mediaId, kind])
+  @@map("list_item")
+}
+
+model Follow {
+  id          String   @id @default(cuid())
+  followerId  String
+  followingId String
+  follower    User     @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@unique([followerId, followingId])
+  @@index([followingId])
+  @@map("follow")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
+}
+
+// ---------- App models ----------
+
+model WatchlistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mediaId   String
+  kind      String // anime | movie | tv | manga
+  title     String
+  image     String?
+  createdAt DateTime @default(now())
+
+  @@unique([userId, mediaId, kind])
+  @@map("watchlist_item")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mediaId   String
+  kind      String
+  rating    Int // 1-5
+  body      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, mediaId, kind])
+  @@index([mediaId, kind])
+  @@map("review")
+}
+
+model Progress {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  animeId       String
+  title         String
+  image         String?
+  provider      String?
+  dub           Boolean  @default(false)
+  episodeId     String
+  episodeNumber Int
+  position      Float    @default(0)
+  duration      Float    @default(0)
+  updatedAt     DateTime @updatedAt
+
+  @@unique([userId, animeId])
+  @@map("progress")
+}

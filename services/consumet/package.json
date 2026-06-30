@@ -1,0 +1,16 @@
+{
+  "name": "animeflix-consumet-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone provider service: scrapes/resolves anime sources & manga pages with provider failover, isolated from the web app.",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@consumet/extensions": "^1.8.8",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
