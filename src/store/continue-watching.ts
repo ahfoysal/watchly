@@ -55,7 +55,7 @@ export const useContinueWatching = create<State>()(
           return { items };
         }),
     }),
-    { name: "animeflix:continue-watching" },
+    { name: "watchly:continue-watching" },
   ),
 );
 

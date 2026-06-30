@@ -27,7 +27,7 @@ export function MobileNav() {
 
         {/* center search */}
         <button
-          onClick={() => window.dispatchEvent(new Event("animeflix:search"))}
+          onClick={() => window.dispatchEvent(new Event("watchly:search"))}
           className="flex flex-col items-center gap-0.5 py-2"
           aria-label="Search"
         >

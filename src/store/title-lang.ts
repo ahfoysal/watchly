@@ -13,7 +13,7 @@ interface State {
 export const useTitleLang = create<State>()(
   persist(
     (set) => ({ lang: "en", setLang: (lang) => set({ lang }) }),
-    { name: "animeflix:title-lang" },
+    { name: "watchly:title-lang" },
   ),
 );
 

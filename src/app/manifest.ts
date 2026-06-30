@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "AnimeFlix — Stream Anime, Movies & Manga",
-    short_name: "AnimeFlix",
+    name: "Watchly — Stream Anime, Movies & Manga",
+    short_name: "Watchly",
     description:
       "A modern, self-hosted universal streaming + reading app for anime, movies, TV, and manga.",
     start_url: "/",

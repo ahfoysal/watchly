@@ -1,8 +1,8 @@
 {
-  "name": "animeflix",
-  "version": "1.0.0",
+  "name": "watchly",
+  "version": "2.0.0",
   "private": true,
-  "description": "A modern, self-hosted anime streaming app built on Next.js 16 and the Consumet engine.",
+  "description": "A modern, self-hosted streaming app for anime, manga, and movies, built on Next.js 16 and the Consumet engine.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

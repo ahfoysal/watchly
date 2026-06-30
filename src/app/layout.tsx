@@ -15,12 +15,12 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: {
-    default: "AnimeFlix — Stream Anime Free",
-    template: "%s · AnimeFlix",
+    default: "Watchly — Stream Anime, Movies & Manga",
+    template: "%s · Watchly",
   },
   description:
-    "A modern, self-hosted anime streaming app built on Next.js and the Consumet engine. Browse trending and popular anime, search, and watch — no signup, no ads.",
-  appleWebApp: { capable: true, title: "AnimeFlix", statusBarStyle: "black-translucent" },
+    "A modern, self-hosted streaming app built on Next.js and the Consumet engine. Browse anime, manga, and movies — search, watch, and read in one place.",
+  appleWebApp: { capable: true, title: "Watchly", statusBarStyle: "black-translucent" },
 };
 
 export const viewport: Viewport = {

@@ -74,8 +74,8 @@ export function SiteHeader() {
           href="/"
           className="flex shrink-0 items-center text-lg font-extrabold tracking-tight drop-shadow-sm sm:text-xl"
         >
-          <span className="text-brand">ANIME</span>
-          <span>FLIX</span>
+          <span className="text-brand">WATCH</span>
+          <span>LY</span>
         </Link>
 
         <Link

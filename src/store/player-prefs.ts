@@ -18,6 +18,6 @@ export const usePlayerPrefs = create<State>()(
       setAutoplayNext: (autoplayNext) => set({ autoplayNext }),
       setAutoSkipIntro: (autoSkipIntro) => set({ autoSkipIntro }),
     }),
-    { name: "animeflix:player-prefs" },
+    { name: "watchly:player-prefs" },
   ),
 );

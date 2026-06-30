@@ -37,10 +37,10 @@ export function CommandPalette() {
     };
     const onOpen = () => setOpen(true);
     window.addEventListener("keydown", onKey);
-    window.addEventListener("animeflix:search", onOpen);
+    window.addEventListener("watchly:search", onOpen);
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("animeflix:search", onOpen);
+      window.removeEventListener("watchly:search", onOpen);
     };
   }, []);
 

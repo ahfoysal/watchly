@@ -1,5 +1,5 @@
-/* AnimeFlix service worker — app-shell + offline fallback. */
-const CACHE = "animeflix-v1";
+/* Watchly service worker — app-shell + offline fallback. */
+const CACHE = "watchly-v1";
 const OFFLINE_URL = "/offline.html";
 
 self.addEventListener("install", (event) => {

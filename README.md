@@ -1,4 +1,4 @@
-# AnimeFlix
+# Watchly
 
 A self-hosted streaming web app for anime, manga, and movie/TV metadata. It pulls catalog
 and source data from the open-source [Consumet](https://github.com/consumet/consumet.org)

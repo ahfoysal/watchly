@@ -9,9 +9,9 @@ export function SiteFooter() {
           <span>FLIX</span>
         </Link>
         <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-          AnimeFlix is a free anime streaming demo built on Next.js and the
-          open-source Consumet engine, with metadata from AniList. It hosts no
-          content and is for educational/portfolio use only.
+          Watchly is a free streaming demo for anime, manga, and movies, built
+          on Next.js and the open-source Consumet engine, with metadata from
+          AniList. It hosts no content and is for educational/portfolio use only.
         </p>
         <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
           <Link href="/" className="hover:text-foreground">Home</Link>
@@ -19,7 +19,7 @@ export function SiteFooter() {
           <Link href="/search?q=one+piece" className="hover:text-foreground">Search</Link>
         </div>
         <p className="mt-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} AnimeFlix · Data from AniList & Consumet
+          © {new Date().getFullYear()} Watchly · Data from AniList & Consumet
         </p>
       </div>
     </footer>

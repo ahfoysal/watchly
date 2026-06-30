@@ -23,7 +23,7 @@ export const useHidden = create<State>()(
         }),
       clear: () => set({ ids: {} }),
     }),
-    { name: "animeflix:hidden" },
+    { name: "watchly:hidden" },
   ),
 );
 
