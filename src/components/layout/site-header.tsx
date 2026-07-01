@@ -7,6 +7,7 @@ import { ChevronDown, LogIn, LogOut, Bookmark, ListVideo, Settings, Shuffle } fr
 import { api } from "@/lib/api";
 import { SearchBox } from "@/components/browse/search-box";
 import { useTitleLang } from "@/store/title-lang";
+import { useAudioPref } from "@/store/audio-pref";
 import { useSession, signOut } from "@/lib/auth-client";
 
 const GENRES = [
@@ -23,6 +24,8 @@ export function SiteHeader() {
   const genresRef = useRef<HTMLDivElement>(null);
   const lang = useTitleLang((s) => s.lang);
   const setLang = useTitleLang((s) => s.setLang);
+  const audio = useAudioPref((s) => s.audio);
+  const setAudio = useAudioPref((s) => s.setAudio);
   const { data: session } = useSession();
   const [userOpen, setUserOpen] = useState(false);
   const userRef = useRef<HTMLDivElement>(null);
@@ -119,6 +122,26 @@ export function SiteHeader() {
           <Shuffle className="size-4" />
           <span className="hidden sm:inline">Random</span>
         </button>
+
+        {/* Global SUB/DUB default — seeds the audio track when opening episodes */}
+        <div
+          className="hidden shrink-0 overflow-hidden rounded-md ring-1 ring-border sm:flex"
+          title="Default audio when playing episodes"
+        >
+          {(["sub", "dub"] as const).map((a) => (
+            <button
+              key={a}
+              onClick={() => setAudio(a)}
+              className={`px-2.5 py-1 text-xs font-bold uppercase transition ${
+                audio === a
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {a}
+            </button>
+          ))}
+        </div>
 
         {/* EN/JP title language toggle */}
         <div className="hidden shrink-0 overflow-hidden rounded-md ring-1 ring-border sm:flex">

@@ -1,14 +1,24 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  Captions,
+  Mic,
+  MonitorPlay,
+} from "lucide-react";
 import dynamic from "next/dynamic";
 import { api, proxied, progressApi } from "@/lib/api";
-import type { VideoSource } from "@/lib/types";
+import type { AnimeCard, VideoSource } from "@/lib/types";
 import { EpisodeList } from "@/components/watch/episode-list";
+import { MediaCard } from "@/components/media/media-card";
+import { ReviewsSection } from "@/components/detail/reviews-section";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -22,6 +32,7 @@ const VideoPlayer = dynamic(
 );
 import { useContinueWatching } from "@/store/continue-watching";
 import { usePlayerPrefs } from "@/store/player-prefs";
+import { useAudioPref } from "@/store/audio-pref";
 
 interface Props {
   id: string;
@@ -66,6 +77,7 @@ export function WatchView({ id, ep, num, provider, dub }: Props) {
   const setAutoplayNext = usePlayerPrefs((s) => s.setAutoplayNext);
   const autoSkipIntro = usePlayerPrefs((s) => s.autoSkipIntro);
   const setAutoSkipIntro = usePlayerPrefs((s) => s.setAutoSkipIntro);
+  const setAudio = useAudioPref((s) => s.setAudio);
 
   const info = useQuery({
     queryKey: ["info", id, provider, dub],
@@ -91,6 +103,7 @@ export function WatchView({ id, ep, num, provider, dub }: Props) {
       if (switching) return;
       const p = nextProvider ?? activeProvider;
       const d = nextDub ?? dub;
+      if (nextDub !== undefined) setAudio(nextDub ? "dub" : "sub"); // sync header default
       setSwitching(key);
       setNote(null);
       try {
@@ -108,21 +121,17 @@ export function WatchView({ id, ep, num, provider, dub }: Props) {
         setSwitching(null);
       }
     },
-    [switching, activeProvider, dub, queryClient, id, num, router],
+    [switching, activeProvider, dub, setAudio, queryClient, id, num, router],
   );
 
   const episodes = info.data?.episodes ?? [];
   const currentIndex = episodes.findIndex((e) => e.id === ep);
+  const currentEp = currentIndex >= 0 ? episodes[currentIndex] : undefined;
   const prevEp = currentIndex > 0 ? episodes[currentIndex - 1] : undefined;
   const nextEp =
     currentIndex >= 0 && currentIndex < episodes.length - 1
       ? episodes[currentIndex + 1]
       : undefined;
-
-  const epHref = useCallback(
-    (eId: string, eNum: number) => buildHref(id, eId, eNum, provider, dub),
-    [id, provider, dub],
-  );
 
   // If the provider returns multiple quality renditions, stitch them into a
   // synthetic HLS master playlist (a data: URL) so the player shows a real
@@ -167,202 +176,318 @@ export function WatchView({ id, ep, num, provider, dub }: Props) {
       const title = info.data?.title ?? "Anime";
       const image = info.data?.image ?? info.data?.cover;
       upsert({
-        animeId: id,
-        title,
-        image,
-        provider,
-        dub,
-        episodeId: ep,
-        episodeNumber: num,
-        position,
-        duration,
+        animeId: id, title, image, provider, dub,
+        episodeId: ep, episodeNumber: num, position, duration,
       });
       // Persist to the account too (no-op / 401 when signed out).
       progressApi.save({
-        animeId: id,
-        title,
-        image,
-        provider,
-        dub,
-        episodeId: ep,
-        episodeNumber: num,
-        position,
-        duration,
+        animeId: id, title, image, provider, dub,
+        episodeId: ep, episodeNumber: num, position, duration,
       });
     },
     [upsert, id, info.data?.title, info.data?.image, info.data?.cover, provider, dub, ep, num],
   );
 
-  // Create the Continue Watching entry as soon as playback starts.
   const handlePlay = useCallback(
     () => handleProgress(startTime || 0, 0),
     [handleProgress, startTime],
   );
 
   const goNext = useCallback(() => {
-    if (nextEp) router.push(epHref(nextEp.id, nextEp.number));
-  }, [nextEp, router, epHref]);
+    if (nextEp) router.push(buildHref(id, nextEp.id, nextEp.number, provider, dub));
+  }, [nextEp, router, id, provider, dub]);
+
+  const title = info.data?.title ?? "Loading…";
+  const servers = providersQ.data ?? (activeProvider ? [activeProvider] : []);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
-      <Button
-        variant="ghost"
-        size="sm"
-        className="mb-3 gap-1"
-        nativeButton={false}
-        render={<Link href={`/anime/${id}`} />}
-      >
-        <ArrowLeft className="size-4" />
-        {info.data?.title ?? "Back"}
-      </Button>
+    <div className="mx-auto max-w-[1500px] px-3 py-4 sm:px-6">
+      {/* Breadcrumb */}
+      <nav className="mb-3 flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+        <Link href="/" className="transition hover:text-primary">Home</Link>
+        <span>•</span>
+        <Link href={`/anime/${id}`} className="line-clamp-1 max-w-[45vw] transition hover:text-primary">
+          {title}
+        </Link>
+        <span>•</span>
+        <span className="text-foreground/80">Episode {num}</span>
+      </nav>
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px]">
-        {/* Player column */}
-        <div className="min-w-0">
+      {/* 3-column: episodes · player · detail (hianime layout) */}
+      <div className="grid gap-4 xl:grid-cols-[300px_minmax(0,1fr)_320px]">
+        {/* Player + servers — center column */}
+        <div className="min-w-0 xl:order-2">
           {sources.isLoading || info.isLoading ? (
             <Skeleton className="aspect-video w-full rounded-xl" />
           ) : sources.isError || !playSrc ? (
-            <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border text-center text-muted-foreground">
+            <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-border bg-black/40 text-center text-muted-foreground">
+              <MonitorPlay className="size-8 opacity-60" />
               <p className="text-lg">This episode’s streaming source is unavailable.</p>
-              <p className="text-sm">
-                Anime providers go down often — try another server or episode.
-              </p>
+              <p className="text-sm">Switch to another server below or try a different episode.</p>
             </div>
           ) : (
-            <VideoPlayer
-              key={`${ep}-${dub}`}
-              src={playSrc}
-              title={`${info.data?.title ?? "Episode"} — Episode ${num}`}
-              poster={info.data?.cover}
-              subtitles={sources.data?.subtitles}
-              intro={sources.data?.intro}
-              outro={sources.data?.outro}
-              startTime={startTime}
-              onProgress={handleProgress}
-              onPlay={handlePlay}
-              onEnded={goNext}
-            />
+            <div className="overflow-hidden rounded-xl bg-black shadow-xl shadow-black/40">
+              <VideoPlayer
+                key={`${ep}-${dub}`}
+                src={playSrc}
+                title={`${title} — Episode ${num}`}
+                poster={info.data?.cover}
+                subtitles={sources.data?.subtitles}
+                intro={sources.data?.intro}
+                outro={sources.data?.outro}
+                startTime={startTime}
+                onProgress={handleProgress}
+                onPlay={handlePlay}
+                onEnded={goNext}
+              />
+            </div>
           )}
 
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-            <h1 className="text-lg font-bold sm:text-xl">
-              {info.data?.title}{" "}
-              <span className="text-muted-foreground">· Episode {num}</span>
-            </h1>
-            <div className="flex gap-2">
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled={!prevEp}
-                onClick={() => prevEp && router.push(epHref(prevEp.id, prevEp.number))}
-                className="gap-1"
-              >
-                <ChevronLeft className="size-4" />
-                Prev
-              </Button>
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled={!nextEp}
-                onClick={goNext}
-                className="gap-1"
-              >
-                Next
-                <ChevronRight className="size-4" />
-              </Button>
-            </div>
-          </div>
-
-          {/* Audio + server controls */}
-          <div className="mt-4 flex flex-col gap-3 rounded-lg bg-card/60 p-3 ring-1 ring-border/50 sm:flex-row sm:items-center sm:gap-6">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-muted-foreground">Audio:</span>
-              <div className="inline-flex overflow-hidden rounded-md ring-1 ring-border">
-                {[
-                  { label: "SUB", val: false },
-                  { label: "DUB", val: true },
-                ].map(({ label, val }) => (
-                  <button
-                    key={label}
-                    onClick={() => val !== dub && reresolve(label, undefined, val)}
-                    disabled={!!switching}
-                    className={`px-3 py-1.5 text-sm font-semibold transition disabled:opacity-60 ${
-                      val === dub
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-secondary text-secondary-foreground hover:bg-secondary/70"
-                    }`}
-                  >
-                    {label}
-                    {switching === label ? " …" : ""}
-                  </button>
-                ))}
+          {/* Servers panel — hianime style */}
+          <div className="mt-3 overflow-hidden rounded-xl ring-1 ring-border/60">
+            {/* watching bar */}
+            <div className="flex flex-col gap-3 border-b border-border/60 bg-card/70 p-3 sm:flex-row sm:items-center">
+              <div className="flex items-start gap-2 text-sm">
+                <Play className="mt-0.5 size-4 shrink-0 fill-primary text-primary" />
+                <p className="text-muted-foreground">
+                  You are watching{" "}
+                  <span className="font-semibold text-foreground">Episode {num}</span>
+                  {currentEp?.title ? ` · ${currentEp.title}` : ""}.
+                  <span className="hidden sm:inline"> If the current server doesn’t work, try another below.</span>
+                </p>
+              </div>
+              <div className="flex items-center gap-2 sm:ml-auto">
+                <Button
+                  variant="secondary" size="sm" className="gap-1"
+                  disabled={!prevEp}
+                  onClick={() => prevEp && router.push(buildHref(id, prevEp.id, prevEp.number, provider, dub))}
+                >
+                  <ChevronLeft className="size-4" /> Prev
+                </Button>
+                <Button
+                  variant="secondary" size="sm" className="gap-1"
+                  disabled={!nextEp} onClick={goNext}
+                >
+                  Next <ChevronRight className="size-4" />
+                </Button>
               </div>
             </div>
 
-            {providersQ.data && providersQ.data.length > 1 && (
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-sm font-medium text-muted-foreground">
-                  Server:
-                </span>
-                {providersQ.data.map((p) => {
-                  const active = p === activeProvider;
-                  return (
-                    <button
-                      key={p}
-                      onClick={() => !active && reresolve(p, p)}
-                      disabled={!!switching}
-                      className={`rounded-md px-3 py-1.5 text-sm font-medium transition disabled:opacity-60 ${
-                        active
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-secondary text-secondary-foreground hover:bg-secondary/70"
-                      }`}
-                    >
-                      {p}
-                      {switching === p ? " …" : ""}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+            {/* SUB / DUB server rows */}
+            <div className="divide-y divide-border/50 bg-background/40">
+              <ServerRow
+                label="SUB" icon={<Captions className="size-4" />}
+                servers={servers} active={!dub} activeProvider={activeProvider}
+                switching={switching}
+                onPick={(p) => reresolve(`sub:${p}`, p, false)}
+                switchKeyPrefix="sub"
+              />
+              <ServerRow
+                label="DUB" icon={<Mic className="size-4" />}
+                servers={servers} active={dub} activeProvider={activeProvider}
+                switching={switching}
+                onPick={(p) => reresolve(`dub:${p}`, p, true)}
+                switchKeyPrefix="dub"
+              />
+            </div>
 
-            <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
-              <Toggle
-                label="Autoplay"
-                on={autoplayNext}
-                onClick={() => setAutoplayNext(!autoplayNext)}
-              />
-              <Toggle
-                label="Auto Skip"
-                on={autoSkipIntro}
-                onClick={() => setAutoSkipIntro(!autoSkipIntro)}
-              />
+            {/* preferences */}
+            <div className="flex flex-wrap items-center gap-4 border-t border-border/60 bg-card/70 px-3 py-2">
+              <Toggle label="Auto Play" on={autoplayNext} onClick={() => setAutoplayNext(!autoplayNext)} />
+              <Toggle label="Auto Skip Intro" on={autoSkipIntro} onClick={() => setAutoSkipIntro(!autoSkipIntro)} />
             </div>
           </div>
 
           {note && <p className="mt-2 text-sm text-primary">{note}</p>}
         </div>
 
-        {/* Episode sidebar */}
+        {/* Episodes — left column */}
         {info.data && episodes.length > 0 && (
-          <aside className="lg:sticky lg:top-20 lg:self-start">
-            <div className="flex h-[420px] flex-col rounded-xl bg-card/60 p-3 ring-1 ring-border/50 lg:h-[calc(100vh-7rem)]">
-              <h2 className="mb-3 px-1 text-base font-bold">
-                Episodes{" "}
-                <span className="font-normal text-muted-foreground">
-                  ({episodes.length})
+          <aside className="xl:order-1 xl:sticky xl:top-[76px] xl:self-start">
+            <div className="flex h-[420px] flex-col rounded-xl bg-card/60 p-3 ring-1 ring-border/50 xl:h-[calc(100vh-96px)]">
+              <div className="mb-3 flex items-center justify-between px-1">
+                <h2 className="text-base font-bold">List of episodes</h2>
+                <span className="rounded-md bg-secondary px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                  {episodes.length}
                 </span>
-              </h2>
-              <EpisodeList
-                anime={info.data}
-                currentEpisodeId={ep}
-                dub={dub}
-                variant="list"
-              />
+              </div>
+              <EpisodeList anime={info.data} currentEpisodeId={ep} dub={dub} variant="list" />
+            </div>
+          </aside>
+        )}
+
+        {/* Anime detail — right column */}
+        {info.data && (
+          <aside className="xl:order-3 xl:sticky xl:top-[76px] xl:self-start">
+            <div className="rounded-xl bg-card/60 p-3 ring-1 ring-border/50">
+              <div className="flex gap-3">
+                {info.data.image && (
+                  <Link href={`/anime/${id}`} className="relative aspect-[2/3] w-24 shrink-0 overflow-hidden rounded-lg">
+                    <Image src={info.data.image} alt={title} fill sizes="96px" className="object-cover" unoptimized />
+                  </Link>
+                )}
+                <div className="min-w-0 flex-1">
+                  <Link href={`/anime/${id}`} className="line-clamp-2 font-bold leading-tight transition hover:text-primary">
+                    {title}
+                  </Link>
+                  <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
+                    {typeof info.data.rating === "number" && info.data.rating > 0 && (
+                      <Pill>★ {(info.data.rating / 10).toFixed(1)}</Pill>
+                    )}
+                    {info.data.type && <Pill>{info.data.type}</Pill>}
+                    {info.data.totalEpisodes && <Pill>{info.data.totalEpisodes} eps</Pill>}
+                  </div>
+                </div>
+              </div>
+
+              {info.data.description && (
+                <p className="mt-3 line-clamp-5 text-sm leading-relaxed text-muted-foreground">
+                  {info.data.description}
+                </p>
+              )}
+
+              <dl className="mt-3 space-y-1.5 text-xs">
+                {info.data.status && <Fact k="Status" v={info.data.status} />}
+                {(info.data.season || info.data.year) && (
+                  <Fact k="Aired" v={[info.data.season, info.data.year].filter(Boolean).join(" ")} />
+                )}
+                {info.data.duration && <Fact k="Duration" v={`${info.data.duration} min`} />}
+                {info.data.studios?.length ? <Fact k="Studios" v={info.data.studios.join(", ")} /> : null}
+                {info.data.genres?.length ? <Fact k="Genres" v={info.data.genres.join(", ")} /> : null}
+              </dl>
+
+              <Button
+                variant="secondary" size="sm" className="mt-3 w-full"
+                nativeButton={false} render={<Link href={`/anime/${id}`} />}
+              >
+                View detail
+              </Button>
             </div>
           </aside>
         )}
       </div>
+
+      {/* Lower sections — related, recommendations, comments */}
+      {info.data && (
+        <div className="mt-8 grid gap-8 xl:grid-cols-[minmax(0,1fr)_340px]">
+          <div className="min-w-0 space-y-8">
+            {info.data.relations && info.data.relations.length > 0 && (
+              <MediaGrid title="Related" items={info.data.relations} />
+            )}
+            <section>
+              <SectionHeading>Comments</SectionHeading>
+              <ReviewsSection mediaId={id} kind="anime" />
+            </section>
+          </div>
+
+          {/* Recommended rail */}
+          {info.data.recommendations && info.data.recommendations.length > 0 && (
+            <aside>
+              <SectionHeading>Recommended for you</SectionHeading>
+              <div className="grid grid-cols-3 gap-3 xl:grid-cols-2">
+                {info.data.recommendations.slice(0, 12).map((a) => (
+                  <MediaCard key={a.id} anime={a} />
+                ))}
+              </div>
+            </aside>
+          )}
+        </div>
+      )}
     </div>
+  );
+}
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="mb-4 flex items-center gap-2 text-lg font-bold">
+      <span className="h-5 w-1 rounded-full bg-primary" />
+      {children}
+    </h2>
+  );
+}
+
+function MediaGrid({ title, items }: { title: string; items: AnimeCard[] }) {
+  return (
+    <section>
+      <SectionHeading>{title}</SectionHeading>
+      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+        {items.slice(0, 12).map((a) => (
+          <MediaCard key={a.id} anime={a} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ServerRow({
+  label,
+  icon,
+  servers,
+  active,
+  activeProvider,
+  switching,
+  onPick,
+  switchKeyPrefix,
+}: {
+  label: string;
+  icon: React.ReactNode;
+  servers: string[];
+  active: boolean;
+  activeProvider?: string;
+  switching: string | null;
+  onPick: (provider: string) => void;
+  switchKeyPrefix: string;
+}) {
+  return (
+    <div className="flex flex-col gap-2 px-3 py-3 sm:flex-row sm:items-center">
+      <div
+        className={`flex w-16 shrink-0 items-center gap-1.5 text-xs font-bold uppercase ${
+          active ? "text-primary" : "text-muted-foreground"
+        }`}
+      >
+        {icon}
+        {label}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {servers.map((p) => {
+          const isActive = active && p === activeProvider;
+          const busy = switching === `${switchKeyPrefix}:${p}`;
+          return (
+            <button
+              key={p}
+              onClick={() => !isActive && onPick(p)}
+              disabled={!!switching}
+              className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition disabled:opacity-60 ${
+                isActive
+                  ? "bg-primary text-primary-foreground shadow-sm shadow-primary/30"
+                  : "bg-secondary text-secondary-foreground hover:bg-primary/80 hover:text-primary-foreground"
+              }`}
+            >
+              <MonitorPlay className="size-3.5" />
+              {p}
+              {busy ? " …" : ""}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function Fact({ k, v }: { k: string; v: string }) {
+  return (
+    <div className="flex gap-2">
+      <dt className="shrink-0 font-semibold text-muted-foreground">{k}:</dt>
+      <dd className="line-clamp-1 text-foreground/80">{v}</dd>
+    </div>
+  );
+}
+
+function Pill({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="rounded-md bg-secondary px-2 py-0.5 font-medium text-secondary-foreground">
+      {children}
+    </span>
   );
 }
 
@@ -378,15 +503,11 @@ function Toggle({
   return (
     <button
       onClick={onClick}
-      className="flex items-center gap-2 rounded-md px-2 py-1 text-sm text-muted-foreground transition hover:text-foreground"
+      className="flex items-center gap-2 text-sm text-muted-foreground transition hover:text-foreground"
     >
       {label}
-      <span
-        className={`relative h-5 w-9 rounded-full transition ${on ? "bg-primary" : "bg-secondary"}`}
-      >
-        <span
-          className={`absolute top-0.5 size-4 rounded-full bg-white transition-all ${on ? "left-[18px]" : "left-0.5"}`}
-        />
+      <span className={`relative h-5 w-9 rounded-full transition ${on ? "bg-primary" : "bg-secondary"}`}>
+        <span className={`absolute top-0.5 size-4 rounded-full bg-white transition-all ${on ? "left-[18px]" : "left-0.5"}`} />
       </span>
     </button>
   );

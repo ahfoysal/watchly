@@ -15,6 +15,7 @@ import { AddToListMenu } from "@/components/system/add-to-list-menu";
 import { ReviewsSection } from "@/components/detail/reviews-section";
 import { useContinueWatching } from "@/store/continue-watching";
 import { pickName, useTitleLang } from "@/store/title-lang";
+import { useAudioPref } from "@/store/audio-pref";
 
 export function AnimeDetail({ id }: { id: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -24,6 +25,8 @@ export function AnimeDetail({ id }: { id: string }) {
 
   const progress = useContinueWatching((s) => s.items[id]);
   const lang = useTitleLang((s) => s.lang);
+  const audio = useAudioPref((s) => s.audio);
+  const dub = audio === "dub";
 
   if (isLoading) return <DetailSkeleton />;
 
@@ -47,7 +50,7 @@ export function AnimeDetail({ id }: { id: string }) {
   const playHref = playEp
     ? `/watch/${id}?ep=${encodeURIComponent(playEp.id)}&num=${playEp.number}${
         data.provider ? `&provider=${encodeURIComponent(data.provider)}` : ""
-      }`
+      }${dub ? "&dub=1" : ""}`
     : undefined;
 
   const facts: [string, string | undefined][] = [
@@ -167,7 +170,7 @@ export function AnimeDetail({ id }: { id: string }) {
           <div className="min-w-0 space-y-10">
             <section>
               <h2 className="mb-4 text-xl font-bold">Episodes</h2>
-              <EpisodeList anime={data} currentEpisodeId={progress?.episodeId} />
+              <EpisodeList anime={data} currentEpisodeId={progress?.episodeId} dub={dub} />
             </section>
 
             {data.characters && data.characters.length > 0 && (

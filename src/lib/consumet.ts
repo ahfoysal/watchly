@@ -392,8 +392,14 @@ async function getAnimeInfoLive(
   }
 
   // Providers give numbered-only episodes; enrich with real titles from MAL.
+  // Jikan is rate-limited and slow for long series, so cap it: past the budget
+  // we return episodes with numbers (titles fill in on the next cached load)
+  // instead of blocking the whole info response on title lookups.
   if (base?.malId && episodes.length) {
-    await enrichEpisodeTitles(String(base.malId), episodes);
+    await Promise.race([
+      enrichEpisodeTitles(String(base.malId), episodes),
+      new Promise((r) => setTimeout(r, 4000)),
+    ]);
   }
 
   return {
