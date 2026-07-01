@@ -8,7 +8,7 @@ const LETTERS = [
 
 export function AzBar() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+    <section className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6">
       <h2 className="mb-3 text-lg font-bold">A–Z List</h2>
       <p className="mb-3 text-sm text-muted-foreground">
         Browse the full catalog alphabetically.

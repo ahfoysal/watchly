@@ -39,7 +39,7 @@ export function BrowseView() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-[1500px] px-4 py-8 sm:px-6">
       <h1 className="mb-5 text-2xl font-bold">
         {genre ? `${genre} Anime` : "A–Z List"}
       </h1>

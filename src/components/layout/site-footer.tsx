@@ -3,7 +3,7 @@ import Link from "next/link";
 export function SiteFooter() {
   return (
     <footer className="mt-10 border-t border-border/50 bg-card/30">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+      <div className="mx-auto max-w-[1500px] px-4 py-8 sm:px-6">
         <Link href="/" className="text-2xl font-extrabold tracking-tight">
           <span className="text-brand">ANIME</span>
           <span>FLIX</span>

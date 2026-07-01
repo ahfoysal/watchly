@@ -72,7 +72,7 @@ export function SiteHeader() {
         scrolled ? "border-border/70 shadow-lg shadow-black/30" : "border-border/40"
       } bg-card`}
     >
-      <div className="mx-auto flex h-[60px] max-w-7xl items-center gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex h-[60px] max-w-[1500px] items-center gap-3 px-4 sm:px-6">
         <Link
           href="/"
           className="flex shrink-0 items-center text-lg font-extrabold tracking-tight drop-shadow-sm sm:text-xl"

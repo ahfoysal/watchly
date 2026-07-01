@@ -30,7 +30,7 @@ export function HeroSlider() {
 
   return (
     <section className="relative w-full overflow-hidden bg-background">
-      <div className="relative mx-auto h-[56vh] min-h-[400px] max-w-7xl">
+      <div className="relative mx-auto h-[56vh] min-h-[400px] max-w-[1500px]">
         {/* contained banner art on the right */}
         <div className="absolute inset-y-0 right-0 w-full overflow-hidden lg:w-[64%]">
           {s.cover && (

@@ -301,6 +301,34 @@ export function WatchView({ id, ep, num, provider, dub }: Props) {
           {note && <p className="mt-2 text-sm text-primary">{note}</p>}
         </div>
 
+        {/* Loading placeholders for the side columns (keeps the 3-col shape) */}
+        {info.isLoading && (
+          <>
+            <aside className="xl:order-1">
+              <div className="flex h-[420px] flex-col gap-2 rounded-xl bg-card/60 p-3 ring-1 ring-border/50 xl:h-[calc(100vh-96px)]">
+                <Skeleton className="h-9 w-full rounded-md" />
+                <Skeleton className="h-8 w-2/3 rounded-md" />
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <Skeleton key={i} className="h-9 w-full rounded-md" />
+                ))}
+              </div>
+            </aside>
+            <aside className="xl:order-3">
+              <div className="space-y-3 rounded-xl bg-card/60 p-3 ring-1 ring-border/50">
+                <div className="flex gap-3">
+                  <Skeleton className="aspect-[2/3] w-24 shrink-0 rounded-lg" />
+                  <div className="flex-1 space-y-2">
+                    <Skeleton className="h-5 w-4/5" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                </div>
+                <Skeleton className="h-24 w-full" />
+                <Skeleton className="h-9 w-full" />
+              </div>
+            </aside>
+          </>
+        )}
+
         {/* Episodes — left column */}
         {info.data && episodes.length > 0 && (
           <aside className="xl:order-1 xl:sticky xl:top-[76px] xl:self-start">

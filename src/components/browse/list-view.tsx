@@ -22,7 +22,7 @@ export function ListView({ id }: { id: string }) {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+      <div className="mx-auto max-w-[1500px] px-4 py-8 sm:px-6">
         <Skeleton className="h-9 w-1/3" />
         <div className="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-6">
           {Array.from({ length: 12 }).map((_, i) => (
@@ -56,7 +56,7 @@ export function ListView({ id }: { id: string }) {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div className="mx-auto max-w-[1500px] px-4 py-8 sm:px-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">{data.name}</h1>

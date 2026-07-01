@@ -31,7 +31,7 @@ function fmtDate(d: Date): string {
 export function ScheduleSection() {
   const hydrated = useHydrated();
   return (
-    <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+    <section className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6">
       <div className="overflow-hidden rounded-xl bg-card/50 ring-1 ring-border/50">
         {hydrated ? (
           <ScheduleInner />

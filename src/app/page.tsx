@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import type { AnimeCard } from "@/lib/types";
 import { HeroSlider } from "@/components/home/hero-slider";
+import { TrendingRow } from "@/components/home/trending-row";
 import { TopAnime } from "@/components/home/top-anime";
 import { MiniColumn } from "@/components/home/mini-list";
 import { ScheduleSection } from "@/components/home/schedule";
@@ -111,11 +112,12 @@ export default function HomePage() {
   return (
     <div className="pb-6">
       <HeroSlider />
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-[1500px]">
+        <TrendingRow />
         <ContinueWatchingRow />
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+      <div className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6">
         <div className="mb-6">
           <NoticeBar />
         </div>

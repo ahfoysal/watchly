@@ -8,7 +8,6 @@ import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MediaCard } from "@/components/media/media-card";
 import { EpisodeList } from "@/components/watch/episode-list";
 import { WatchlistButton } from "@/components/system/watchlist-button";
 import { AddToListMenu } from "@/components/system/add-to-list-menu";
@@ -27,6 +26,12 @@ export function AnimeDetail({ id }: { id: string }) {
   const lang = useTitleLang((s) => s.lang);
   const audio = useAudioPref((s) => s.audio);
   const dub = audio === "dub";
+  // Fallback so the "Recommended" rail is never empty (some titles have none).
+  const popular = useQuery({
+    queryKey: ["popular"],
+    queryFn: api.popular,
+    staleTime: Infinity,
+  });
 
   if (isLoading) return <DetailSkeleton />;
 
@@ -82,7 +87,7 @@ export function AnimeDetail({ id }: { id: string }) {
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-transparent" />
       </div>
 
-      <div className="relative z-10 mx-auto -mt-44 max-w-7xl px-4 sm:px-6">
+      <div className="relative z-10 mx-auto -mt-44 max-w-[1500px] px-4 sm:px-6">
         {/* Header */}
         <div className="flex flex-col gap-6 sm:flex-row">
           <div className="relative mx-auto aspect-[2/3] w-40 shrink-0 overflow-hidden rounded-lg ring-1 ring-border/60 sm:mx-0 sm:w-56">
@@ -149,9 +154,9 @@ export function AnimeDetail({ id }: { id: string }) {
           </div>
         </div>
 
-        {/* Body: details sidebar + main */}
-        <div className="mt-10 grid gap-8 pb-16 lg:grid-cols-[250px_minmax(0,1fr)]">
-          <aside className="h-fit rounded-xl bg-card/50 p-4 ring-1 ring-border/50">
+        {/* Body: details · main · recommended (aniwatch 3-column) */}
+        <div className="mt-10 grid gap-8 pb-16 xl:grid-cols-[240px_minmax(0,1fr)_300px]">
+          <aside className="h-fit rounded-xl bg-card/50 p-4 ring-1 ring-border/50 xl:order-1">
             <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-muted-foreground">
               Details
             </h2>
@@ -167,15 +172,15 @@ export function AnimeDetail({ id }: { id: string }) {
             </dl>
           </aside>
 
-          <div className="min-w-0 space-y-10">
+          <div className="min-w-0 space-y-10 xl:order-2">
             <section>
-              <h2 className="mb-4 text-xl font-bold">Episodes</h2>
+              <SectionTitle>Episodes</SectionTitle>
               <EpisodeList anime={data} currentEpisodeId={progress?.episodeId} dub={dub} />
             </section>
 
             {data.characters && data.characters.length > 0 && (
               <section>
-                <h2 className="mb-4 text-xl font-bold">Characters & Voice Actors</h2>
+                <SectionTitle>Characters & Voice Actors</SectionTitle>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {data.characters.map((c) => (
                     <div
@@ -202,22 +207,94 @@ export function AnimeDetail({ id }: { id: string }) {
               </section>
             )}
 
-            {data.recommendations && data.recommendations.length > 0 && (
-              <section>
-                <h2 className="mb-4 text-xl font-bold">Recommended</h2>
-                <div className="grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-4 lg:grid-cols-5">
-                  {data.recommendations.map((a) => (
-                    <MediaCard key={a.id} anime={a} />
-                  ))}
-                </div>
-              </section>
-            )}
-
-            <ReviewsSection mediaId={id} kind="anime" />
+            <section>
+              <SectionTitle>Comments</SectionTitle>
+              <ReviewsSection mediaId={id} kind="anime" />
+            </section>
           </div>
+
+          {/* Recommended rail — right column. When Related is sparse (< 3),
+              lead with the fuller Recommended list and drop Related below. */}
+          <aside className="space-y-8 xl:order-3">
+            {(() => {
+              const relatedRail = data.relations && data.relations.length > 0 && (
+                <RecoRail key="related" title="Related" items={data.relations} lang={lang} />
+              );
+              const recRail = (
+                <RecoRail
+                  key="rec"
+                  title="Recommended for you"
+                  items={
+                    (data.recommendations && data.recommendations.length
+                      ? data.recommendations
+                      : popular.data ?? []
+                    ).slice(0, 10)
+                  }
+                  lang={lang}
+                />
+              );
+              const relatedSparse = !data.relations || data.relations.length < 3;
+              return relatedSparse ? [recRail, relatedRail] : [relatedRail, recRail];
+            })()}
+          </aside>
         </div>
       </div>
     </div>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="mb-4 flex items-center gap-2 text-xl font-bold">
+      <span className="h-5 w-1 rounded-full bg-primary" />
+      {children}
+    </h2>
+  );
+}
+
+function RecoRail({
+  title,
+  items,
+  lang,
+}: {
+  title: string;
+  items: import("@/lib/types").AnimeCard[];
+  lang: "en" | "jp";
+}) {
+  if (!items.length) return null;
+  return (
+    <section>
+      <h2 className="mb-3 flex items-center gap-2 text-base font-bold">
+        <span className="h-4 w-1 rounded-full bg-primary" />
+        {title}
+      </h2>
+      <div className="divide-y divide-border/40">
+        {items.map((a) => (
+          <Link
+            key={`${a.kind ?? "anime"}-${a.id}`}
+            href={a.kind === "manga" ? `/manga/${a.id}` : `/anime/${a.id}`}
+            className="group flex gap-3 py-2.5"
+          >
+            <div className="relative aspect-[2/3] w-12 shrink-0 overflow-hidden rounded-md bg-muted ring-1 ring-border/40">
+              {a.image && (
+                <Image src={a.image} alt={pickName(a, lang)} fill sizes="48px" className="object-cover" unoptimized />
+              )}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="line-clamp-2 text-sm font-medium leading-tight transition group-hover:text-primary">
+                {pickName(a, lang)}
+              </p>
+              <p className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground">
+                {a.type && <span>{a.type}</span>}
+                {typeof a.rating === "number" && a.rating > 0 && (
+                  <span>· ★ {(a.rating / 10).toFixed(1)}</span>
+                )}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -225,7 +302,7 @@ function DetailSkeleton() {
   return (
     <div>
       <Skeleton className="h-[280px] w-full rounded-none sm:h-[360px]" />
-      <div className="mx-auto -mt-44 flex max-w-7xl flex-col gap-6 px-4 sm:flex-row sm:px-6">
+      <div className="mx-auto -mt-44 flex max-w-[1500px] flex-col gap-6 px-4 sm:flex-row sm:px-6">
         <Skeleton className="mx-auto aspect-[2/3] w-40 shrink-0 rounded-lg sm:mx-0 sm:w-56" />
         <div className="flex-1 space-y-4 pt-44 sm:pt-44">
           <Skeleton className="h-10 w-2/3" />
