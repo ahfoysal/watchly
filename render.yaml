@@ -1,7 +1,8 @@
 # Render blueprint — free-tier deploy.
-# Pair with a free managed Postgres (Neon / Supabase) and Redis (Upstash);
-# set their URLs in the dashboard. A persistent web service (not serverless)
-# suits Watchly's long scrapes + background cache revalidation.
+# Provisions the web service + a Redis (Key Value) instance + a warm cron.
+# Only DATABASE_URL is external (a free Neon/Supabase Postgres); paste it in the
+# dashboard after launching the blueprint. A persistent web service (not
+# serverless) suits Watchly's long scrapes + background cache revalidation.
 services:
   - type: web
     name: watchly
@@ -11,32 +12,44 @@ services:
     healthCheckPath: /
     autoDeploy: true
     envVars:
-      - key: DATABASE_URL # Neon/Supabase Postgres connection string
+      - key: DATABASE_URL # Neon/Supabase Postgres connection string (paste in dashboard)
         sync: false
-      - key: REDIS_URL # Upstash Redis URL (optional; caching degrades gracefully)
-        sync: false
+      - key: REDIS_URL # auto-wired from the Key Value instance below
+        fromService:
+          type: keyvalue
+          name: watchly-redis
+          property: connectionString
       - key: BETTER_AUTH_SECRET
         generateValue: true
-      - key: BETTER_AUTH_URL # set to the deployed https URL
+      - key: BETTER_AUTH_URL # set to the deployed https URL after first deploy
         sync: false
       - key: NEXT_PUBLIC_SITE_URL # deployed https URL — used for SEO/sitemap/OG
         sync: false
+      - key: WARM_SECRET
+        generateValue: true
       - key: CONSUMET_PROVIDERS
         value: AnimeUnity,AnimeSaturn
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
-      # Optional: SENTRY_DSN / NEXT_PUBLIC_SENTRY_DSN to enable error monitoring,
-      # WARM_SECRET to guard the /api/warm cache-warming endpoint.
+      # Optional: SENTRY_DSN / NEXT_PUBLIC_SENTRY_DSN to enable error monitoring.
 
-  # Cache warmer — keeps top titles hot. (Render free cron may be limited;
-  # alternatively hit /api/warm from any external cron / GitHub Action.)
+  # Managed Redis (Key Value) — free tier, LRU eviction for a pure cache.
+  # ipAllowList: [] keeps it private (reachable only from Render services).
+  - type: keyvalue
+    name: watchly-redis
+    plan: free
+    maxmemoryPolicy: allkeys-lru
+    ipAllowList: []
+
+  # Cache warmer — keeps the top titles hot so first clicks are instant.
   - type: cron
     name: watchly-warm
-    runtime: docker
-    dockerfilePath: ./Dockerfile
+    runtime: image
     plan: free
     schedule: "*/20 * * * *"
+    image:
+      url: curlimages/curl:latest
     dockerCommand: sh -c "curl -fsS \"$WARM_URL\" || true"
     envVars:
-      - key: WARM_URL # https://<your-app>/api/warm?limit=12&secret=<WARM_SECRET>
+      - key: WARM_URL # https://<your-app>.onrender.com/api/warm?limit=12&secret=<WARM_SECRET>
         sync: false
