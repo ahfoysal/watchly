@@ -12,7 +12,7 @@ services:
     healthCheckPath: /
     autoDeploy: true
     envVars:
-      - key: DATABASE_URL # Neon/Supabase Postgres connection string (paste in dashboard)
+      - key: DATABASE_URL # the ONLY value to paste — your Neon/Supabase Postgres URL
         sync: false
       - key: REDIS_URL # auto-wired from the Key Value instance below
         fromService:
@@ -21,16 +21,12 @@ services:
           property: connectionString
       - key: BETTER_AUTH_SECRET
         generateValue: true
-      - key: BETTER_AUTH_URL # set to the deployed https URL after first deploy
-        sync: false
-      - key: NEXT_PUBLIC_SITE_URL # deployed https URL — used for SEO/sitemap/OG
-        sync: false
-      - key: WARM_SECRET
-        generateValue: true
       - key: CONSUMET_PROVIDERS
         value: AnimeUnity,AnimeSaturn
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
+      # Site URL + auth baseURL auto-detect Render's RENDER_EXTERNAL_URL, so no
+      # manual URL config is needed. Override with NEXT_PUBLIC_SITE_URL if desired.
       # Optional: SENTRY_DSN / NEXT_PUBLIC_SENTRY_DSN to enable error monitoring.
 
   # Managed Redis (Key Value) — free tier, LRU eviction for a pure cache.
@@ -42,6 +38,7 @@ services:
     ipAllowList: []
 
   # Cache warmer — keeps the top titles hot so first clicks are instant.
+  # WARM_HOST auto-resolves to the web service's hostname, so no manual URL.
   - type: cron
     name: watchly-warm
     runtime: image
@@ -49,7 +46,10 @@ services:
     schedule: "*/20 * * * *"
     image:
       url: curlimages/curl:latest
-    dockerCommand: sh -c "curl -fsS \"$WARM_URL\" || true"
+    dockerCommand: sh -c "curl -fsS \"https://$WARM_HOST/api/warm?limit=12\" || true"
     envVars:
-      - key: WARM_URL # https://<your-app>.onrender.com/api/warm?limit=12&secret=<WARM_SECRET>
-        sync: false
+      - key: WARM_HOST
+        fromService:
+          type: web
+          name: watchly
+          property: host

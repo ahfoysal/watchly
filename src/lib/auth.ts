@@ -21,7 +21,8 @@ export const auth = betterAuth({
       }
     : undefined,
   secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL,
+  // On Render, RENDER_EXTERNAL_URL is auto-injected, so auth works with no URL config.
+  baseURL: process.env.BETTER_AUTH_URL || process.env.RENDER_EXTERNAL_URL,
   session: {
     expiresIn: 60 * 60 * 24 * 30, // 30 days
   },

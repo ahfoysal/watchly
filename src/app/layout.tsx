@@ -7,8 +7,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { ServiceWorkerRegister } from "@/components/system/sw-register";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { siteUrl } from "@/lib/site-url";
 
 const nunito = Nunito({
   variable: "--font-sans",
