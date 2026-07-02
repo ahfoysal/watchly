@@ -1,0 +1,42 @@
+# Render blueprint — free-tier deploy.
+# Pair with a free managed Postgres (Neon / Supabase) and Redis (Upstash);
+# set their URLs in the dashboard. A persistent web service (not serverless)
+# suits Watchly's long scrapes + background cache revalidation.
+services:
+  - type: web
+    name: watchly
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL # Neon/Supabase Postgres connection string
+        sync: false
+      - key: REDIS_URL # Upstash Redis URL (optional; caching degrades gracefully)
+        sync: false
+      - key: BETTER_AUTH_SECRET
+        generateValue: true
+      - key: BETTER_AUTH_URL # set to the deployed https URL
+        sync: false
+      - key: NEXT_PUBLIC_SITE_URL # deployed https URL — used for SEO/sitemap/OG
+        sync: false
+      - key: CONSUMET_PROVIDERS
+        value: AnimeUnity,AnimeSaturn
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      # Optional: SENTRY_DSN / NEXT_PUBLIC_SENTRY_DSN to enable error monitoring,
+      # WARM_SECRET to guard the /api/warm cache-warming endpoint.
+
+  # Cache warmer — keeps top titles hot. (Render free cron may be limited;
+  # alternatively hit /api/warm from any external cron / GitHub Action.)
+  - type: cron
+    name: watchly-warm
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    schedule: "*/20 * * * *"
+    dockerCommand: sh -c "curl -fsS \"$WARM_URL\" || true"
+    envVars:
+      - key: WARM_URL # https://<your-app>/api/warm?limit=12&secret=<WARM_SECRET>
+        sync: false

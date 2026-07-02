@@ -1,3 +1,5 @@
+import { isPublicHttp } from "@/lib/url-safety";
+
 export const runtime = "nodejs";
 
 const CORS = {
@@ -10,31 +12,6 @@ const UA =
 
 export function OPTIONS() {
   return new Response(null, { headers: CORS });
-}
-
-// Block obvious SSRF targets — we only ever proxy public manga CDNs.
-function isPublicHttp(target: string): boolean {
-  let u: URL;
-  try {
-    u = new URL(target);
-  } catch {
-    return false;
-  }
-  if (u.protocol !== "http:" && u.protocol !== "https:") return false;
-  const host = u.hostname;
-  if (
-    host === "localhost" ||
-    host === "0.0.0.0" ||
-    host.endsWith(".local") ||
-    /^127\./.test(host) ||
-    /^10\./.test(host) ||
-    /^192\.168\./.test(host) ||
-    /^169\.254\./.test(host) ||
-    /^172\.(1[6-9]|2\d|3[01])\./.test(host)
-  ) {
-    return false;
-  }
-  return true;
 }
 
 /**

@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { Captions, EyeOff, Mic, Play } from "lucide-react";
 import type { AnimeCard } from "@/lib/types";
+import { api } from "@/lib/api";
 import { pickName, useTitleLang } from "@/store/title-lang";
 import { hiddenKey, useHidden } from "@/store/hidden";
 
@@ -25,12 +28,31 @@ export function MediaCard({ anime }: { anime: AnimeCard }) {
   const isHidden = useHidden((s) => !!s.ids[key]);
   const hide = useHidden((s) => s.hide);
   const name = pickName(anime, lang);
+  const router = useRouter();
+  const qc = useQueryClient();
+  const href = hrefFor(anime);
+
+  // Warm the route + the (slow) detail fetch on hover, so a click feels
+  // instant. staleTime bounds this to one prefetch per card per 5 min.
+  function prefetch() {
+    router.prefetch(href);
+    const isAnime = !anime.kind || anime.kind === "anime";
+    if (isAnime) {
+      qc.prefetchQuery({
+        queryKey: ["info", anime.id],
+        queryFn: () => api.info(anime.id),
+        staleTime: 5 * 60 * 1000,
+      });
+    }
+  }
 
   if (isHidden) return null;
 
   return (
     <Link
-      href={hrefFor(anime)}
+      href={href}
+      onMouseEnter={prefetch}
+      onFocus={prefetch}
       className="group block w-full transition-transform duration-300 ease-out hover:-translate-y-1.5"
       title={name}
     >

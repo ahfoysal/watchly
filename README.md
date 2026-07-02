@@ -118,6 +118,7 @@ npm run dev          # http://localhost:3000
 | `npm run start` | Run the production build |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript check |
+| `npm test` | Run the Vitest unit tests |
 | `npm run db:push` | Push the Prisma schema to the database |
 
 ## Environment variables
@@ -128,6 +129,42 @@ npm run dev          # http://localhost:3000
 | `REDIS_URL` | Redis connection string (optional; caching degrades gracefully) |
 | `BETTER_AUTH_SECRET` | Better Auth signing secret |
 | `BETTER_AUTH_URL` | App base URL |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL — used for canonical/OG tags, `sitemap.xml`, `robots.txt` |
 | `CONSUMET_PROVIDERS` | Ordered anime provider failover chain |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Optional Google OAuth |
 | `CONSUMET_API_URL` | Optional standalone Consumet service URL |
+| `SENTRY_DSN` / `NEXT_PUBLIC_SENTRY_DSN` | Optional error monitoring (server / client) |
+| `WARM_SECRET` | Optional guard for the `/api/warm` cache-warming endpoint |
+
+## Deployment
+
+A persistent-server host is recommended over serverless: catalog scrapes can take
+~10s and the cache refreshes in the background, which serverless function timeouts cut off.
+
+Free-tier stack:
+
+- **App** → [Render](https://render.com) Web Service (Docker) — a [`render.yaml`](./render.yaml)
+  blueprint is included (web service + a cron that hits `/api/warm` every 20 min).
+  Alternatives: Fly.io, Koyeb.
+- **Postgres** → [Neon](https://neon.tech) or [Supabase](https://supabase.com)
+- **Redis** → [Upstash](https://upstash.com)
+
+Steps: create the Postgres + Redis instances, then on Render "New → Blueprint" against this
+repo and fill in `DATABASE_URL`, `REDIS_URL`, `BETTER_AUTH_URL`, and `NEXT_PUBLIC_SITE_URL`
+(the deployed HTTPS URL). Run `npm run db:push` once against the database to create the schema.
+
+## Performance
+
+- **Stale-while-revalidate** cache: entries serve instantly once cached and refresh in the
+  background, so repeat visits never wait on a cold scrape (~12s cold → ~10ms warm).
+- **Hover prefetch**: hovering a card warms the route + detail fetch, so the click is instant.
+- **Cache warming**: `GET /api/warm` pre-resolves the top titles (for a cron).
+
+## Quality
+
+- **Tests** — Vitest unit tests (`npm test`), run in CI.
+- **CI** — GitHub Actions runs typecheck, lint, tests, and build on every push/PR.
+- **SEO** — per-title dynamic metadata + OpenGraph/Twitter, `sitemap.xml`, `robots.txt`.
+- **PWA** — installable with an offline app-shell (service worker + web manifest).
+- **Error monitoring** — Sentry (client + server), enabled when a DSN is set.
+- **Accessibility** — visible keyboard-focus rings and labelled controls.

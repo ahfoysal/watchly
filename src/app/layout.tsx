@@ -6,6 +6,9 @@ import { Providers } from "@/components/layout/providers";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { ServiceWorkerRegister } from "@/components/system/sw-register";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 const nunito = Nunito({
   variable: "--font-sans",
@@ -14,13 +17,30 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Watchly — Stream Anime, Movies & Manga",
     template: "%s · Watchly",
   },
   description:
     "A modern, self-hosted streaming app built on Next.js and the Consumet engine. Browse anime, manga, and movies — search, watch, and read in one place.",
+  applicationName: "Watchly",
+  keywords: ["anime", "manga", "streaming", "watch anime", "read manga", "movies"],
   appleWebApp: { capable: true, title: "Watchly", statusBarStyle: "black-translucent" },
+  openGraph: {
+    type: "website",
+    siteName: "Watchly",
+    title: "Watchly — Stream Anime, Movies & Manga",
+    description:
+      "Browse anime, manga, and movies — search, watch, and read in one place.",
+    url: siteUrl,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Watchly — Stream Anime, Movies & Manga",
+    description:
+      "Browse anime, manga, and movies — search, watch, and read in one place.",
+  },
 };
 
 export const viewport: Viewport = {
@@ -45,6 +65,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <SiteFooter />
           <MobileNav />
+          <ServiceWorkerRegister />
         </Providers>
       </body>
     </html>

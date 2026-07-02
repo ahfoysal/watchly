@@ -150,6 +150,66 @@ export async function getPopular(perPage = 24): Promise<AnimeCard[]> {
   });
 }
 
+/**
+ * Pre-resolve detail info for the most-visited titles so the first click is
+ * warm (the cold scrape happens off the critical path). Meant to be hit by a
+ * cron via /api/warm. Low concurrency to avoid hammering the providers.
+ */
+export async function warmAnimeInfo(limit = 10): Promise<number> {
+  const [t, p] = await Promise.all([
+    getTrending(24).catch(() => [] as AnimeCard[]),
+    getPopular(24).catch(() => [] as AnimeCard[]),
+  ]);
+  const ids: string[] = [];
+  const seen = new Set<string>();
+  for (const a of [...t, ...p]) {
+    if (seen.has(a.id)) continue;
+    seen.add(a.id);
+    ids.push(a.id);
+    if (ids.length >= limit) break;
+  }
+  let cursor = 0;
+  let warmed = 0;
+  const worker = async () => {
+    while (cursor < ids.length) {
+      const id = ids[cursor++];
+      try {
+        await getAnimeInfo(id);
+        warmed++;
+      } catch {
+        // skip titles that fail to resolve
+      }
+    }
+  };
+  await Promise.all([worker(), worker()]); // concurrency = 2
+  return warmed;
+}
+
+/**
+ * Lightweight metadata for SEO (title/description/images) — AniList only, so it
+ * skips the slow provider episode scrape. Used by generateMetadata.
+ */
+export async function getAnimeMeta(id: string): Promise<{
+  title: string;
+  description?: string;
+  image?: string;
+  cover?: string;
+}> {
+  return cached(`anime:meta:${id}`, TTL.info, async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const base: any = await meta().fetchAnilistInfoById(id);
+    return {
+      title: pickTitle(base?.title) || "Anime",
+      description:
+        typeof base?.description === "string"
+          ? base.description.replace(/<[^>]*>/g, "").trim()
+          : undefined,
+      image: base?.image,
+      cover: base?.cover,
+    };
+  });
+}
+
 export async function searchAnime(query: string, perPage = 28): Promise<AnimeCard[]> {
   return cached(`anime:search:${query.toLowerCase()}:${perPage}`, TTL.search, async () => {
     const res = await meta().search(query, 1, perPage);
