@@ -20,6 +20,10 @@ describe("isPublicHttp (SSRF guard)", () => {
     expect(isPublicHttp("http://192.168.1.10/x")).toBe(false);
     expect(isPublicHttp("http://169.254.169.254/latest/meta-data")).toBe(false);
     expect(isPublicHttp("http://172.16.0.1/x")).toBe(false);
+    expect(isPublicHttp("http://[::1]/x")).toBe(false);
+    expect(isPublicHttp("http://[fd12:3456:789a::1]/x")).toBe(false);
+    expect(isPublicHttp("http://[fe80::1]/x")).toBe(false);
+    expect(isPublicHttp("http://[::ffff:127.0.0.1]/x")).toBe(false);
     expect(isPublicHttp("http://printer.local/x")).toBe(false);
   });
 
